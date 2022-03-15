@@ -1,12 +1,18 @@
-import React from 'react';
-import PrimarySearchAppBar from './components/UI/Header/Header';
+import React, { FC } from 'react';
+import Header from './containers/Header/Header';
+import { Typography } from '@mui/material';
 
-const App = () => {
+const App: FC = () => {
   return (
     <>
-      <PrimarySearchAppBar />
+      <Header />
+      <Typography>Ale</Typography>
     </>
   );
 };
 
-export default App;
+const AppContainer = () => {
+  return <App />;
+};
+
+export default AppContainer;
