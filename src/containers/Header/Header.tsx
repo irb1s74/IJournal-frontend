@@ -10,12 +10,14 @@ import { IAppSetMenu } from '../../store/reducers/appReducer/types';
 import { useDispatch } from 'react-redux';
 import { AppSetMenu } from '../../store/reducers/appReducer/actions';
 import HeaderMenu from '../../components/Header/Menu';
+import { Button } from '@mui/material';
+import { HeaderBox } from './Header.styled';
 
 const Header: FC<{
   toggleMenu: () => IAppSetMenu;
 }> = memo(({ toggleMenu }) => {
   return (
-    <Box>
+    <HeaderBox>
       <AppBar position='static'>
         <Toolbar>
           <IconButton
@@ -43,11 +45,14 @@ const Header: FC<{
             <IoWine size={24} color='#DA4A5E' />
           </Box>
           <Search />
+          <Button variant='contained' color='secondary' >
+            Новая Запись
+          </Button>
           <Box sx={{ flexGrow: 1 }} />
           <HeaderMenu />
         </Toolbar>
       </AppBar>
-    </Box>
+    </HeaderBox>
   );
 });
 

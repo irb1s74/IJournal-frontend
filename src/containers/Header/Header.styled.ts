@@ -1,4 +1,10 @@
-import { styled } from '@mui/material';
+import { Box, styled } from '@mui/material';
+
+export const HeaderBox = styled(Box)(({ theme }) => ({
+  position: 'sticky',
+  width: '100%',
+  top: '0',
+}));
 
 export const HeaderBoxLogo = styled('div')(({ theme }) => ({
   alignItems: 'center',

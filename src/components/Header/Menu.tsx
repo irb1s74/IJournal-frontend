@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import {
   IoEllipsisVerticalSharp,
-  IoMail,
+  IoChatboxEllipses,
   IoNotifications,
 } from 'react-icons/io5';
 import { Avatar } from '@mui/material';
@@ -30,7 +30,7 @@ const HeaderMenu: FC = () => {
       >
         <IconButton size='large' aria-label='show new mails' color='inherit'>
           <Badge badgeContent={4} color='error'>
-            <IoMail />
+            <IoChatboxEllipses />
           </Badge>
         </IconButton>
         <IconButton

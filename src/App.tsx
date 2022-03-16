@@ -1,12 +1,22 @@
 import React, { FC } from 'react';
 import Header from './containers/Header/Header';
-import { Typography } from '@mui/material';
+import { Stack } from '@mui/material';
+import Sidebar from './containers/Sidebar/Sidebar';
+import Router from './router/Router';
 
 const App: FC = () => {
   return (
     <>
       <Header />
-      <Typography>Ale</Typography>
+      <Stack
+        sx={{ width: '100%' }}
+        direction='row'
+        justifyContent='space-between'
+        alignItems='flex-start'
+      >
+        <Sidebar />
+        <Router />
+      </Stack>
     </>
   );
 };

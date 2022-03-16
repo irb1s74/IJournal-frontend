@@ -7,13 +7,16 @@ import App from './App';
 import theme from './theme';
 import './theme/styles/index.scss';
 import { store } from './store';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </ThemeProvider>,
+  <BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ThemeProvider>
+  </BrowserRouter>,
   document.getElementById('root')
 );

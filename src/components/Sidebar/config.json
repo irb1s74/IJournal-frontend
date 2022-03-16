@@ -1,0 +1,22 @@
+[
+  {
+    "route": "/popular",
+    "name": "Популярное",
+    "icon": "fire"
+  },
+  {
+    "route": "/new",
+    "name": "Свежее",
+    "icon": "time"
+  },
+  {
+    "route": "/bookmarks",
+    "name": "Закладки",
+    "icon": "bookmark"
+  },
+  {
+    "route": "/subs",
+    "name": "Подписки",
+    "icon": "sub"
+  }
+]
