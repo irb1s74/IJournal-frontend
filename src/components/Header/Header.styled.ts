@@ -4,6 +4,7 @@ export const HeaderBox = styled(Box)(({ theme }) => ({
   position: 'sticky',
   width: '100%',
   top: '0',
+  zIndex: 10,
 }));
 
 export const HeaderBoxLogo = styled('div')(({ theme }) => ({

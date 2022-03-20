@@ -5,15 +5,13 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { IoMenu, IoWine } from 'react-icons/io5';
-import Search from '../../components/UI/Search/Search';
+import Search from '../UI/Search/Search';
 import { IAppSetMenu } from '../../store/reducers/appReducer/types';
-import { useDispatch } from 'react-redux';
-import { AppSetMenu } from '../../store/reducers/appReducer/actions';
-import HeaderMenu from '../../components/Header/Menu';
+import HeaderMenu from './widget/Menu';
 import { Button } from '@mui/material';
 import { HeaderBox } from './Header.styled';
 
-const Header: FC<{
+export const Header: FC<{
   toggleMenu: () => IAppSetMenu;
 }> = memo(({ toggleMenu }) => {
   return (
@@ -45,7 +43,7 @@ const Header: FC<{
             <IoWine size={24} color='#DA4A5E' />
           </Box>
           <Search />
-          <Button variant='contained' color='secondary' >
+          <Button variant='contained' color='secondary'>
             Новая Запись
           </Button>
           <Box sx={{ flexGrow: 1 }} />
@@ -56,9 +54,4 @@ const Header: FC<{
   );
 });
 
-export const HeaderContainer = () => {
-  const dispatch = useDispatch();
-  const ActionToggleMenu = useCallback(() => dispatch(AppSetMenu()), []);
-  return <Header toggleMenu={ActionToggleMenu} />;
-};
-export default HeaderContainer;
+export default Header;

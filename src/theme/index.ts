@@ -9,7 +9,7 @@ declare module '@mui/material/Button' {
 const theme = createTheme({
   typography: {
     fontFamily: ['Montserrat', '-apple-system', 'sans-serif'].join(','),
-    h5: {
+    subtitle1: {
       fontWeight: 'bold'
     }
   },

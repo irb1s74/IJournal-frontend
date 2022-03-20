@@ -1,9 +1,10 @@
 import { styled } from '@mui/material';
 
 export const BoxNewsline = styled('div')(({ theme }) => ({
-  height: '120vh',
+  height: '100vh',
   flexGrow: '1',
   display: 'flex',
-  alignItems: 'flex-start',
-  justifyContent: 'center',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  flexDirection: 'column',
 }));
