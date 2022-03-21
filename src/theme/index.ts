@@ -10,19 +10,22 @@ const theme = createTheme({
   typography: {
     fontFamily: ['Montserrat', '-apple-system', 'sans-serif'].join(','),
     subtitle1: {
-      fontWeight: 'bold'
-    }
+      fontWeight: 'bold',
+    },
+    h6: {
+      fontWeight: 'bold',
+    },
   },
 
   palette: {
     primary: {
-      main: '#29253C'
+      main: '#29253C',
     },
     secondary: {
-      main: '#DA4A5E'
+      main: '#DA4A5E',
     },
     background: {
-      default: '#FCFBFE'
+      default: '#FCFBFE',
     },
 
     // text: {
@@ -36,7 +39,7 @@ const theme = createTheme({
       // hover: "#DA4A5E", //hover
       // disabled: '#E0E0E0'// выключено
       // disabledBackground:"#DA4A5E"
-    }
+    },
     //
 
     // hr
@@ -52,62 +55,62 @@ const theme = createTheme({
         {
           props: { variant: 'text' },
           style: {
-            color: '#DA4A5E'
-          }
+            color: '#DA4A5E',
+          },
         },
         {
           props: { variant: 'filter' },
           style: {
             textTransform: 'none',
-            color: '#29253C'
-          }
+            color: '#29253C',
+          },
         },
         {
           props: {
             variant: 'filter',
-            color: 'secondary'
+            color: 'secondary',
           },
           style: {
-            backgroundColor: '#F3F3F3'
-          }
-        }
-      ]
+            backgroundColor: '#F3F3F3',
+          },
+        },
+      ],
     },
     MuiListItemButton: {
       styleOverrides: {
         root: {
           borderRadius: '5px',
-          marginBottom: '15px'
-        }
+          marginBottom: '15px',
+        },
       },
       variants: [
         {
           props: { selected: true },
           style: {
             textDecoration: 'none',
-            color: '#DA4A5E'
-          }
-        }
-      ]
+            color: '#DA4A5E',
+          },
+        },
+      ],
     },
     MuiListItemIcon: {
       styleOverrides: {
         root: {
           fontSize: '24px',
-          minWidth: '38px'
-        }
-      }
+          minWidth: '38px',
+        },
+      },
     },
     MuiTab: {
       styleOverrides: {
         root: {
           textTransform: 'none',
           '&.Mui-selected': {
-            color: '#DA4A5E'
-          }
-        }
-      }
-    }
+            color: '#DA4A5E',
+          },
+        },
+      },
+    },
   },
 
   transitions: {
@@ -120,9 +123,9 @@ const theme = createTheme({
       // Objects leave the screen at full velocity. They do not decelerate when off-screen.
       easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
       // The sharp curve is used by objects that may return to the screen at any time.
-      sharp: 'cubic-bezier(0.4, 0, 0.6, 1)'
-    }
-  }
+      sharp: 'cubic-bezier(0.4, 0, 0.6, 1)',
+    },
+  },
 });
 
 export default theme;
