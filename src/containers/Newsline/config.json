@@ -10,7 +10,7 @@
         },
         {
           "type": "text",
-          "render": "<p>Aboba</p>"
+          "render": "<h1>HAAHAHAHAHAH</h1>"
         }
       ]
     }
@@ -22,7 +22,7 @@
       "blocks": [
         {
           "type": "text",
-          "render": "abobaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          "render": "<p><b>Иди ИииИИиИ</b> :)</p>"
         }
       ]
     }
