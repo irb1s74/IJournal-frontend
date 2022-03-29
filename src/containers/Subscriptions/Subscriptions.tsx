@@ -1,10 +1,8 @@
 import React from 'react';
-import { BoxSubscribe, ButtonSubscribe } from './Subscriptions.styled';
+import { ButtonSubscribe, PageWrapper } from './Subscriptions.styled';
 import {
   Avatar,
-  Button,
   Divider,
-  IconButton,
   List,
   ListItem,
   ListItemAvatar,
@@ -15,7 +13,7 @@ import { IoImage, IoCheckmark } from 'react-icons/io5';
 
 const Subscriptions = () => {
   return (
-    <BoxSubscribe>
+    <PageWrapper>
       <List
         sx={{
           width: '100%',
@@ -45,11 +43,11 @@ const Subscriptions = () => {
                   <IoCheckmark />
                 </ButtonSubscribe>
               </ListItem>
-              <Divider variant='inset' component='li' />
+              <Divider variant='middle' component='li' />
             </>
           ))}
       </List>
-    </BoxSubscribe>
+    </PageWrapper>
   );
 };
 

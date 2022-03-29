@@ -82,4 +82,4 @@ const HeaderMenu: FC = () => {
   );
 };
 
-export default memo(HeaderMenu);
+export default HeaderMenu;

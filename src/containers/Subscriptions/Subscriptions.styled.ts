@@ -1,6 +1,6 @@
 import { Button, styled } from '@mui/material';
 
-export const BoxSubscribe = styled('div')(({ theme }) => ({
+export const PageWrapper = styled('div')(() => ({
   height: '96vh',
   marginTop: '4vh',
   flexGrow: '1',

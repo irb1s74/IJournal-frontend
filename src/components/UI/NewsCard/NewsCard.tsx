@@ -19,7 +19,7 @@ import {
   IoChevronDownOutline,
 } from 'react-icons/io5';
 import CardItem from './widget/NewsCardItem';
-import { IBlock, INews } from '../../../containers/Newsline/types';
+import { IBlock, INews } from '../../../containers/Popular/types';
 
 const NewsCard: FC<{ data: INews }> = ({ data }) => {
   return (

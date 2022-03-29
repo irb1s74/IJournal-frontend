@@ -12,7 +12,6 @@ import Lists from './config.json';
 const SidebarList = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.pathname);
   const toNavigate = (link: string) => {
     return () => {
       navigate(link);
