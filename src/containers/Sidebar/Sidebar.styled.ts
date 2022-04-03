@@ -1,6 +1,6 @@
 import { styled } from '@mui/material';
 
-export const BoxSidebar = styled('div')(({ theme }) => ({
+export const BoxSidebar = styled('div')(() => ({
   height: 'calc(100vh - 64px)',
   padding: '15px 0 15px 0',
   position: 'sticky',

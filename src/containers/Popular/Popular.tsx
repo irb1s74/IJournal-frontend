@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { PageWrapper } from './Popular.styled';
 import { Typography } from '@mui/material';
 import Card from '../../components/UI/NewsCard/NewsCard';
 import data from './config.json';
 import { INews } from './types';
 
-const Popular = () => {
+const Popular = memo(() => {
   return (
     <PageWrapper>
       <Typography variant='h6'>News abobbas</Typography>
@@ -14,7 +14,7 @@ const Popular = () => {
       ))}
     </PageWrapper>
   );
-};
+});
 
 const ContainerPopular = () => {
   return <Popular />;

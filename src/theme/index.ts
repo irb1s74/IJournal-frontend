@@ -71,7 +71,8 @@ const theme = createTheme({
             color: 'secondary',
           },
           style: {
-            backgroundColor: '#F3F3F3',
+            color: '#FFF',
+            textTransform: 'uppercase',
           },
         },
       ],

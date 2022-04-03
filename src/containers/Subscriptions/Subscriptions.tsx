@@ -29,7 +29,7 @@ const Subscriptions = () => {
           .fill(0)
           .map((item, index) => (
             <>
-              <ListItem sx={{ mt: '22px' }} key={index}>
+          <ListItem sx={{ mt: '22px' }} key={`${item}_${index}`}>
                 <ListItemAvatar>
                   <Avatar
                     src='https://leonardo.osnova.io/74355c2a-cf87-ffba-aebf-45ae3bc8d1d8/-/scale_crop/200x200/-/format/webp/'
