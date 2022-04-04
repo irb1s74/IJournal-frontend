@@ -17,7 +17,7 @@ import Auth from '../../components/Header/Auth';
 const Header: FC<{
   toggleMenu: () => IAppSetMenu;
 }> = memo(({ toggleMenu }) => {
-  const [modalAuth, setModalAuth] = useState(true);
+  const [modalAuth, setModalAuth] = useState(false);
   return (
     <>
       <HeaderBox>
@@ -52,11 +52,14 @@ const Header: FC<{
               Новая Запись
             </Button>
             <Box sx={{ flexGrow: 1 }} />
-            <HeaderMenu isAuth={false} />
+            <HeaderMenu
+              isAuth={false}
+              openModal={() => () => setModalAuth(true)}
+            />
           </Toolbar>
         </AppBar>
       </HeaderBox>
-      <Auth isOpen={modalAuth} />
+      <Auth isOpen={modalAuth} closeModal={() => () => setModalAuth(false)} />
     </>
   );
 });

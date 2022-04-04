@@ -12,9 +12,10 @@ import HeaderList from './List';
 
 interface HeaderMenuProps {
   isAuth: boolean;
+  openModal: () => () => void;
 }
 
-const HeaderMenu: FC<HeaderMenuProps> = ({ isAuth }) => {
+const HeaderMenu: FC<HeaderMenuProps> = ({ isAuth, openModal }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -90,7 +91,7 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ isAuth }) => {
   }
 
   return (
-    <Button variant='filter' color='secondary'>
+    <Button onClick={openModal()} variant='filter' color='secondary'>
       Войти
     </Button>
   );
