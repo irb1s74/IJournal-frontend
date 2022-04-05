@@ -21,7 +21,6 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ isAuth, openModal }) => {
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleProfileMenuClose = useCallback(() => setAnchorEl(null), []);
 
   if (isAuth) {

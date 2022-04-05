@@ -11,12 +11,14 @@ import { HeaderBox } from './Header.styled';
 import { IoMenu, IoFlameSharp } from 'react-icons/io5';
 import { IAppSetMenu } from '../../store/reducers/appReducer/types';
 import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { AppSetMenu } from '../../store/reducers/appReducer/actions';
-import Auth from '../../components/Header/Auth';
+import Auth from '../Auth/Auth';
 
 const Header: FC<{
   toggleMenu: () => IAppSetMenu;
-}> = memo(({ toggleMenu }) => {
+  isAuth: boolean;
+}> = memo(({ toggleMenu, isAuth }) => {
   const [modalAuth, setModalAuth] = useState(false);
   return (
     <>
@@ -53,7 +55,7 @@ const Header: FC<{
             </Button>
             <Box sx={{ flexGrow: 1 }} />
             <HeaderMenu
-              isAuth={false}
+              isAuth={isAuth}
               openModal={() => () => setModalAuth(true)}
             />
           </Toolbar>
@@ -67,7 +69,9 @@ const Header: FC<{
 const HeaderContainer = () => {
   const dispatch = useDispatch();
   const ActionToggleMenu = useCallback(() => dispatch(AppSetMenu()), []);
-  return <Header toggleMenu={ActionToggleMenu} />;
+  const isAuth = useTypedSelector((state) => state.authReducer.isAuth);
+
+  return <Header toggleMenu={ActionToggleMenu} isAuth={isAuth} />;
 };
 
 export default HeaderContainer;

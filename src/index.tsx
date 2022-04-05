@@ -9,6 +9,7 @@ import './theme/styles/index.scss';
 import { store } from './store';
 import { BrowserRouter } from 'react-router-dom';
 
+
 ReactDOM.render(
   <BrowserRouter>
     <ThemeProvider theme={theme}>
