@@ -23,7 +23,7 @@ const Sidebar: FC<ISidebar> = memo(({ isMenuOpen }) => {
 });
 
 const SidebarContainer = () => {
-  const isMenuOpen = useTypedSelector((state) => state.appReducer.isMenuOpen);
+  const isMenuOpen = useTypedSelector((state) => state.app.isMenuOpen);
 
   return <Sidebar isMenuOpen={isMenuOpen} />;
 };

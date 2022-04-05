@@ -15,7 +15,7 @@ import { IoClose } from 'react-icons/io5';
 
 interface LoginProps {
   handleSetAuth: (payload: boolean) => () => void;
-  closeModal: () => () => void;
+  closeModal: () => void;
   handleLogin: (email: string, password: string) => void;
 }
 
@@ -48,7 +48,7 @@ const Login: FC<LoginProps> = ({ handleSetAuth, closeModal, handleLogin }) => {
       <DialogTitle id='alert-dialog-title'>
         <Stack justifyContent='space-between' direction='row'>
           <Typography variant='h6'>Авторизация</Typography>
-          <IconButton onClick={closeModal()}>
+          <IconButton onClick={closeModal}>
             <IoClose />
           </IconButton>
         </Stack>

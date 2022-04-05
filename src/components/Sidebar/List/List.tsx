@@ -1,5 +1,4 @@
 import React from 'react';
-import SidebarListItemIcon from './ListItemIcon';
 import {
   List,
   ListItemButton,
@@ -8,6 +7,7 @@ import {
 } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Lists from './config.json';
+import { getIcon } from '../../../helpers/getIcon';
 
 const SidebarList = () => {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const SidebarList = () => {
                 : undefined
             }
           >
-            <SidebarListItemIcon icon={list.icon} />
+            {getIcon(list.icon)}
           </ListItemIcon>
           <ListItemText primary={list.name} />
         </ListItemButton>

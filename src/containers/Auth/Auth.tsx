@@ -6,51 +6,47 @@ import Login from '../../components/Auth/Login';
 import { useDispatch } from 'react-redux';
 
 interface AuthProps {
-  isOpen: boolean;
-  closeModal: () => () => void;
+  closeModal: () => void;
   handleLogin: (email: string, password: string) => void;
   handleSigIn: (nickname: string, email: string, password: string) => void;
 }
-const Auth: FC<AuthProps> = memo(
-  ({ isOpen, closeModal, handleLogin, handleSigIn }) => {
-    const [auth, setAuth] = useState(false);
-    const handleSetAuth = useCallback((payload: boolean) => {
-      return () => {
-        setAuth(payload);
-      };
-    }, []);
+const Auth: FC<AuthProps> = memo(({ closeModal, handleLogin, handleSigIn }) => {
+  const [auth, setAuth] = useState(false);
+  const handleSetAuth = useCallback((payload: boolean) => {
+    return () => {
+      setAuth(payload);
+    };
+  }, []);
 
-    return (
-      <Dialog
-        fullWidth
-        maxWidth='xs'
-        open={isOpen}
-        onClose={closeModal()}
-        aria-labelledby='alert-dialog-title'
-        aria-describedby='alert-dialog-description'
-      >
-        {auth ? (
-          <SigIn
-            handleSetAuth={handleSetAuth}
-            closeModal={closeModal}
-            handleSigIn={handleSigIn}
-          />
-        ) : (
-          <Login
-            handleSetAuth={handleSetAuth}
-            closeModal={closeModal}
-            handleLogin={handleLogin}
-          />
-        )}
-      </Dialog>
-    );
-  }
-);
+  return (
+    <Dialog
+      fullWidth
+      maxWidth='xs'
+      open
+      onClose={closeModal}
+      aria-labelledby='alert-dialog-title'
+      aria-describedby='alert-dialog-description'
+    >
+      {auth ? (
+        <SigIn
+          handleSetAuth={handleSetAuth}
+          closeModal={closeModal}
+          handleSigIn={handleSigIn}
+        />
+      ) : (
+        <Login
+          handleSetAuth={handleSetAuth}
+          closeModal={closeModal}
+          handleLogin={handleLogin}
+        />
+      )}
+    </Dialog>
+  );
+});
 
 const AuthContainer: FC<{
-  isOpen: boolean;
-  closeModal: () => () => void;
-}> = ({ isOpen, closeModal }) => {
+  closeModal: () => void;
+}> = ({ closeModal }) => {
   const dispatch = useDispatch();
 
   const Login = useCallback(
@@ -63,12 +59,7 @@ const AuthContainer: FC<{
     []
   );
   return (
-    <Auth
-      isOpen={isOpen}
-      closeModal={closeModal}
-      handleLogin={Login}
-      handleSigIn={SigIn}
-    />
+    <Auth closeModal={closeModal} handleLogin={Login} handleSigIn={SigIn} />
   );
 };
 export default AuthContainer;

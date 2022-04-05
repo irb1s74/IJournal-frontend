@@ -15,7 +15,7 @@ import { IoClose } from 'react-icons/io5';
 
 interface SigInProps {
   handleSetAuth: (payload: boolean) => () => void;
-  closeModal: () => () => void;
+  closeModal: () => void;
   handleSigIn: (nickname: string, email: string, password: string) => void;
 }
 
@@ -53,7 +53,7 @@ const SigIn: FC<SigInProps> = ({ handleSetAuth, closeModal, handleSigIn }) => {
       <DialogTitle id='alert-dialog-title'>
         <Stack justifyContent='space-between' direction='row'>
           <Typography variant='h6'>Регистрация</Typography>
-          <IconButton onClick={closeModal()}>
+          <IconButton onClick={closeModal}>
             <IoClose />
           </IconButton>
         </Stack>
