@@ -61,7 +61,8 @@ const theme = createTheme({
         {
           props: { variant: 'filter' },
           style: {
-            textTransform: 'none',
+            textTransform: 'uppercase',
+            fontWeight: 'bold',
             color: '#29253C',
           },
         },

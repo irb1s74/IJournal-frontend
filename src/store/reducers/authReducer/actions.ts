@@ -1,7 +1,8 @@
-import { AuthActionEnum, IAuthSetUser } from './types';
+import { AuthActionEnum, IAuthSetMessageError, IAuthSetUser } from './types';
 import { IUser } from '../../../models/IUser';
 import AuthService from '../../../api/AuthService';
-import { AppDispatch } from '../../index';
+import { AppDispatch, store } from '../../index';
+import { setModals } from '../modalReducer/actions';
 
 export const SetUser = (user: IUser, isAuth: boolean): IAuthSetUser => ({
   type: AuthActionEnum.SET_USER,
@@ -10,14 +11,28 @@ export const SetUser = (user: IUser, isAuth: boolean): IAuthSetUser => ({
     isAuth,
   },
 });
+export const SetMessageError = (error: string): IAuthSetMessageError => ({
+  type: AuthActionEnum.SET_MESSAGE_ERROR,
+  payload: error,
+});
 
 export const AuthLogin =
   (email: string, password: string) => async (dispatch: AppDispatch) => {
     try {
       const response = await AuthService.Login(email, password);
-      dispatch(SetUser(response.data, true));
+      if (response.status === 201) {
+        dispatch(SetUser(response.data, true));
+        const { modals } = store.getState().modal;
+        modals.pop();
+        dispatch(setModals([...modals]));
+      }
+      if (response.data.message) {
+        dispatch(SetUser({} as IUser, false));
+        dispatch(SetMessageError(response.data.message));
+      }
     } catch (e) {
-      console.log(e);
+      dispatch(SetUser({} as IUser, false));
+      dispatch(SetMessageError('Произошла ошибка'));
     }
   };
 
@@ -26,8 +41,21 @@ export const AuthSigIn =
   async (dispatch: AppDispatch) => {
     try {
       const response = await AuthService.SigIn(nickname, email, password);
-      dispatch(SetUser(response.data, true));
+      if (response.status === 201) {
+        dispatch(SetUser(response.data, true));
+        const { modals } = store.getState().modal;
+        modals.pop();
+        dispatch(setModals([...modals]));
+      }
+      if (response.data.message) {
+        dispatch(SetUser({} as IUser, false));
+        dispatch(SetMessageError(response.data.message));
+      } else {
+        dispatch(SetUser({} as IUser, false));
+        dispatch(SetMessageError('Произошла ошибка'));
+      }
     } catch (e) {
-      console.log(e);
+      dispatch(SetUser({} as IUser, false));
+      dispatch(SetMessageError('Произошла ошибка'));
     }
   };

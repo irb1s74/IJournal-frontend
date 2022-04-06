@@ -11,11 +11,13 @@ interface IHeaderList {
   isMenuOpen: boolean;
   handleMenuClose: () => void;
   anchorEl: null | HTMLElement;
+  handleSignOut: () => void;
 }
 const HeaderList: FC<IHeaderList> = ({
   isMenuOpen,
   handleMenuClose,
   anchorEl,
+  handleSignOut,
 }) => {
   return (
     <Menu
@@ -50,8 +52,8 @@ const HeaderList: FC<IHeaderList> = ({
           <IoCogSharp />
         </ListItemIcon>
         <Typography variant='body2'>Настройки</Typography>
-      </MenuItem>{' '}
-      <MenuItem onClick={handleMenuClose}>
+      </MenuItem>
+      <MenuItem onClick={handleSignOut}>
         <ListItemIcon sx={{ color: '#29253C' }}>
           <IoLogOut />
         </ListItemIcon>

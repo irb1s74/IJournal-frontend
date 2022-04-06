@@ -17,6 +17,7 @@ interface LoginProps {
   handleSetAuth: (payload: boolean) => () => void;
   closeModal: () => void;
   handleLogin: (email: string, password: string) => void;
+  messageError: string;
 }
 
 const validationSchema = yup.object({
@@ -24,13 +25,15 @@ const validationSchema = yup.object({
     .string()
     .email('Некорректный email')
     .required('Это обязательное поле'),
-  password: yup
-    .string()
-    .min(8, 'Пароль должен иметь длину не менее 8 символов')
-    .required('Это обязательное поле'),
+  password: yup.string().required('Это обязательное поле'),
 });
 
-const Login: FC<LoginProps> = ({ handleSetAuth, closeModal, handleLogin }) => {
+const Login: FC<LoginProps> = ({
+  messageError,
+  handleSetAuth,
+  closeModal,
+  handleLogin,
+}) => {
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -94,7 +97,10 @@ const Login: FC<LoginProps> = ({ handleSetAuth, closeModal, handleLogin }) => {
           >
             Войти
           </Button>
-          <Button variant='text'>Не помню пароль </Button>
+          <Typography variant='body1' color='error'>
+            {messageError}
+          </Typography>
+          <Button variant='filter'>Не помню пароль</Button>
         </Stack>
       </DialogContent>
       <Divider />
@@ -104,8 +110,8 @@ const Login: FC<LoginProps> = ({ handleSetAuth, closeModal, handleLogin }) => {
           justifyContent='space-between'
           alignItems='center'
         >
-          <Typography variant='body1'>Нету аккаунт?</Typography>
-          <Button variant='text' size='small' onClick={handleSetAuth(true)}>
+          <Typography variant='subtitle1'>Нету аккаунт?</Typography>
+          <Button variant='text' onClick={handleSetAuth(true)}>
             зарегистрироваться
           </Button>
         </Stack>

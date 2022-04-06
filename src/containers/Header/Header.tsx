@@ -15,12 +15,15 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { AppSetMenu } from '../../store/reducers/appReducer/actions';
 import { openModal } from '../../store/reducers/modalReducer/actions';
 import { EModal } from '../../models/EModal';
+import { SetUser } from '../../store/reducers/authReducer/actions';
+import { IUser } from '../../models/IUser';
 
 const Header: FC<{
-  toggleMenu: () => IAppSetMenu;
-  ActionOpenModal: (id: string, type: EModal, optional: any) => void;
+  handleToggleMenu: () => IAppSetMenu;
+  handleOpenModal: (id: string, type: EModal, optional: any) =>()=> void;
+  handleSignOut: () => void;
   isAuth: boolean;
-}> = memo(({ toggleMenu, ActionOpenModal, isAuth }) => {
+}> = memo(({ handleToggleMenu, handleOpenModal, handleSignOut, isAuth }) => {
   return (
     <HeaderBox>
       <AppBar position='static'>
@@ -31,7 +34,7 @@ const Header: FC<{
             color='inherit'
             aria-label='open drawer'
             sx={{ mr: 2 }}
-            onClick={toggleMenu}
+            onClick={handleToggleMenu}
           >
             <IoMenu />
           </IconButton>
@@ -54,7 +57,11 @@ const Header: FC<{
             Новая Запись
           </Button>
           <Box sx={{ flexGrow: 1 }} />
-          <HeaderMenu isAuth={isAuth} ActionOpenModal={ActionOpenModal} />
+          <HeaderMenu
+            isAuth={isAuth}
+            handleOpenModal={handleOpenModal}
+            handleSignOut={handleSignOut}
+          />
         </Toolbar>
       </AppBar>
     </HeaderBox>
@@ -64,16 +71,22 @@ const Header: FC<{
 const HeaderContainer = () => {
   const dispatch = useDispatch();
   const isAuth = useTypedSelector((state) => state.auth.isAuth);
-  const ActionToggleMenu = useCallback(() => dispatch(AppSetMenu()), []);
-  const ActionOpenModal = useCallback(
-    (id: string, type: EModal, optional: any) =>
+
+  const handleToggleMenu = useCallback(() => dispatch(AppSetMenu()), []);
+  const handleSignOut = useCallback(
+    () => dispatch(SetUser({} as IUser, false)),
+    []
+  );
+  const handleOpenModal = useCallback(
+    (id: string, type: EModal, optional: any) => () =>
       dispatch(openModal(id, type, optional)),
     []
   );
   return (
     <Header
-      toggleMenu={ActionToggleMenu}
-      ActionOpenModal={ActionOpenModal}
+      handleToggleMenu={handleToggleMenu}
+      handleOpenModal={handleOpenModal}
+      handleSignOut={handleSignOut}
       isAuth={isAuth}
     />
   );

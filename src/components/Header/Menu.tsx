@@ -13,20 +13,26 @@ import { EModal } from '../../models/EModal';
 
 interface HeaderMenuProps {
   isAuth: boolean;
-  ActionOpenModal: (id: string, type: EModal, optional: any) => void;
+  handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
+  handleSignOut: () => void;
 }
 
-const HeaderMenu: FC<HeaderMenuProps> = ({ isAuth, ActionOpenModal }) => {
+const HeaderMenu: FC<HeaderMenuProps> = ({
+  isAuth,
+  handleOpenModal,
+  handleSignOut,
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleProfileMenuClose = useCallback(() => setAnchorEl(null), []);
+
   if (!isAuth) {
     return (
       <Button
-        onClick={() => ActionOpenModal('1', EModal.authModal, {})}
+        onClick={handleOpenModal('1', EModal.authModal, {})}
         variant='filter'
         color='secondary'
       >
@@ -34,7 +40,6 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ isAuth, ActionOpenModal }) => {
       </Button>
     );
   }
-
   return (
     <>
       <Box
@@ -95,6 +100,7 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ isAuth, ActionOpenModal }) => {
         isMenuOpen={isMenuOpen}
         anchorEl={anchorEl}
         handleMenuClose={handleProfileMenuClose}
+        handleSignOut={handleSignOut}
       />
     </>
   );

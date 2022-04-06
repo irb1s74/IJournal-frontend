@@ -4,6 +4,7 @@ import { IUser } from '../../../models/IUser';
 const initialState: AuthState = {
   isAuth: false,
   user: {} as IUser,
+  messageError: '',
 };
 export default function appReducer(
   state = initialState,
@@ -15,6 +16,11 @@ export default function appReducer(
         ...state,
         user: action.payload.user,
         isAuth: action.payload.isAuth,
+      };
+    case AuthActionEnum.SET_MESSAGE_ERROR:
+      return {
+        ...state,
+        messageError: action.payload,
       };
     default:
       return state;

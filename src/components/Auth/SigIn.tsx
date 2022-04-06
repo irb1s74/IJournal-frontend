@@ -17,6 +17,7 @@ interface SigInProps {
   handleSetAuth: (payload: boolean) => () => void;
   closeModal: () => void;
   handleSigIn: (nickname: string, email: string, password: string) => void;
+  messageError: string;
 }
 
 const validationSchema = yup.object({
@@ -34,7 +35,12 @@ const validationSchema = yup.object({
     .required('Это обязательное поле'),
 });
 
-const SigIn: FC<SigInProps> = ({ handleSetAuth, closeModal, handleSigIn }) => {
+const SigIn: FC<SigInProps> = ({
+  messageError,
+  handleSetAuth,
+  closeModal,
+  handleSigIn,
+}) => {
   const formik = useFormik({
     initialValues: {
       nickname: '',
@@ -103,6 +109,9 @@ const SigIn: FC<SigInProps> = ({ handleSetAuth, closeModal, handleSigIn }) => {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
+          <Typography variant='body1' color='error'>
+            {messageError}
+          </Typography>
           <Button
             variant='contained'
             fullWidth
@@ -121,7 +130,7 @@ const SigIn: FC<SigInProps> = ({ handleSetAuth, closeModal, handleSigIn }) => {
           justifyContent='space-between'
           alignItems='center'
         >
-          <Typography variant='body1'>Уже есть аккаунт?</Typography>
+          <Typography variant='subtitle1'>Уже есть аккаунт?</Typography>
           <Button variant='text' size='small' onClick={handleSetAuth(false)}>
             Войти
           </Button>

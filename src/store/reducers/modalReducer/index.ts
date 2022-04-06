@@ -9,9 +9,7 @@ export default function modalReducer(
   action: ModalAction
 ): ModalState {
   switch (action.type) {
-    case ModalActionEnum.OPEN_MODAL:
-      return { ...state, modals: action.payload };
-    case ModalActionEnum.CLOSE_MODAL:
+    case ModalActionEnum.SET_MODAL:
       return { ...state, modals: action.payload };
     default:
       return state;
