@@ -4,9 +4,18 @@ declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
     filter: true;
   }
+  interface Palette {
+    neutral: {
+      main: string;
+    };
+  }
+  interface PaletteOptions {
+    neutral: {
+      main: string;
+    };
+  }
 }
-
-const theme = createTheme({
+const palette = createTheme({
   typography: {
     fontFamily: ['Montserrat', '-apple-system', 'sans-serif'].join(','),
     subtitle1: {
@@ -29,14 +38,13 @@ const theme = createTheme({
     },
 
     // text: {
-    //     primary: '#040B11'
+    //   // primary: '#FFF',
     // },
-    //
 
     // Buttons
     action: {
-      // active: '#DA4A5E', // default состояние
-      // hover: "#DA4A5E", //hover
+      // active: '#5C5A56', // default состояние
+      // hover: '#F15A24',
       // disabled: '#E0E0E0'// выключено
       // disabledBackground:"#DA4A5E"
     },
@@ -47,15 +55,23 @@ const theme = createTheme({
     //
     // }
   },
+});
 
+const theme = createTheme(palette, {
   components: {
     MuiButton: {
       styleOverrides: {},
       variants: [
         {
+          props: { variant: 'contained' },
+          style: {
+            color: '#FFF',
+          },
+        },
+        {
           props: { variant: 'text' },
           style: {
-            color: '#DA4A5E',
+            color: palette.palette.secondary.main,
           },
         },
         {
@@ -63,7 +79,7 @@ const theme = createTheme({
           style: {
             textTransform: 'uppercase',
             fontWeight: 'bold',
-            color: '#29253C',
+            color: palette.palette.primary.main,
           },
         },
         {
@@ -73,7 +89,6 @@ const theme = createTheme({
           },
           style: {
             color: '#FFF',
-            textTransform: 'uppercase',
           },
         },
       ],
@@ -83,14 +98,14 @@ const theme = createTheme({
         root: {
           borderRadius: '5px',
           marginBottom: '15px',
+          // color: palette.palette.secondary.main,
         },
       },
       variants: [
         {
           props: { selected: true },
           style: {
-            textDecoration: 'none',
-            color: '#DA4A5E',
+            color: palette.palette.secondary.main,
           },
         },
       ],
@@ -108,7 +123,7 @@ const theme = createTheme({
         root: {
           textTransform: 'none',
           '&.Mui-selected': {
-            color: '#DA4A5E',
+            color: palette.palette.primary.main,
           },
         },
       },

@@ -1,9 +1,9 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { CardMedia } from '@mui/material';
 import { IBlock } from '../../../../containers/Popular/types';
 import { ItemWrapper } from '../Card.styled';
-import { Editor, EditorChangeType, EditorState } from 'draft-js';
-import { convertToHTML, convertFromHTML } from 'draft-convert';
+import { Editor, EditorState } from 'draft-js';
+import { convertFromHTML } from 'draft-convert';
 
 const NewsCardItem: FC<{ data: IBlock }> = ({ data }) => {
   if (data.type === 'image') {
@@ -13,6 +13,7 @@ const NewsCardItem: FC<{ data: IBlock }> = ({ data }) => {
     return (
       <ItemWrapper>
         <Editor
+          readOnly
           editorState={EditorState.push(
             EditorState.createEmpty(),
             convertFromHTML(data.render),

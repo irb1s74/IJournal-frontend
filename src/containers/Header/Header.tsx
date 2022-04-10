@@ -20,7 +20,7 @@ import { IUser } from '../../models/IUser';
 
 const Header: FC<{
   handleToggleMenu: () => IAppSetMenu;
-  handleOpenModal: (id: string, type: EModal, optional: any) =>()=> void;
+  handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
   handleSignOut: () => void;
   isAuth: boolean;
 }> = memo(({ handleToggleMenu, handleOpenModal, handleSignOut, isAuth }) => {
@@ -53,7 +53,15 @@ const Header: FC<{
             <IoFlameSharp size={24} color='#DA4A5E' />
           </Box>
           <Search />
-          <Button variant='contained' color='secondary'>
+          <Button
+            onClick={handleOpenModal(
+              EModal.createPostModal,
+              EModal.createPostModal,
+              {}
+            )}
+            variant='contained'
+            color='secondary'
+          >
             Новая Запись
           </Button>
           <Box sx={{ flexGrow: 1 }} />

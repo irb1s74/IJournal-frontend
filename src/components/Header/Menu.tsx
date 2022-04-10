@@ -32,7 +32,7 @@ const HeaderMenu: FC<HeaderMenuProps> = ({
   if (!isAuth) {
     return (
       <Button
-        onClick={handleOpenModal('1', EModal.authModal, {})}
+        onClick={handleOpenModal(EModal.authModal, EModal.authModal, {})}
         variant='filter'
         color='secondary'
       >

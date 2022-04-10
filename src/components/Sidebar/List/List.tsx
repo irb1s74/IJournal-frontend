@@ -8,6 +8,7 @@ import {
 import { useLocation, useNavigate } from 'react-router-dom';
 import Lists from './config.json';
 import { getIcon } from '../../../helpers/getIcon';
+import theme from '../../../theme';
 
 const SidebarList = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const SidebarList = () => {
           <ListItemIcon
             sx={
               list.route === location.pathname
-                ? { color: '#DA4A5E' }
+                ? { color: theme.palette.secondary.main }
                 : undefined
             }
           >
