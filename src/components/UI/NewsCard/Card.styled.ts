@@ -1,6 +1,6 @@
 import { CardMedia, IconButton, Stack, styled } from '@mui/material';
 
-export const Card = styled('div')(({ theme }) => ({
+export const WrapperCard = styled('div')(({ theme }) => ({
   marginBottom: '28px',
   backgroundColor: '#FFF',
   maxWidth: '640px',

@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { PageWrapper } from './Popular.styled';
 import { Typography } from '@mui/material';
-import Card from '../../components/UI/NewsCard/NewsCard';
+import Card from '../../components/UI/NewsCard/Card';
 import data from './config.json';
 import { INews } from './types';
 

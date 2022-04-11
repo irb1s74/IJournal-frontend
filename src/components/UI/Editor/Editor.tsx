@@ -1,48 +1,43 @@
-import React, { useState } from 'react';
-import { Editor, EditorState, ContentBlock } from 'draft-js';
-import EditorBox from './widget/EditorBox';
+import React, { FC, useEffect } from 'react';
+import EditorJS, { OutputData } from '@editorjs/editorjs';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import ImageTool from '@editorjs/image';
 
-const myBlockRenderer = (contentBlock: ContentBlock) => {
-  const type = contentBlock.getType();
-  if (type === 'atomic') {
-    return {
-      component: EditorBox,
-      editable: true,
-      props: {
-        foo: 'bar',
+interface EditorProps {
+  onChange: (blocks: OutputData['blocks']) => void;
+  initialBody: OutputData['blocks'];
+}
+const PostEditor: FC<EditorProps> = ({ onChange, initialBody }) => {
+  useEffect(() => {
+    const editor = new EditorJS({
+      tools: {
+        image: {
+          class: ImageTool,
+          config: {
+            endpoints: {
+              byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
+              byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+            },
+          },
+        },
       },
+      holder: 'editorjs',
+      async onChange() {
+        const { blocks } = await editor.save();
+        onChange(blocks);
+      },
+      data: {
+        blocks: initialBody,
+      },
+    });
+    return () => {
+      editor.isReady.then(() => {
+        editor.destroy();
+      });
     };
-  }
-  return {
-    component: EditorBox,
-    editable: true,
-    props: {
-      foo: 'bar',
-    },
-  };
-};
-
-const PostEditor = () => {
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty()
-  );
-
-  const handleChangeEditor = (e: EditorState) => {
-    setEditorState(e);
-    // console.log(convertToRaw(e.getCurrentContent()));
-  };
-
-  return (
-    <div className='editor'>
-      <Editor
-        editorState={editorState}
-        onChange={handleChangeEditor}
-        blockRendererFn={(e) => myBlockRenderer(e)}
-        // blockRenderMap={extendedBlockRenderMap}
-        // blockRenderMap={blockRenderMap}
-      />
-    </div>
-  );
+  }, []);
+  return <div id='editorjs' />;
 };
 
 export default PostEditor;

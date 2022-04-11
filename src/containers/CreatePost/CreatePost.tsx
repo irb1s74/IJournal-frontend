@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import {
   Button,
   Dialog,
@@ -6,11 +6,14 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
+  Input,
+  InputBase,
   Stack,
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { IoClose } from 'react-icons/io5';
 import PostEditor from '../../components/UI/Editor/Editor';
+import { OutputData } from '@editorjs/editorjs';
 
 interface CreatePostProps {
   closeModal: () => void;
@@ -21,6 +24,8 @@ interface CreatePostProps {
 }
 
 const CreatePost: FC<CreatePostProps> = ({ closeModal }) => {
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState<OutputData['blocks']>([]);
   return (
     <Dialog
       fullWidth
@@ -39,7 +44,11 @@ const CreatePost: FC<CreatePostProps> = ({ closeModal }) => {
         </Stack>
       </DialogTitle>
       <DialogContent sx={{ height: '50vh' }}>
-        <PostEditor />
+        <InputBase
+          placeholder='Заголовок'
+          sx={{ fontSize: '28px', ml: '40px', mb: '10px' }}
+        />
+        <PostEditor initialBody={body} onChange={(arr) => setBody(arr)} />
       </DialogContent>
       <DialogActions>
         <Button variant='contained'>Опубликовать</Button>

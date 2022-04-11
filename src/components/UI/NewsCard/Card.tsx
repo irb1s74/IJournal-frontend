@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import {
-  Card,
+  WrapperCard,
   CardHeader,
   CardHeaderAction,
   CardHeaderInfo,
@@ -21,9 +21,9 @@ import {
 import CardItem from './widget/NewsCardItem';
 import { IBlock, INews } from '../../../containers/Popular/types';
 
-const NewsCard: FC<{ data: INews }> = ({ data }) => {
+const Card: FC<{ data: INews }> = ({ data }) => {
   return (
-    <Card>
+    <WrapperCard>
       <CardHeader>
         <CardHeaderInfo
           direction='row'
@@ -84,8 +84,8 @@ const NewsCard: FC<{ data: INews }> = ({ data }) => {
           </IconButton>
         </CardFooterVote>
       </CardFooter>
-    </Card>
+    </WrapperCard>
   );
 };
 
-export default NewsCard;
+export default Card;
