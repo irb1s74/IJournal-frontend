@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import {
   Button,
   Dialog,
@@ -6,7 +6,6 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
-  Input,
   InputBase,
   Stack,
 } from '@mui/material';
@@ -14,18 +13,29 @@ import Typography from '@mui/material/Typography';
 import { IoClose } from 'react-icons/io5';
 import PostEditor from '../../components/UI/Editor/Editor';
 import { OutputData } from '@editorjs/editorjs';
+import PostService from '../../api/PostService';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 interface CreatePostProps {
   closeModal: () => void;
+  token: string;
   // messageError: string;
   // handleLogin: (email: string, password: string) => void;
   // handleSigIn: (nickname: string, email: string, password: string) => void;
   // handleSetError: (error: string) => void;
 }
 
-const CreatePost: FC<CreatePostProps> = ({ closeModal }) => {
-  const [title, setTitle] = useState('');
+const CreatePost: FC<CreatePostProps> = ({ closeModal, token }) => {
+  // const [title, setTitle] = useState('');
+  const initialRequest = async () => {
+    await PostService.create(token);
+  };
+  useEffect(() => {
+    const post = initialRequest();
+    console.log(post);
+  }, []);
   const [body, setBody] = useState<OutputData['blocks']>([]);
+
   return (
     <Dialog
       fullWidth
@@ -57,4 +67,10 @@ const CreatePost: FC<CreatePostProps> = ({ closeModal }) => {
   );
 };
 
-export default CreatePost;
+const ContainerCreatePost: FC<{ closeModal: () => void }> = ({
+  closeModal,
+}) => {
+  const token = useTypedSelector((state) => state.auth.user.token);
+  return <CreatePost closeModal={closeModal} token={token} />;
+};
+export default ContainerCreatePost;
