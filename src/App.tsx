@@ -10,8 +10,8 @@ import { useDispatch } from 'react-redux';
 import { getModal } from './helpers/getModal';
 
 const getModals = (modals: IModal[], handleCloseModal: () => void) => {
-  return modals.map((modal) =>
-    getModal(modal.id, modal.type, handleCloseModal, modal.option)
+  return modals.map((modal,key) =>
+    getModal(key, modal.type, handleCloseModal, modal.option)
   );
 };
 

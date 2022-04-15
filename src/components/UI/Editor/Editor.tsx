@@ -6,10 +6,15 @@ import { ROOT_URL } from '../../../helpers/ROOT_URL';
 import ImageTool from '@editorjs/image';
 
 interface EditorProps {
-  onChange: (blocks: OutputData['blocks']) => void;
-  initialBody: OutputData['blocks'];
+  onChange?: (blocks: OutputData['blocks']) => void;
+  initialBody?: OutputData['blocks'];
+  readOnly?: boolean;
 }
-const PostEditor: FC<EditorProps> = ({ onChange, initialBody }) => {
+const PostEditor: FC<EditorProps> = ({
+  onChange = () => null,
+  initialBody = [],
+  readOnly = false,
+}) => {
   useEffect(() => {
     const editor = new EditorJS({
       tools: {
@@ -23,6 +28,7 @@ const PostEditor: FC<EditorProps> = ({ onChange, initialBody }) => {
           },
         },
       },
+      readOnly,
       holder: 'editorjs',
       async onChange() {
         const { blocks } = await editor.save();

@@ -20,6 +20,7 @@ import {
 } from 'react-icons/io5';
 import CardItem from './widget/NewsCardItem';
 import { IBlock, INews } from '../../../containers/Popular/types';
+import PostEditor from '../Editor/Editor';
 
 const Card: FC<{ data: INews }> = ({ data }) => {
   return (
@@ -51,16 +52,14 @@ const Card: FC<{ data: INews }> = ({ data }) => {
         >
           {data.title}
         </Typography>
-        {data.entry.blocks.map((blocks: IBlock, index) => (
-          <CardItem key={`${index}_${blocks.type}`} data={blocks} />
-        ))}
+        <PostEditor readOnly />
       </CardContent>
       <CardFooter>
         <CardFooterAction direction='row' alignItems='center' spacing={2}>
           <CardBoxAction
-            onClick={() => {
-              console.log(this);
-            }}
+            // onClick={() => {
+            //   console.log(this);
+            // }}
             disableRipple
           >
             <IoChatbubbles />
