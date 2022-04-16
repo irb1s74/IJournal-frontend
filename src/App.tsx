@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import { Stack } from '@mui/material';
 import Router from './router/Router';
 import Header from './containers/Header/Header';
@@ -8,17 +8,26 @@ import { useTypedSelector } from './hooks/useTypedSelector';
 import { closeModal } from './store/reducers/modalReducer/actions';
 import { useDispatch } from 'react-redux';
 import { getModal } from './helpers/getModal';
+import { getPosts } from './store/reducers/postsReducer/actions';
 
 const getModals = (modals: IModal[], handleCloseModal: () => void) => {
-  return modals.map((modal,key) =>
+  return modals.map((modal, key) =>
     getModal(key, modal.type, handleCloseModal, modal.option)
   );
 };
 
-const App: FC<{ modals: IModal[]; handleCloseModal: () => void }> = ({
-  modals,
-  handleCloseModal,
-}) => {
+interface AppProps {
+  modals: IModal[];
+  handleCloseModal: () => void;
+  handleGetPosts: () => void;
+}
+
+const App: FC<AppProps> = ({ modals, handleCloseModal, handleGetPosts }) => {
+  useEffect(() => {
+    console.log('ale');
+    handleGetPosts();
+  }, []);
+
   return (
     <>
       <Header />
@@ -40,7 +49,14 @@ const AppContainer = () => {
   const dispatch = useDispatch();
   const modals = useTypedSelector((state) => state.modal.modals);
   const handleCloseModal = useCallback(() => dispatch(closeModal()), []);
-  return <App modals={modals} handleCloseModal={handleCloseModal} />;
+  const handleGetPosts = useCallback(() => dispatch(getPosts()), []);
+  return (
+    <App
+      modals={modals}
+      handleCloseModal={handleCloseModal}
+      handleGetPosts={handleGetPosts}
+    />
+  );
 };
 
 export default AppContainer;

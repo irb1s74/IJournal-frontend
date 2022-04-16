@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { ROOT_URL } from '../helpers/ROOT_URL';
-import { OutputBlockData, OutputData } from '@editorjs/editorjs';
+import { OutputData } from '@editorjs/editorjs';
 
 export default class PostService {
   static async create(token: string): Promise<AxiosResponse> {
@@ -22,6 +22,23 @@ export default class PostService {
       })
       .catch((e) => {
         return e.response;
+      });
+  }
+
+  static async getPost() {
+    return axios
+      .get('post/new', {
+        baseURL: ROOT_URL,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 

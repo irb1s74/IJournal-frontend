@@ -1,23 +1,26 @@
-import React, { memo } from 'react';
+import React, { FC, memo } from 'react';
 import { PageWrapper } from './Popular.styled';
 import { Typography } from '@mui/material';
 import Card from '../../components/UI/NewsCard/Card';
 import data from './config.json';
 import { INews } from './types';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { IPost } from '../../models/IPost';
 
-const Popular = memo(() => {
+const Popular:FC<{newPost: IPost[]}> = memo(({newPost}) => {
   return (
     <PageWrapper>
-      <Typography variant='h6'>News abobbas</Typography>
-      {data.map((news: INews, index) => (
-        <Card key={`${index}_${news.author}`} data={news} />
+      <Typography variant='h6'>NEWS</Typography>
+      {newPost.map((news: IPost, index) => (
+        <Card key={`${index}_`} data={news} />
       ))}
     </PageWrapper>
   );
 });
 
 const ContainerPopular = () => {
-  return <Popular />;
+  const newPost = useTypedSelector((state)=> state.posts.News)
+  return <Popular newPost={newPost}/>;
 };
 
 export default ContainerPopular;

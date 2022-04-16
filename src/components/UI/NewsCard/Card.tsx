@@ -1,28 +1,27 @@
 import React, { FC } from 'react';
 import {
-  WrapperCard,
+  CardBoxAction,
+  CardContent,
+  CardFooter,
+  CardFooterAction,
+  CardFooterVote,
   CardHeader,
   CardHeaderAction,
   CardHeaderInfo,
-  CardFooter,
-  CardFooterAction,
-  CardBoxAction,
-  CardFooterVote,
-  CardContent,
+  WrapperCard,
 } from './Card.styled';
 import { Avatar, IconButton, Typography } from '@mui/material';
 import {
-  IoChatbubbles,
-  IoPersonAddSharp,
   IoBookmark,
-  IoChevronUpOutline,
+  IoChatbubbles,
   IoChevronDownOutline,
+  IoChevronUpOutline,
+  IoPersonAddSharp,
 } from 'react-icons/io5';
-import CardItem from './widget/NewsCardItem';
-import { IBlock, INews } from '../../../containers/Popular/types';
 import PostEditor from '../Editor/Editor';
+import { IPost } from '../../../models/IPost';
 
-const Card: FC<{ data: INews }> = ({ data }) => {
+const Card: FC<{ data: IPost }> = ({ data }) => {
   return (
     <WrapperCard>
       <CardHeader>
@@ -37,7 +36,7 @@ const Card: FC<{ data: INews }> = ({ data }) => {
             src='/static/images/avatar/1.jpg'
             sx={{ width: 32, height: 32 }}
           />
-          <Typography variant='subtitle1'>{data.author}</Typography>
+          <Typography variant='subtitle1'>Автор</Typography>
         </CardHeaderInfo>
         <CardHeaderAction>
           <IconButton sx={{ fontSize: 16 }}>
@@ -52,7 +51,7 @@ const Card: FC<{ data: INews }> = ({ data }) => {
         >
           {data.title}
         </Typography>
-        <PostEditor readOnly />
+        <PostEditor initialBody={data.data} readOnly />
       </CardContent>
       <CardFooter>
         <CardFooterAction direction='row' alignItems='center' spacing={2}>
