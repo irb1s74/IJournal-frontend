@@ -1,5 +1,4 @@
 import React, { FC, useCallback, useEffect } from 'react';
-import { Stack } from '@mui/material';
 import Router from './router/Router';
 import Header from './containers/Header/Header';
 import Sidebar from './containers/Sidebar/Sidebar';
@@ -31,15 +30,8 @@ const App: FC<AppProps> = ({ modals, handleCloseModal, handleGetPosts }) => {
   return (
     <>
       <Header />
-      <Stack
-        sx={{ width: '100%' }}
-        direction='row'
-        justifyContent='space-between'
-        alignItems='flex-start'
-      >
-        <Sidebar />
-        <Router />
-      </Stack>
+      <Sidebar />
+      <Router />
       {getModals(modals, handleCloseModal)}
     </>
   );

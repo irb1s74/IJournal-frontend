@@ -10,7 +10,7 @@ import {
   CardHeaderInfo,
   WrapperCard,
 } from './Card.styled';
-import { Avatar, IconButton, Typography } from '@mui/material';
+import { Avatar, CardMedia, IconButton, Typography } from '@mui/material';
 import {
   IoBookmark,
   IoChatbubbles,
@@ -18,10 +18,10 @@ import {
   IoChevronUpOutline,
   IoPersonAddSharp,
 } from 'react-icons/io5';
-import PostEditor from '../Editor/Editor';
 import { IPost } from '../../../models/IPost';
+import { ROOT_URL } from '../../../helpers/ROOT_URL';
 
-const Card: FC<{ data: IPost }> = ({ data }) => {
+const Card: FC<{ post: IPost }> = ({ post }) => {
   return (
     <WrapperCard>
       <CardHeader>
@@ -45,13 +45,27 @@ const Card: FC<{ data: IPost }> = ({ data }) => {
         </CardHeaderAction>
       </CardHeader>
       <CardContent>
-        <Typography
-          sx={{ pl: '20px', pr: '20px', mb: '7px', mt: '12px' }}
-          variant='h6'
-        >
-          {data.title}
+        <Typography sx={{ mb: '7px', mt: '12px' }} variant='h6'>
+          {post.data?.title}
         </Typography>
-        <PostEditor initialBody={data.data} readOnly />
+        {post.data?.entry.map((obj) =>
+          obj.type === 'paragraph' ? (
+            <Typography
+              key={obj.id}
+              dangerouslySetInnerHTML={{ __html: obj.data.text }}
+            />
+          ) : (
+            obj.type === 'image' && (
+              <CardMedia
+                key={obj.id}
+                component='img'
+                height='194'
+                image={`${obj.data.file.url}`}
+                alt={obj.data.caption}
+              />
+            )
+          )
+        )}
       </CardContent>
       <CardFooter>
         <CardFooterAction direction='row' alignItems='center' spacing={2}>

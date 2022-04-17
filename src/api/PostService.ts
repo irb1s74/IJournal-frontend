@@ -44,7 +44,10 @@ export default class PostService {
 
   static async update(
     token: string,
-    data: { postId: number; title: string; data: OutputData['blocks'] }
+    data: {
+      postId: number;
+      data: { title: string; entry: OutputData['blocks'] };
+    }
   ) {
     return axios
       .post('post/update', data, {

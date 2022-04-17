@@ -4,12 +4,14 @@ import { ROOT_URL } from '../../../helpers/ROOT_URL';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import ImageTool from '@editorjs/image';
+// import Header from '@editorjs/header'
 
 interface EditorProps {
   onChange?: (blocks: OutputData['blocks']) => void;
   initialBody?: OutputData['blocks'];
   readOnly?: boolean;
 }
+
 const PostEditor: FC<EditorProps> = ({
   onChange = () => null,
   initialBody = [],

@@ -1,4 +1,4 @@
-import { CardMedia, IconButton, Stack, styled } from '@mui/material';
+import { IconButton, Stack, styled } from '@mui/material';
 
 export const WrapperCard = styled('div')(({ theme }) => ({
   marginBottom: '28px',
@@ -19,7 +19,11 @@ export const CardHeader = styled('div')(({ theme }) => ({
 }));
 export const CardHeaderInfo = styled(Stack)(({ theme }) => ({}));
 export const CardHeaderAction = styled('div')(({ theme }) => ({}));
-export const CardContent = styled('div')(({ theme }) => ({}));
+
+export const CardContent = styled('div')(({ theme }) => ({
+  paddingLeft: '20px',
+  paddingRight: '20px',
+}));
 
 export const CardFooter = styled('div')(({ theme }) => ({
   paddingLeft: '20px',

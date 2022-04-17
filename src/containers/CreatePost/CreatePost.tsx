@@ -1,9 +1,4 @@
-import React, {
-  FC,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import {
   Button,
   Dialog,
@@ -58,7 +53,7 @@ const CreatePost: FC<CreatePostProps> = ({ closeModal, token }) => {
   }, 1000);
 
   useEffect(() => {
-    handleUpdatePost({ postId, title: postTitle, data: body });
+    handleUpdatePost({ postId, data: { title: postTitle, entry: body } });
   }, [body, postTitle]);
 
   const handleOnChangeEditor = useCallback((arr: OutputData['blocks']) => {

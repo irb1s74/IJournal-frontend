@@ -11,8 +11,8 @@ const Popular:FC<{newPost: IPost[]}> = memo(({newPost}) => {
   return (
     <PageWrapper>
       <Typography variant='h6'>NEWS</Typography>
-      {newPost.map((news: IPost, index) => (
-        <Card key={`${index}_`} data={news} />
+      {newPost.map((post: IPost, index) => (
+        <Card key={`${index}_${post.id}`} post={post} />
       ))}
     </PageWrapper>
   );
