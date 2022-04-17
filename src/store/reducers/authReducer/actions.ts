@@ -16,12 +16,29 @@ export const SetMessageError = (error: string): IAuthSetMessageError => ({
   payload: error,
 });
 
+export const AuthRef = () => async (dispatch: AppDispatch) => {
+  try {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const response = await AuthService.Ref(token);
+      if (response.data.token) {
+        dispatch(SetUser(response.data, true));
+        localStorage.setItem('token', response.data.token);
+      }
+    }
+  } catch (e) {
+    dispatch(SetUser({} as IUser, false));
+    dispatch(SetMessageError('Произошла ошибка'));
+  }
+};
+
 export const AuthLogin =
   (email: string, password: string) => async (dispatch: AppDispatch) => {
     try {
       const response = await AuthService.Login(email, password);
-      if (response.status === 201) {
+      if (response.data.token) {
         dispatch(SetUser(response.data, true));
+        localStorage.setItem('token', response.data.token);
         const { modals } = store.getState().modal;
         modals.pop();
         dispatch(setModals([...modals]));
@@ -43,6 +60,7 @@ export const AuthSigIn =
       const response = await AuthService.SigIn(nickname, email, password);
       if (response.status === 201) {
         dispatch(SetUser(response.data, true));
+        localStorage.setItem('token', response.data.token);
         const { modals } = store.getState().modal;
         modals.pop();
         dispatch(setModals([...modals]));

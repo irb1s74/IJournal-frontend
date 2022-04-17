@@ -8,16 +8,15 @@ body {
 
 ::-webkit-scrollbar {
   width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: #fcfbfe;
+  height: 4px;
+  background-color: #FCFBFE;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #29253c;
-  border-radius: 100px;
+  border-radius: 25px;
+  background-color: #29253C;
 }
+
 
 *::selection {
   color: #29253c;

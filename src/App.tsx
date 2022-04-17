@@ -7,7 +7,7 @@ import { useTypedSelector } from './hooks/useTypedSelector';
 import { closeModal } from './store/reducers/modalReducer/actions';
 import { useDispatch } from 'react-redux';
 import { getModal } from './helpers/getModal';
-import { getPosts } from './store/reducers/postsReducer/actions';
+import { AuthRef } from './store/reducers/authReducer/actions';
 
 const getModals = (modals: IModal[], handleCloseModal: () => void) => {
   return modals.map((modal, key) =>
@@ -18,15 +18,13 @@ const getModals = (modals: IModal[], handleCloseModal: () => void) => {
 interface AppProps {
   modals: IModal[];
   handleCloseModal: () => void;
-  handleGetPosts: () => void;
+  handleAuthRef: () => void;
 }
 
-const App: FC<AppProps> = ({ modals, handleCloseModal, handleGetPosts }) => {
+const App: FC<AppProps> = ({ modals, handleCloseModal, handleAuthRef }) => {
   useEffect(() => {
-    console.log('ale');
-    handleGetPosts();
+    handleAuthRef();
   }, []);
-
   return (
     <>
       <Header />
@@ -41,12 +39,13 @@ const AppContainer = () => {
   const dispatch = useDispatch();
   const modals = useTypedSelector((state) => state.modal.modals);
   const handleCloseModal = useCallback(() => dispatch(closeModal()), []);
-  const handleGetPosts = useCallback(() => dispatch(getPosts()), []);
+  const handleAuthRef = useCallback(() => dispatch(AuthRef()), []);
+
   return (
     <App
       modals={modals}
       handleCloseModal={handleCloseModal}
-      handleGetPosts={handleGetPosts}
+      handleAuthRef={handleAuthRef}
     />
   );
 };

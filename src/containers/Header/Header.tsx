@@ -24,6 +24,13 @@ const Header: FC<{
   handleSignOut: () => void;
   isAuth: boolean;
 }> = memo(({ handleToggleMenu, handleOpenModal, handleSignOut, isAuth }) => {
+  const handleCreatePost = () => {
+    if (!isAuth) {
+      return handleOpenModal(EModal.authModal, EModal.authModal, {});
+    }
+    return handleOpenModal(EModal.createPostModal, EModal.createPostModal, {});
+  };
+
   return (
     <HeaderBox>
       <AppBar position='static'>
@@ -54,11 +61,7 @@ const Header: FC<{
           </Box>
           <Search />
           <Button
-            onClick={handleOpenModal(
-              EModal.createPostModal,
-              EModal.createPostModal,
-              {}
-            )}
+            onClick={handleCreatePost()}
             variant='contained'
             color='secondary'
           >
@@ -79,12 +82,12 @@ const Header: FC<{
 const HeaderContainer = () => {
   const dispatch = useDispatch();
   const isAuth = useTypedSelector((state) => state.auth.isAuth);
-
   const handleToggleMenu = useCallback(() => dispatch(AppSetMenu()), []);
   const handleSignOut = useCallback(
     () => dispatch(SetUser({} as IUser, false)),
     []
   );
+
   const handleOpenModal = useCallback(
     (id: string, type: EModal, optional: any) => () =>
       dispatch(openModal(id, type, optional)),
