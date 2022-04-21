@@ -1,11 +1,7 @@
 import { styled } from '@mui/material';
 
 export const PageWrapper = styled('div')(() => ({
-  height: '96vh',
-  marginTop: '4vh',
+  height: '100%',
   flexGrow: '1',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-start',
-  flexDirection: 'column',
+  paddingTop: '15px',
 }));

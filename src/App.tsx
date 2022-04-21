@@ -8,6 +8,7 @@ import { closeModal } from './store/reducers/modalReducer/actions';
 import { useDispatch } from 'react-redux';
 import { getModal } from './helpers/getModal';
 import { AuthRef } from './store/reducers/authReducer/actions';
+import { Box, Stack } from '@mui/material';
 
 const getModals = (modals: IModal[], handleCloseModal: () => void) => {
   return modals.map((modal, key) =>
@@ -28,8 +29,14 @@ const App: FC<AppProps> = ({ modals, handleCloseModal, handleAuthRef }) => {
   return (
     <>
       <Header />
-      <Sidebar />
-      <Router />
+      <Stack
+        sx={{ height: 'calc(100vh - 64px)', width: '100%' }}
+        direction='row'
+        alignItems='center'
+      >
+        <Sidebar />
+        <Router />
+      </Stack>
       {getModals(modals, handleCloseModal)}
     </>
   );

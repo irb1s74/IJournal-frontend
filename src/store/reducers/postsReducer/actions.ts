@@ -11,7 +11,6 @@ export const PostsSetNews = (payload: IPost[]): IPostsSetNews => ({
 export const getPosts = () => async (dispatch: AppDispatch) => {
   try {
     const response = await PostService.getPost();
-    console.log('ale');
     if (response?.data) {
       dispatch(PostsSetNews(response.data));
     }

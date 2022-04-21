@@ -6,6 +6,7 @@ import {
   IoCogSharp,
   IoDocumentSharp,
 } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
 
 interface IHeaderList {
   isMenuOpen: boolean;
@@ -13,12 +14,20 @@ interface IHeaderList {
   anchorEl: null | HTMLElement;
   handleSignOut: () => void;
 }
+
 const HeaderList: FC<IHeaderList> = ({
   isMenuOpen,
   handleMenuClose,
   anchorEl,
   handleSignOut,
 }) => {
+  const navigate = useNavigate();
+  const toNavigate = (link: string) => {
+    return () => {
+      handleMenuClose();
+      navigate(link);
+    };
+  };
   return (
     <Menu
       id='header-list'
@@ -35,7 +44,7 @@ const HeaderList: FC<IHeaderList> = ({
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>
+      <MenuItem onClick={toNavigate('/profile')}>
         <ListItemIcon sx={{ color: '#29253C' }}>
           <IoPersonCircleSharp />
         </ListItemIcon>

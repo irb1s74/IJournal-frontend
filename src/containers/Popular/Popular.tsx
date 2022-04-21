@@ -1,6 +1,6 @@
 import React, { FC, memo, useCallback, useEffect } from 'react';
 import { PageWrapper } from './Popular.styled';
-import { Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import Card from '../../components/UI/NewsCard/Card';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { IPost } from '../../models/IPost';
@@ -19,10 +19,14 @@ const Popular: FC<PopularProps> = memo(({ posts, handleGetPosts }) => {
 
   return (
     <PageWrapper>
-      <Typography variant='h6'>NEWS</Typography>
-      {posts.map((post: IPost, index) => (
-        <Card key={`${index}_${post.id}`} post={post} />
-      ))}
+      <Typography textAlign='center' variant='h6'>
+        NEWS
+      </Typography>
+      <Stack direction='column' alignItems='center' spacing={5}>
+        {posts.map((post: IPost, index) => (
+          <Card key={`${index}_${post.id}`} post={post} />
+        ))}
+      </Stack>
     </PageWrapper>
   );
 });

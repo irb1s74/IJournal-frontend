@@ -121,7 +121,7 @@ const theme = createTheme(palette, {
     MuiTab: {
       styleOverrides: {
         root: {
-          textTransform: 'none',
+          // textTransform: 'none',
           '&.Mui-selected': {
             color: palette.palette.primary.main,
           },
