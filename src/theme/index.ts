@@ -4,11 +4,13 @@ declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
     filter: true;
   }
+
   interface Palette {
     neutral: {
       main: string;
     };
   }
+
   interface PaletteOptions {
     neutral: {
       main: string;
@@ -121,7 +123,8 @@ const theme = createTheme(palette, {
     MuiTab: {
       styleOverrides: {
         root: {
-          // textTransform: 'none',
+          textTransform: 'none',
+          fontWeight: '600',
           '&.Mui-selected': {
             color: palette.palette.primary.main,
           },

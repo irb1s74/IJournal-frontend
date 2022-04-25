@@ -19,18 +19,36 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier"],
+  "plugins": [
+    "react",
+    "prettier"
+  ],
   "rules": {
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [".ts", ".tsx"]
+        "extensions": [
+          ".ts",
+          ".tsx"
+        ]
       }
     ],
-    "react/jsx-one-expression-per-line": [0],
-    "react/prefer-stateless-function": [1],
-    "prettier/prettier": [0],
-    "react/static-property-placement": [1, "property assignment"],
+    "react/jsx-one-expression-per-line": [
+      0
+    ],
+    "react/prefer-stateless-function": [
+      1
+    ],
+    "react-hooks/exhaustive-deps": [
+      0
+    ],
+    "prettier/prettier": [
+      0
+    ],
+    "react/static-property-placement": [
+      1,
+      "property assignment"
+    ],
     "@typescript-eslint/ban-ts-ignore": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-shadow": "off",

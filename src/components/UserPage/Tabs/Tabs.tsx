@@ -4,36 +4,31 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const ProfileTabs = () => {
+const UserPageTabs = () => {
   const [value, setValue] = useState('one');
-
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
 
   const navigate = useNavigate();
   const location = useLocation();
-
   const toNavigate = (event: React.SyntheticEvent, link: string) => {
-    navigate(link);
+    return () => {
+      navigate(link);
+    };
   };
 
   return (
     <Box sx={{ width: '100%', mt: '20px' }}>
       <Tabs
-        value={location.pathname}
+        value={value}
         onChange={toNavigate}
         textColor='secondary'
         indicatorColor='secondary'
         aria-label='secondary tabs example'
       >
-        <Tab value='/profile' label='Статьи' />
-        <Tab value='/profile/comments' label='Комментарии' />
-        <Tab value='/profile/drafts' label='Черновики' />
-        <Tab value='/profile/donates' label='Донаты' />
-        <Tab value='/profile/details' label='Подробнее' />
+        <Tab value='/entries' label='Статьи' />
+        <Tab value='/comments' label='Комментарии' />
+        <Tab value='/details' label='Подробнее' />
       </Tabs>
     </Box>
   );
 };
-export default ProfileTabs;
+export default UserPageTabs;

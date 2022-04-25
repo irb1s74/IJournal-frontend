@@ -8,25 +8,26 @@ export const PageWrapper = styled('div')(() => ({
   margin: '0 auto',
 }));
 
-export const ProfileHeader = styled('div')(() => ({
+export const PageHeader = styled('div')(() => ({
   width: '100%',
   position: 'relative',
   backgroundColor: '#fff',
   borderRadius: '12px',
-  marginBlock: '20px',
 }));
-export const Banner = styled('div')(() => ({
+
+export const HeaderBanner = styled('div')(() => ({
   width: '100%',
   borderRadius: '12px',
   height: '260px',
   backgroundColor: '#29253C',
   // overflow: 'hidden',
 }));
-export const Info = styled(Stack)(() => ({
+
+export const HeaderInfo = styled(Stack)(() => ({
   padding: '15px',
   paddingBottom: '0',
 }));
-export const ProfileAvatar = styled(Avatar)(({ theme }) => ({
+export const HeaderAvatar = styled(Avatar)(({ theme }) => ({
   zIndex: '4',
   width: '80px',
   height: '80px',
@@ -36,6 +37,7 @@ export const ProfileAvatar = styled(Avatar)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
 }));
 
-export const ProfileContent = styled('div')(``, () => ({
+export const PageContent = styled('div')(``, () => ({
   width: '100%',
+  backgroundColor: '#FFF',
 }));

@@ -8,7 +8,7 @@ import { closeModal } from './store/reducers/modalReducer/actions';
 import { useDispatch } from 'react-redux';
 import { getModal } from './helpers/getModal';
 import { AuthRef } from './store/reducers/authReducer/actions';
-import { Box, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 
 const getModals = (modals: IModal[], handleCloseModal: () => void) => {
   return modals.map((modal, key) =>
