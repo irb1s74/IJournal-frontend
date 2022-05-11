@@ -19,7 +19,6 @@ import {
   IoPersonAddSharp,
 } from 'react-icons/io5';
 import { IPost } from '../../../models/IPost';
-import { ROOT_URL } from '../../../helpers/ROOT_URL';
 
 const Card: FC<{ post: IPost }> = ({ post }) => {
   return (
@@ -32,11 +31,11 @@ const Card: FC<{ post: IPost }> = ({ post }) => {
           spacing={2}
         >
           <Avatar
-            alt='Remy Sharp'
-            src='/static/images/avatar/1.jpg'
+            alt={post.author.nickname}
+            src={post.author.avatar}
             sx={{ width: 32, height: 32 }}
           />
-          <Typography variant='subtitle1'>Автор</Typography>
+          <Typography variant='subtitle1'>{post.author.nickname}</Typography>
         </CardHeaderInfo>
         <CardHeaderAction>
           <IconButton sx={{ fontSize: 16 }}>
@@ -48,7 +47,7 @@ const Card: FC<{ post: IPost }> = ({ post }) => {
         <Typography sx={{ mb: '7px', mt: '12px' }} variant='h6'>
           {post.data?.title}
         </Typography>
-        {post.data?.entry.map((obj) =>
+        {post.data.entry?.map((obj) =>
           obj.type === 'paragraph' ? (
             <Typography
               key={obj.id}
@@ -89,7 +88,7 @@ const Card: FC<{ post: IPost }> = ({ post }) => {
             <IoChevronDownOutline />
           </IconButton>
           <Typography color='green' variant='subtitle1'>
-            60
+            {post.rating}
           </Typography>
           <IconButton>
             <IoChevronUpOutline />

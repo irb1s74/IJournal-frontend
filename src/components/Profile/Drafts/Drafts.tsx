@@ -23,10 +23,9 @@ const ProfileDrafts: FC<ProfileDraftsProps> = ({ token }) => {
   }, []);
   return (
     <Stack direction='column' alignItems='center' spacing={5}>
-      {posts.length &&
-        posts.map((post: IPost, index) => (
-          <Card key={`${index}_${post.id}`} post={post} />
-        ))}
+      {posts?.map((post: IPost, index) => (
+        <Card key={`${index}_${post.id}`} post={post} />
+      ))}
     </Stack>
   );
 };

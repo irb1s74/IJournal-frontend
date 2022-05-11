@@ -1,7 +1,6 @@
 import { Avatar, Stack, styled } from '@mui/material';
 
 export const PageWrapper = styled('div')(() => ({
-  height: '100%',
   flexGrow: '1',
   paddingTop: '15px',
   maxWidth: '960px',

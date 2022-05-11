@@ -17,6 +17,7 @@ import { openModal } from '../../store/reducers/modalReducer/actions';
 import { EModal } from '../../models/EModal';
 import { SetUser } from '../../store/reducers/authReducer/actions';
 import { IUser } from '../../models/IUser';
+import { useNavigate } from 'react-router-dom';
 
 const Header: FC<{
   handleToggleMenu: () => IAppSetMenu;
@@ -31,9 +32,15 @@ const Header: FC<{
     return handleOpenModal(EModal.createPostModal, EModal.createPostModal, {});
   };
 
+  const navigate = useNavigate();
+
+  const handleToHome = () => {
+    navigate('/popular');
+  };
+
   return (
     <HeaderBox>
-      <AppBar position='static'>
+      <AppBar position='sticky'>
         <Toolbar>
           <IconButton
             size='large'
@@ -54,7 +61,13 @@ const Header: FC<{
               alignItems: 'center',
             }}
           >
-            <Typography variant='h5' component='div' noWrap>
+            <Typography
+              onClick={handleToHome}
+              variant='h5'
+              component='div'
+              noWrap
+              sx={{cursor:'pointer'}}
+            >
               VIBE
             </Typography>
             <IoFlameSharp size={24} color='#DA4A5E' />

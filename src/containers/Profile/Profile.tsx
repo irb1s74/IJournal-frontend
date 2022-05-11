@@ -48,7 +48,6 @@ const Profile: FC<ProfileProps> = ({ token }) => {
             Suspendisse lobortis nunc tortor, a dapibus lorem euismod nec.
           </Typography>
           <Typography variant='subtitle1' textAlign='left'>
-            {' '}
             650 подписчиков
           </Typography>
           <ProfileTabs />

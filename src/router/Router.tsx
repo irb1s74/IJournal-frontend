@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Popular from '../containers/Popular/Popular';
 import Subscriptions from '../containers/Subscriptions/Subscriptions';
 import Profile from '../containers/Profile/Profile';
@@ -17,6 +17,7 @@ const Router: FC<{ isAuth: boolean }> = ({ isAuth }) => {
           <Route path='subs' element={<Subscriptions />} />
           <Route path='profile/*' element={<Profile />} />
           <Route path='user/:id' element={<UserPage />} />
+          <Route path='*' element={<Navigate to='popular' />} />
         </>
       ) : (
         <>

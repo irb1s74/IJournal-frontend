@@ -30,7 +30,7 @@ const App: FC<AppProps> = ({ modals, handleCloseModal, handleAuthRef }) => {
     <>
       <Header />
       <Stack
-        sx={{ height: 'calc(100vh - 64px)', width: '100%' }}
+        sx={{ height: 'calc(100% - 64px)', width: '100%' }}
         direction='row'
         alignItems='center'
       >

@@ -50,7 +50,7 @@ const HeaderList: FC<IHeaderList> = ({
         </ListItemIcon>
         <Typography variant='body2'>Профиль</Typography>
       </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
+      <MenuItem onClick={toNavigate('/profile/drafts')}>
         <ListItemIcon sx={{ color: '#29253C' }}>
           <IoDocumentSharp />
         </ListItemIcon>
