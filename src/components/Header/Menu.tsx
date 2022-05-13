@@ -21,6 +21,7 @@ const HeaderMenu: FC<HeaderMenuProps> = ({
   isAuth,
   handleOpenModal,
   handleSignOut,
+
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);

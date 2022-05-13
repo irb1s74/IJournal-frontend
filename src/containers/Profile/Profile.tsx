@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import {
   Banner,
   Info,
@@ -13,12 +13,16 @@ import ProfileTabs from '../../components/Profile/Tabs/Tabs';
 import { Route, Routes } from 'react-router-dom';
 import ProfileDrafts from '../../components/Profile/Drafts/Drafts';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useDispatch } from 'react-redux';
+import { EModal } from '../../models/EModal';
+import { openModal } from '../../store/reducers/modalReducer/actions';
 
 interface ProfileProps {
   token: string;
+  handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
 }
 
-const Profile: FC<ProfileProps> = ({ token }) => {
+const Profile: FC<ProfileProps> = ({ token, handleOpenModal }) => {
   return (
     <PageWrapper>
       <ProfileHeader>
@@ -63,7 +67,12 @@ const Profile: FC<ProfileProps> = ({ token }) => {
             path='/comments'
             element={<Typography variant='h1'> drafts</Typography>}
           />
-          <Route path='/drafts' element={<ProfileDrafts token={token} />} />
+          <Route
+            path='/drafts'
+            element={
+              <ProfileDrafts token={token} handleOpenModal={handleOpenModal} />
+            }
+          />
           <Route
             path='/donates'
             element={<Typography variant='h1'> drafts</Typography>}
@@ -79,7 +88,13 @@ const Profile: FC<ProfileProps> = ({ token }) => {
 };
 
 const ContainerProfile = () => {
+  const dispatch = useDispatch();
+  const handleOpenModal = useCallback(
+    (id: string, type: EModal, optional: any) => () =>
+      dispatch(openModal(id, type, optional)),
+    []
+  );
   const token = useTypedSelector((state) => state.auth.user.token);
-  return <Profile token={token} />;
+  return <Profile token={token} handleOpenModal={handleOpenModal} />;
 };
 export default ContainerProfile;

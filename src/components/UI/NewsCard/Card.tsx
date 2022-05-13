@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import {
   CardBoxAction,
   CardContent,
@@ -10,17 +10,35 @@ import {
   CardHeaderInfo,
   WrapperCard,
 } from './Card.styled';
-import { Avatar, CardMedia, IconButton, Typography } from '@mui/material';
+import {
+  Avatar,
+  CardMedia,
+  IconButton,
+  MenuItem,
+  Typography,
+} from '@mui/material';
 import {
   IoBookmark,
   IoChatbubbles,
   IoChevronDownOutline,
   IoChevronUpOutline,
+  IoEllipsisHorizontalSharp,
   IoPersonAddSharp,
 } from 'react-icons/io5';
 import { IPost } from '../../../models/IPost';
+import { EModal } from '../../../models/EModal';
+import MenuList from '../MenuList/MenuList';
 
-const Card: FC<{ post: IPost }> = ({ post }) => {
+const Card: FC<{
+  post: IPost;
+  handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
+}> = ({ post, handleOpenModal }) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const isMenuListOpen = Boolean(anchorEl);
+  const handleMenuListOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleMenuListClose = useCallback(() => setAnchorEl(null), []);
   return (
     <WrapperCard>
       <CardHeader>
@@ -40,6 +58,9 @@ const Card: FC<{ post: IPost }> = ({ post }) => {
         <CardHeaderAction>
           <IconButton sx={{ fontSize: 16 }}>
             <IoPersonAddSharp />
+          </IconButton>
+          <IconButton onClick={handleMenuListOpen} sx={{ fontSize: 16 }}>
+            <IoEllipsisHorizontalSharp />
           </IconButton>
         </CardHeaderAction>
       </CardHeader>
@@ -95,6 +116,21 @@ const Card: FC<{ post: IPost }> = ({ post }) => {
           </IconButton>
         </CardFooterVote>
       </CardFooter>
+      <MenuList
+        isMenuListOpen={isMenuListOpen}
+        anchorEl={anchorEl}
+        handleMenuListClose={handleMenuListClose}
+      >
+        <MenuItem
+          onClick={handleOpenModal(
+            EModal.createPostModal,
+            EModal.createPostModal,
+            post
+          )}
+        >
+          <Typography variant='body2'>Редактировать</Typography>
+        </MenuItem>
+      </MenuList>
     </WrapperCard>
   );
 };

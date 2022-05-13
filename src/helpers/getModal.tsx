@@ -1,7 +1,7 @@
-import { EModal } from '../models/EModal';
 import AuthContainer from '../containers/Auth/Auth';
-import { ReactElement } from 'react';
 import CreatePost from '../containers/CreatePost/CreatePost';
+import { ReactElement } from 'react';
+import { EModal } from '../models/EModal';
 
 const getModal = (
   id: number,
@@ -13,7 +13,7 @@ const getModal = (
     case EModal.authModal:
       return <AuthContainer key={id} closeModal={onClose} />;
     case EModal.createPostModal:
-      return <CreatePost key={id} closeModal={onClose} />;
+      return <CreatePost key={id} closeModal={onClose} option={option} />;
     default:
       return null;
   }

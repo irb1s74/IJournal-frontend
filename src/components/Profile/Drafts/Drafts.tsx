@@ -3,12 +3,14 @@ import { Stack } from '@mui/material';
 import { IPost } from '../../../models/IPost';
 import Card from '../../UI/NewsCard/Card';
 import ProfileService from '../../../api/ProfileService';
+import { EModal } from '../../../models/EModal';
 
 interface ProfileDraftsProps {
   token: string;
+  handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
 }
 
-const ProfileDrafts: FC<ProfileDraftsProps> = ({ token }) => {
+const ProfileDrafts: FC<ProfileDraftsProps> = ({ token, handleOpenModal }) => {
   const [posts, setPosts] = useState<IPost[]>([]);
 
   const initialRequest = async () => {
@@ -24,7 +26,11 @@ const ProfileDrafts: FC<ProfileDraftsProps> = ({ token }) => {
   return (
     <Stack direction='column' alignItems='center' spacing={5}>
       {posts?.map((post: IPost, index) => (
-        <Card key={`${index}_${post.id}`} post={post} />
+        <Card
+          handleOpenModal={handleOpenModal}
+          key={`${index}_${post.id}`}
+          post={post}
+        />
       ))}
     </Stack>
   );
