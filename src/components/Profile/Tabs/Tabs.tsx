@@ -1,16 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const ProfileTabs = () => {
-  const [value, setValue] = useState('one');
-
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
-
   const navigate = useNavigate();
   const location = useLocation();
 

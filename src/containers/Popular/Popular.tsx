@@ -12,50 +12,43 @@ import { openModal } from '../../store/reducers/modalReducer/actions';
 interface PopularProps {
   handleGetPosts: () => void;
   posts: IPost[];
-  handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
 }
 
-const Popular: FC<PopularProps> = memo(
-  ({ posts, handleGetPosts, handleOpenModal }) => {
-    useEffect(() => {
-      handleGetPosts();
-    }, []);
-
-    return (
-      <PageWrapper>
-        <Typography textAlign='center' variant='h6'>
-          NEWS
-        </Typography>
-        <Stack direction='column' alignItems='center' spacing={5}>
-          {posts.map((post: IPost, index) => (
-            <Card
-              handleOpenModal={handleOpenModal}
-              key={`${index}_${post.id}`}
-              post={post}
-            />
-          ))}
-        </Stack>
-      </PageWrapper>
-    );
-  }
-);
-
-const ContainerPopular = () => {
+const Popular: FC<PopularProps> = memo(({ posts, handleGetPosts }) => {
   const dispatch = useDispatch();
-  const posts = useTypedSelector((state) => state.posts.News);
-  const handleGetPosts = useCallback(() => dispatch(getPosts()), []);
   const handleOpenModal = useCallback(
     (id: string, type: EModal, optional: any) => () =>
       dispatch(openModal(id, type, optional)),
     []
   );
+
+  useEffect(() => {
+    handleGetPosts();
+  }, []);
+
   return (
-    <Popular
-      posts={posts}
-      handleOpenModal={handleOpenModal}
-      handleGetPosts={handleGetPosts}
-    />
+    <PageWrapper>
+      <Typography textAlign='center' variant='h6'>
+        Top news
+      </Typography>
+      <Stack direction='column' alignItems='center' spacing={5}>
+        {posts.map((post: IPost, index) => (
+          <Card
+            key={`${index}_${post.id}`}
+            handleOpenModal={handleOpenModal}
+            post={post}
+          />
+        ))}
+      </Stack>
+    </PageWrapper>
   );
+});
+
+const ContainerPopular = () => {
+  const dispatch = useDispatch();
+  const posts = useTypedSelector((state) => state.posts.News);
+  const handleGetPosts = useCallback(() => dispatch(getPosts()), []);
+  return <Popular posts={posts} handleGetPosts={handleGetPosts} />;
 };
 
 export default ContainerPopular;

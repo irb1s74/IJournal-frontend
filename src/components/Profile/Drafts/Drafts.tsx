@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, memo, useEffect, useState } from 'react';
 import { Stack } from '@mui/material';
 import { IPost } from '../../../models/IPost';
 import Card from '../../UI/NewsCard/Card';
@@ -27,8 +27,8 @@ const ProfileDrafts: FC<ProfileDraftsProps> = ({ token, handleOpenModal }) => {
     <Stack direction='column' alignItems='center' spacing={5}>
       {posts?.map((post: IPost, index) => (
         <Card
-          handleOpenModal={handleOpenModal}
           key={`${index}_${post.id}`}
+          handleOpenModal={handleOpenModal}
           post={post}
         />
       ))}
@@ -36,4 +36,4 @@ const ProfileDrafts: FC<ProfileDraftsProps> = ({ token, handleOpenModal }) => {
   );
 };
 
-export default ProfileDrafts;
+export default memo(ProfileDrafts);

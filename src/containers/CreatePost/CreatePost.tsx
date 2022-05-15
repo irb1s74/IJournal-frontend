@@ -1,6 +1,8 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import {
+  Box,
   Button,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -33,15 +35,16 @@ const CreatePost: FC<CreatePostProps> = ({ closeModal, token, option }) => {
   const [postTitle, setPostTitle] = useState('');
 
   const initialRequest = async () => {
+    setIsLoading(true);
     const response = await PostService.create(token);
     if (!response.data.id) {
       closeModal();
     }
     setPostId(response.data.id);
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    setIsLoading(true);
     if (!option) {
       initialRequest();
     } else {
@@ -49,18 +52,16 @@ const CreatePost: FC<CreatePostProps> = ({ closeModal, token, option }) => {
       setPostTitle(option?.data?.title);
       setBody(option?.data?.entry);
     }
-    setIsLoading(false);
   }, []);
 
   const handleUpdatePost = useDebounce((data) => {
-    setIsLoading(true);
-    PostService.update(token, data);
-    setIsLoading(false);
+    const updateRequest = async () => {
+      setIsLoading(true);
+      await PostService.update(token, data);
+      setIsLoading(false);
+    };
+    updateRequest();
   }, 1000);
-
-  useEffect(() => {
-    handleUpdatePost({ postId, data: { title: postTitle, entry: body } });
-  }, [body, postTitle]);
 
   const handleOnChangeEditor = useCallback((arr: OutputData['blocks']) => {
     setBody(arr);
@@ -68,6 +69,14 @@ const CreatePost: FC<CreatePostProps> = ({ closeModal, token, option }) => {
 
   const handleOnChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPostTitle(event.target.value);
+  };
+  useEffect(() => {
+    handleUpdatePost({ postId, data: { title: postTitle, entry: body } });
+  }, [body, postTitle]);
+
+  const postToPublish = async () => {
+    await PostService.makePublish(token, postId);
+    closeModal();
   };
 
   return (
@@ -79,23 +88,35 @@ const CreatePost: FC<CreatePostProps> = ({ closeModal, token, option }) => {
       aria-labelledby='alert-dialog-title'
       aria-describedby='alert-dialog-description'
     >
-      <DialogTitle id='alert-dialog-title'>
-        <Stack justifyContent='space-between' direction='row-reverse'>
-          <IconButton onClick={closeModal}>
-            <IoClose />
-          </IconButton>
+      <DialogTitle sx={{ p: '10px 24px' }} id='alert-dialog-title'>
+        <Stack justifyContent='space-between' direction='row'>
+          <InputBase
+            value={postTitle}
+            placeholder='Заголовок'
+            sx={{ fontSize: '28px' }}
+            onChange={handleOnChangeTitle}
+          />
+          <Box>
+            <IconButton onClick={closeModal}>
+              <IoClose />
+            </IconButton>
+          </Box>
         </Stack>
       </DialogTitle>
-      <DialogContent sx={{ minHeight: '100%' }}>
-        <InputBase
-          placeholder='Заголовок'
-          sx={{ fontSize: '28px', ml: '40px', mb: '10px' }}
-          onChange={handleOnChangeTitle}
-        />
+      <DialogContent dividers sx={{ minHeight: '100%' }}>
         <PostEditor initialBody={body} onChange={handleOnChangeEditor} />
       </DialogContent>
       <DialogActions>
-        <Button variant='contained'>Опубликовать</Button>
+        <Stack direction='row' spacing={4}>
+          {isLoading && <CircularProgress size={30} />}
+          {option?.publish ? (
+            <Button variant='contained'>Сохранить</Button>
+          ) : (
+            <Button onClick={postToPublish} variant='contained'>
+              Опубликовать
+            </Button>
+          )}
+        </Stack>
       </DialogActions>
     </Dialog>
   );
