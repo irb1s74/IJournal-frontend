@@ -19,17 +19,23 @@ import { SetUser } from '../../store/reducers/authReducer/actions';
 import { IUser } from '../../models/IUser';
 import { useNavigate } from 'react-router-dom';
 
-const Header: FC<{
+interface HeaderProps {
   handleToggleMenu: () => IAppSetMenu;
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
   handleSignOut: () => void;
   isAuth: boolean;
-}> = memo(({ handleToggleMenu, handleOpenModal, handleSignOut, isAuth }) => {
+}
+
+const Header: FC<HeaderProps> = memo(({ handleToggleMenu, handleOpenModal, handleSignOut, isAuth }) => {
   const handleCreatePost = () => {
     if (!isAuth) {
-      return handleOpenModal(EModal.authModal, EModal.authModal, {});
+      return handleOpenModal(EModal.authModal, EModal.authModal, null);
     }
-    return handleOpenModal(EModal.createPostModal, EModal.createPostModal, {});
+    return handleOpenModal(
+      EModal.createPostModal,
+      EModal.createPostModal,
+      null
+    );
   };
 
   const navigate = useNavigate();
@@ -66,7 +72,7 @@ const Header: FC<{
               variant='h5'
               component='div'
               noWrap
-              sx={{cursor:'pointer'}}
+              sx={{ cursor: 'pointer' }}
             >
               VIBE
             </Typography>

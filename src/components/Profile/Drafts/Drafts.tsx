@@ -1,7 +1,7 @@
 import React, { FC, memo, useEffect, useState } from 'react';
-import { Stack } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import { IPost } from '../../../models/IPost';
-import Card from '../../UI/NewsCard/Card';
+import Card from '../../UI/Post/Post';
 import ProfileService from '../../../api/ProfileService';
 import { EModal } from '../../../models/EModal';
 
@@ -25,13 +25,34 @@ const ProfileDrafts: FC<ProfileDraftsProps> = ({ token, handleOpenModal }) => {
   }, []);
   return (
     <Stack direction='column' alignItems='center' spacing={5}>
-      {posts?.map((post: IPost, index) => (
-        <Card
-          key={`${index}_${post.id}`}
-          handleOpenModal={handleOpenModal}
-          post={post}
-        />
-      ))}
+      {posts.length ? (
+        posts.map((post: IPost, index) => (
+          <Card
+            key={`${index}_${post.id}`}
+            handleOpenModal={handleOpenModal}
+            post={post}
+          />
+        ))
+      ) : (
+        <Stack
+          spacing={2}
+          direction='column'
+          alignItems='center'
+          justifyContent='center'
+        >
+          <Typography variant='h6'>У вас нету черновиков</Typography>
+          <Button
+            onClick={handleOpenModal(
+              EModal.createPostModal,
+              EModal.createPostModal,
+              null
+            )}
+            variant='contained'
+          >
+            Создать пост
+          </Button>
+        </Stack>
+      )}
     </Stack>
   );
 };

@@ -1,7 +1,7 @@
 import React, { FC, memo, useCallback, useEffect } from 'react';
 import { PageWrapper } from './Popular.styled';
 import { Stack, Typography } from '@mui/material';
-import Card from '../../components/UI/NewsCard/Card';
+import Card from '../../components/UI/Post/Post';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { IPost } from '../../models/IPost';
 import { getPosts } from '../../store/reducers/postsReducer/actions';

@@ -1,5 +1,5 @@
 import AuthContainer from '../containers/Auth/Auth';
-import CreatePost from '../containers/CreatePost/CreatePost';
+import CreatePost from '../containers/PostEditor/PostEditor';
 import { ReactElement } from 'react';
 import { EModal } from '../models/EModal';
 

@@ -12,7 +12,7 @@ interface EditorProps {
   readOnly?: boolean;
 }
 
-const PostEditor: FC<EditorProps> = ({
+const Editor: FC<EditorProps> = ({
   onChange = () => null,
   initialBody = [],
   readOnly = false,
@@ -49,4 +49,4 @@ const PostEditor: FC<EditorProps> = ({
   return <div id='editorjs' />;
 };
 
-export default PostEditor;
+export default Editor;

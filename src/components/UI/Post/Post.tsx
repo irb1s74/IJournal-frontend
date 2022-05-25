@@ -1,15 +1,15 @@
 import React, { FC, useCallback, useState } from 'react';
 import {
-  CardBoxAction,
-  CardContent,
-  CardFooter,
-  CardFooterAction,
-  CardFooterVote,
-  CardHeader,
-  CardHeaderAction,
-  CardHeaderInfo,
-  WrapperCard,
-} from './Card.styled';
+  PostBoxAction,
+  PostContent,
+  PostFooter,
+  PostFooterAction,
+  PostFooterVote,
+  PostHeader,
+  PostHeaderAction,
+  PostHeaderInfo,
+  WrapperPost,
+} from './Post.styled';
 import {
   Avatar,
   CardMedia,
@@ -29,7 +29,7 @@ import { IPost } from '../../../models/IPost';
 import { EModal } from '../../../models/EModal';
 import MenuList from '../MenuList/MenuList';
 
-const Card: FC<{
+const Post: FC<{
   post: IPost;
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
 }> = ({ post, handleOpenModal }) => {
@@ -40,9 +40,9 @@ const Card: FC<{
   };
   const handleMenuListClose = useCallback(() => setAnchorEl(null), []);
   return (
-    <WrapperCard>
-      <CardHeader>
-        <CardHeaderInfo
+    <WrapperPost>
+      <PostHeader>
+        <PostHeaderInfo
           direction='row'
           alignItems='center'
           justifyContent='space-between'
@@ -54,17 +54,17 @@ const Card: FC<{
             sx={{ width: 32, height: 32 }}
           />
           <Typography variant='subtitle1'>{post.author.nickname}</Typography>
-        </CardHeaderInfo>
-        <CardHeaderAction>
+        </PostHeaderInfo>
+        <PostHeaderAction>
           <IconButton sx={{ fontSize: 16 }}>
             <IoPersonAddSharp />
           </IconButton>
           <IconButton onClick={handleMenuListOpen} sx={{ fontSize: 16 }}>
             <IoEllipsisHorizontalSharp />
           </IconButton>
-        </CardHeaderAction>
-      </CardHeader>
-      <CardContent>
+        </PostHeaderAction>
+      </PostHeader>
+      <PostContent>
         <Typography sx={{ mb: '7px', mt: '12px' }} variant='h6'>
           {post.data?.title}
         </Typography>
@@ -86,10 +86,10 @@ const Card: FC<{
             )
           )
         )}
-      </CardContent>
-      <CardFooter>
-        <CardFooterAction direction='row' alignItems='center' spacing={2}>
-          <CardBoxAction
+      </PostContent>
+      <PostFooter>
+        <PostFooterAction direction='row' alignItems='center' spacing={2}>
+          <PostBoxAction
             // onClick={() => {
             //   console.log(this);
             // }}
@@ -99,12 +99,12 @@ const Card: FC<{
             <Typography sx={{ ml: '8px' }} variant='subtitle1'>
               52
             </Typography>
-          </CardBoxAction>
-          <CardBoxAction>
+          </PostBoxAction>
+          <PostBoxAction>
             <IoBookmark />
-          </CardBoxAction>
-        </CardFooterAction>
-        <CardFooterVote direction='row' alignItems='center' spacing={1}>
+          </PostBoxAction>
+        </PostFooterAction>
+        <PostFooterVote direction='row' alignItems='center' spacing={1}>
           <IconButton>
             <IoChevronDownOutline />
           </IconButton>
@@ -114,8 +114,8 @@ const Card: FC<{
           <IconButton>
             <IoChevronUpOutline />
           </IconButton>
-        </CardFooterVote>
-      </CardFooter>
+        </PostFooterVote>
+      </PostFooter>
       <MenuList
         isMenuListOpen={isMenuListOpen}
         anchorEl={anchorEl}
@@ -131,8 +131,8 @@ const Card: FC<{
           <Typography variant='body2'>Редактировать</Typography>
         </MenuItem>
       </MenuList>
-    </WrapperCard>
+    </WrapperPost>
   );
 };
 
-export default Card;
+export default Post;

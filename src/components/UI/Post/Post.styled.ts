@@ -1,13 +1,13 @@
 import { IconButton, Stack, styled } from '@mui/material';
 
-export const WrapperCard = styled('div')(({ theme }) => ({
+export const WrapperPost = styled('div')(({ theme }) => ({
   backgroundColor: '#FFF',
   maxWidth: '640px',
   width: '100%',
   borderRadius: '8px',
 }));
 
-export const CardHeader = styled('div')(({ theme }) => ({
+export const PostHeader = styled('div')(({ theme }) => ({
   paddingLeft: '20px',
   paddingRight: '20px',
   paddingTop: '18px',
@@ -16,15 +16,15 @@ export const CardHeader = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'space-between',
 }));
-export const CardHeaderInfo = styled(Stack)(({ theme }) => ({}));
-export const CardHeaderAction = styled('div')(({ theme }) => ({}));
+export const PostHeaderInfo = styled(Stack)(({ theme }) => ({}));
+export const PostHeaderAction = styled('div')(({ theme }) => ({}));
 
-export const CardContent = styled('div')(({ theme }) => ({
+export const PostContent = styled('div')(({ theme }) => ({
   paddingLeft: '20px',
   paddingRight: '20px',
 }));
 
-export const CardFooter = styled('div')(({ theme }) => ({
+export const PostFooter = styled('div')(({ theme }) => ({
   paddingLeft: '20px',
   paddingRight: '16px',
   paddingBottom: '18px',
@@ -34,10 +34,10 @@ export const CardFooter = styled('div')(({ theme }) => ({
   justifyContent: 'space-between',
 }));
 
-export const CardFooterAction = styled(Stack)(({ theme }) => ({}));
-export const CardFooterVote = styled(Stack)(({ theme }) => ({}));
+export const PostFooterAction = styled(Stack)(({ theme }) => ({}));
+export const PostFooterVote = styled(Stack)(({ theme }) => ({}));
 
-export const CardBoxAction = styled(IconButton)(
+export const PostBoxAction = styled(IconButton)(
   `&:hover {
     color: #DA4A5E
   }`,

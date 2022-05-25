@@ -3,7 +3,7 @@ import { PostsAction, PostsActionEnum, PostsState } from './types';
 const initialState: PostsState = {
   News: [],
 };
-export default function appReducer(
+export default function postsReducer(
   state = initialState,
   action: PostsAction
 ): PostsState {

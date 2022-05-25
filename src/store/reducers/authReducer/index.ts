@@ -6,7 +6,7 @@ const initialState: AuthState = {
   user: {} as IUser,
   messageError: '',
 };
-export default function appReducer(
+export default function authReducer(
   state = initialState,
   action: AuthAction
 ): AuthState {
