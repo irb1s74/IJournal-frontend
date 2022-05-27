@@ -1,4 +1,6 @@
 import React, { FC, useCallback, useState } from 'react';
+import DropList from '../DropList/DropList';
+import Blocks from 'editorjs-blocks-react-renderer';
 import {
   PostBoxAction,
   PostContent,
@@ -11,13 +13,6 @@ import {
   WrapperPost,
 } from './Post.styled';
 import {
-  Avatar,
-  CardMedia,
-  IconButton,
-  MenuItem,
-  Typography,
-} from '@mui/material';
-import {
   IoBookmark,
   IoChatbubbles,
   IoChevronDownOutline,
@@ -25,20 +20,28 @@ import {
   IoEllipsisHorizontalSharp,
   IoPersonAddSharp,
 } from 'react-icons/io5';
+import { Avatar, IconButton, MenuItem, Typography } from '@mui/material';
 import { IPost } from '../../../models/IPost';
 import { EModal } from '../../../models/EModal';
-import MenuList from '../MenuList/MenuList';
+import { renderConfig } from './renderConfig';
 
-const Post: FC<{
+interface PostProps {
   post: IPost;
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
-}> = ({ post, handleOpenModal }) => {
+  profileRender?: boolean;
+}
+
+const Post: FC<PostProps> = ({
+  post,
+  handleOpenModal,
+  profileRender = false,
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const isMenuListOpen = Boolean(anchorEl);
-  const handleMenuListOpen = (event: React.MouseEvent<HTMLElement>) => {
+  const isDropListOpen = Boolean(anchorEl);
+  const handleDropListOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleMenuListClose = useCallback(() => setAnchorEl(null), []);
+  const handleDropListClose = useCallback(() => setAnchorEl(null), []);
   return (
     <WrapperPost>
       <PostHeader>
@@ -59,7 +62,7 @@ const Post: FC<{
           <IconButton sx={{ fontSize: 16 }}>
             <IoPersonAddSharp />
           </IconButton>
-          <IconButton onClick={handleMenuListOpen} sx={{ fontSize: 16 }}>
+          <IconButton onClick={handleDropListOpen} sx={{ fontSize: 16 }}>
             <IoEllipsisHorizontalSharp />
           </IconButton>
         </PostHeaderAction>
@@ -68,33 +71,18 @@ const Post: FC<{
         <Typography sx={{ mb: '7px', mt: '12px' }} variant='h6'>
           {post.data?.title}
         </Typography>
-        {post.data.entry?.map((obj) =>
-          obj.type === 'paragraph' ? (
-            <Typography
-              key={obj.id}
-              dangerouslySetInnerHTML={{ __html: obj.data.text }}
-            />
-          ) : (
-            obj.type === 'image' && (
-              <CardMedia
-                key={obj.id}
-                component='img'
-                height='194'
-                image={`${obj.data.file.url}`}
-                alt={obj.data.caption}
-              />
-            )
-          )
-        )}
+        <Blocks
+          data={{
+            time: 1610632160642,
+            version: '2.24.3',
+            blocks: post.data.entry,
+          }}
+          config={renderConfig}
+        />
       </PostContent>
       <PostFooter>
         <PostFooterAction direction='row' alignItems='center' spacing={2}>
-          <PostBoxAction
-            // onClick={() => {
-            //   console.log(this);
-            // }}
-            disableRipple
-          >
+          <PostBoxAction disableRipple>
             <IoChatbubbles />
             <Typography sx={{ ml: '8px' }} variant='subtitle1'>
               52
@@ -116,21 +104,55 @@ const Post: FC<{
           </IconButton>
         </PostFooterVote>
       </PostFooter>
-      <MenuList
-        isMenuListOpen={isMenuListOpen}
+      <DropList
+        isDropListOpen={isDropListOpen}
         anchorEl={anchorEl}
-        handleMenuListClose={handleMenuListClose}
+        handleDropListClose={handleDropListClose}
       >
-        <MenuItem
-          onClick={handleOpenModal(
-            EModal.createPostModal,
-            EModal.createPostModal,
-            post
-          )}
-        >
-          <Typography variant='body2'>Редактировать</Typography>
-        </MenuItem>
-      </MenuList>
+        {profileRender ? (
+          <>
+            <MenuItem
+              onClick={handleOpenModal(
+                EModal.createPostModal,
+                EModal.createPostModal,
+                post
+              )}
+            >
+              <Typography variant='body2'>Редактировать</Typography>
+            </MenuItem>
+            <MenuItem
+              onClick={handleOpenModal(
+                EModal.createPostModal,
+                EModal.createPostModal,
+                post
+              )}
+            >
+              <Typography variant='body2'>Удалить</Typography>
+            </MenuItem>
+          </>
+        ) : (
+          <>
+            <MenuItem
+              onClick={handleOpenModal(
+                EModal.createPostModal,
+                EModal.createPostModal,
+                post
+              )}
+            >
+              <Typography variant='body2'>Пожаловаться</Typography>
+            </MenuItem>
+            <MenuItem
+              onClick={handleOpenModal(
+                EModal.createPostModal,
+                EModal.createPostModal,
+                post
+              )}
+            >
+              <Typography variant='body2'>Скрыть</Typography>
+            </MenuItem>
+          </>
+        )}
+      </DropList>
     </WrapperPost>
   );
 };

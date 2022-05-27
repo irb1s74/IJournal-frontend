@@ -9,7 +9,7 @@ const initialState: PostEditorState = {
   postEditorFetchStatus: EFetchStatus.idle,
   postId: 0,
 };
-export default function createPostReducer(
+export default function postEditorReducer(
   state = initialState,
   action: PostEditorAction
 ): PostEditorState {

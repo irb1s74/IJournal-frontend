@@ -24,6 +24,7 @@ import {
   PostEditorUpdate,
   SetPostEditorId,
 } from '../../store/reducers/postEditorReducer/action';
+import TestEditor from '../../components/UI/Editor/TestEditor';
 
 interface PostEditorProps {
   initialRequest: (token: string) => void;
@@ -47,6 +48,7 @@ const PostEditor: FC<PostEditorProps> = ({
   postToPublish,
 }) => {
   const [body, setBody] = useState<OutputData['blocks']>([]);
+  const editorCore = React.useRef(null)
   const [postTitle, setPostTitle] = useState('');
   useEffect(() => {
     if (!option) {
@@ -61,6 +63,10 @@ const PostEditor: FC<PostEditorProps> = ({
   const handleOnChangeEditor = useCallback((arr: OutputData['blocks']) => {
     setBody(arr);
   }, []);
+  const handleInitialize = React.useCallback((instance) => {
+    editorCore.current = instance
+    console.log(instance)
+  }, [])
 
   const handleOnChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPostTitle(event.target.value);
@@ -76,6 +82,7 @@ const PostEditor: FC<PostEditorProps> = ({
   const handlePostToPublish = () => {
     postToPublish(token);
   };
+  // <TestEditor initialBody={body} onChange={handleInitialize} />
 
   return (
     <Dialog
@@ -102,7 +109,7 @@ const PostEditor: FC<PostEditorProps> = ({
         </Stack>
       </DialogTitle>
       <DialogContent dividers sx={{ minHeight: '100%' }}>
-        <Editor initialBody={body} onChange={handleOnChangeEditor} />
+       <Editor initialBody={body} onChange={handleOnChangeEditor}/>
       </DialogContent>
       <DialogActions>
         <Stack direction='row' alignItems='center' spacing={2}>

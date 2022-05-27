@@ -1,7 +1,7 @@
 import React, { FC, memo, useCallback, useEffect } from 'react';
 import { PageWrapper } from './Popular.styled';
 import { Stack, Typography } from '@mui/material';
-import Card from '../../components/UI/Post/Post';
+import Post from '../../components/UI/Post/Post';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { IPost } from '../../models/IPost';
 import { getPosts } from '../../store/reducers/postsReducer/actions';
@@ -33,7 +33,7 @@ const Popular: FC<PopularProps> = memo(({ posts, handleGetPosts }) => {
       </Typography>
       <Stack direction='column' alignItems='center' spacing={5}>
         {posts.map((post: IPost, index) => (
-          <Card
+          <Post
             key={`${index}_${post.id}`}
             handleOpenModal={handleOpenModal}
             post={post}

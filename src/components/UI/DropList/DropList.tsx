@@ -1,22 +1,22 @@
 import React, { FC, memo } from 'react';
-import { ListItemIcon, Menu, MenuItem, Typography } from '@mui/material';
+import { Menu } from '@mui/material';
 
-interface MenuListProps {
+interface DropListProps {
   children: React.ReactNode;
-  isMenuListOpen: boolean;
-  handleMenuListClose: () => void;
+  isDropListOpen: boolean;
+  handleDropListClose: () => void;
   anchorEl: null | HTMLElement;
 }
 
-const MenuList: FC<MenuListProps> = ({
-  isMenuListOpen,
+const DropList: FC<DropListProps> = ({
+  isDropListOpen,
   children,
-  handleMenuListClose,
+  handleDropListClose,
   anchorEl,
 }) => {
   return (
     <Menu
-      id='menu-list'
+      id='drop-list'
       keepMounted
       anchorEl={anchorEl}
       anchorOrigin={{
@@ -27,12 +27,12 @@ const MenuList: FC<MenuListProps> = ({
         vertical: 'top',
         horizontal: 'center',
       }}
-      open={isMenuListOpen}
-      onClose={handleMenuListClose}
+      open={isDropListOpen}
+      onClose={handleDropListClose}
     >
       {children}
     </Menu>
   );
 };
 
-export default memo(MenuList);
+export default memo(DropList);

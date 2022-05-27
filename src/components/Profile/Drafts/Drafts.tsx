@@ -1,7 +1,7 @@
 import React, { FC, memo, useEffect, useState } from 'react';
 import { Button, Stack, Typography } from '@mui/material';
 import { IPost } from '../../../models/IPost';
-import Card from '../../UI/Post/Post';
+import Post from '../../UI/Post/Post';
 import ProfileService from '../../../api/ProfileService';
 import { EModal } from '../../../models/EModal';
 
@@ -27,10 +27,11 @@ const ProfileDrafts: FC<ProfileDraftsProps> = ({ token, handleOpenModal }) => {
     <Stack direction='column' alignItems='center' spacing={5}>
       {posts.length ? (
         posts.map((post: IPost, index) => (
-          <Card
+          <Post
             key={`${index}_${post.id}`}
             handleOpenModal={handleOpenModal}
             post={post}
+            profileRender
           />
         ))
       ) : (

@@ -1,10 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import EditorJS, { OutputData } from '@editorjs/editorjs';
-import { ROOT_URL } from '../../../helpers/ROOT_URL';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import ImageTool from '@editorjs/image';
-// import Header from '@editorjs/header'
+import { EDITOR_JS_TOOLS } from '../../../helpers/editorTools';
+import { translate } from '../../../helpers/i18nEditor';
 
 interface EditorProps {
   onChange?: (blocks: OutputData['blocks']) => void;
@@ -19,17 +16,8 @@ const Editor: FC<EditorProps> = ({
 }) => {
   useEffect(() => {
     const editor = new EditorJS({
-      tools: {
-        image: {
-          class: ImageTool,
-          config: {
-            endpoints: {
-              byFile: `${ROOT_URL}post/add/image`, // Your backend file uploader endpoint
-              byUrl: `http://localhost:5000/posts/62cf9ced-86b5-4241-bf82-b46be667e507.jpg`, // Your endpoint that provides uploading by Url
-            },
-          },
-        },
-      },
+      tools: EDITOR_JS_TOOLS,
+      i18n: translate,
       readOnly,
       holder: 'editorjs',
       async onChange() {

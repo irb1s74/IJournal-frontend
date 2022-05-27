@@ -68,18 +68,32 @@ export default class PostService {
 
   static async makePublish(token: string, postId: number) {
     return axios
-      .post(
-        `post/toPublish/${postId}`,
-        {},
-        {
-          baseURL: ROOT_URL,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .get(`post/publish/${postId}`, {
+        baseURL: ROOT_URL,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((e) => {
+        return e.response;
+      });
+  }
+
+  static async deletePost(token: string, postId: number) {
+    return axios
+      .delete(`post/delete/${postId}`, {
+        baseURL: ROOT_URL,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         return res;
       })
