@@ -15,11 +15,13 @@ export enum ProfileActionEnum {
 
 export interface IProfileSetDraftPosts {
   type: ProfileActionEnum.SET_DRAFT_POSTS;
+  status: EFetchStatus;
   payload: IPost[];
 }
 
 export interface IProfileSetPublishPosts {
   type: ProfileActionEnum.SET_PUBLISH_POSTS;
+  status: EFetchStatus;
   payload: IPost[];
 }
 

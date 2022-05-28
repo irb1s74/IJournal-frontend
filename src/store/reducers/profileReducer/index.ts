@@ -1,5 +1,4 @@
 import { ProfileAction, ProfileActionEnum, ProfileState } from './types';
-import { IPost } from '../../../models/IPost';
 import { EFetchStatus } from '../../../models/EFetchStatus';
 
 const initialState: ProfileState = {
@@ -13,8 +12,14 @@ export default function profileReducer(
   action: ProfileAction
 ) {
   switch (action.type) {
+    case ProfileActionEnum.SET_PROFILE_FETCH_STATUS:
+      return { ...state, profileFetchStatus: action.payload };
     case ProfileActionEnum.SET_DRAFT_POSTS:
-      return { ...state, draftPosts: action.payload };
+      return {
+        ...state,
+        draftPosts: action.payload,
+        profileFetchStatus: action.status,
+      };
     case ProfileActionEnum.SET_PUBLISH_POSTS:
       return { ...state, publishPosts: action.payload };
     default:

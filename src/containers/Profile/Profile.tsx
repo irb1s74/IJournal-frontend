@@ -16,13 +16,29 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
 import { EModal } from '../../models/EModal';
 import { openModal } from '../../store/reducers/modalReducer/actions';
+import { EFetchStatus } from '../../models/EFetchStatus';
+import { getDraftPosts } from '../../store/reducers/profileReducer/action';
+import { IPost } from '../../models/IPost';
 
 interface ProfileProps {
   token: string;
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
+  profileFetchStatus: EFetchStatus;
+  handleGetDraftPosts: () => void;
+  draftPosts: IPost[];
 }
 
-const Profile: FC<ProfileProps> = ({ token, handleOpenModal }) => {
+const Profile: FC<ProfileProps> = ({
+  token,
+  handleOpenModal,
+  profileFetchStatus,
+  handleGetDraftPosts,
+  draftPosts,
+}) => {
+  const profileIsLoading =
+    profileFetchStatus === EFetchStatus.loading ||
+    profileFetchStatus === EFetchStatus.idle;
+
   return (
     <PageWrapper>
       <ProfileHeader>
@@ -70,7 +86,13 @@ const Profile: FC<ProfileProps> = ({ token, handleOpenModal }) => {
           <Route
             path='/drafts'
             element={
-              <ProfileDrafts token={token} handleOpenModal={handleOpenModal} />
+              <ProfileDrafts
+                draftPosts={draftPosts}
+                isLoading={profileIsLoading}
+                getDraftPosts={handleGetDraftPosts}
+                token={token}
+                handleOpenModal={handleOpenModal}
+              />
             }
           />
           <Route
@@ -89,12 +111,28 @@ const Profile: FC<ProfileProps> = ({ token, handleOpenModal }) => {
 
 const ContainerProfile = () => {
   const dispatch = useDispatch();
+  const token = useTypedSelector((state) => state.auth.user.token);
+  const profileFetchStatus = useTypedSelector(
+    (state) => state.profile.profileFetchStatus
+  );
+  const draftPosts = useTypedSelector((state) => state.profile.draftPosts);
+  const handleGetDraftPosts = useCallback(
+    () => dispatch(getDraftPosts(token)),
+    []
+  );
   const handleOpenModal = useCallback(
     (id: string, type: EModal, optional: any) => () =>
       dispatch(openModal(id, type, optional)),
     []
   );
-  const token = useTypedSelector((state) => state.auth.user.token);
-  return <Profile token={token} handleOpenModal={handleOpenModal} />;
+  return (
+    <Profile
+      profileFetchStatus={profileFetchStatus}
+      token={token}
+      handleGetDraftPosts={handleGetDraftPosts}
+      handleOpenModal={handleOpenModal}
+      draftPosts={draftPosts}
+    />
+  );
 };
 export default ContainerProfile;

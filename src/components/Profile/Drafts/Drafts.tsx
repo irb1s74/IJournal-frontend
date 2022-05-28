@@ -1,32 +1,34 @@
-import React, { FC, memo, useEffect, useState } from 'react';
-import { Button, Stack, Typography } from '@mui/material';
+import React, { FC, memo, useEffect } from 'react';
+import { Button, CircularProgress, Stack, Typography } from '@mui/material';
 import { IPost } from '../../../models/IPost';
 import Post from '../../UI/Post/Post';
-import ProfileService from '../../../api/ProfileService';
 import { EModal } from '../../../models/EModal';
 
 interface ProfileDraftsProps {
   token: string;
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
+  isLoading: boolean;
+  getDraftPosts: () => void;
+  draftPosts: IPost[];
 }
 
-const ProfileDrafts: FC<ProfileDraftsProps> = ({ token, handleOpenModal }) => {
-  const [posts, setPosts] = useState<IPost[]>([]);
-
-  const initialRequest = async () => {
-    const response = await ProfileService.getDrafts(token);
-    if (response.data) {
-      setPosts(response.data);
-    }
-  };
-
+const ProfileDrafts: FC<ProfileDraftsProps> = ({
+  token,
+  handleOpenModal,
+  isLoading,
+  getDraftPosts,
+  draftPosts,
+}) => {
   useEffect(() => {
-    initialRequest();
+    getDraftPosts();
   }, []);
   return (
     <Stack direction='column' alignItems='center' spacing={5}>
-      {posts.length ? (
-        posts.map((post: IPost, index) => (
+      {/* eslint-disable-next-line no-nested-ternary */}
+      {isLoading ? (
+        <CircularProgress />
+      ) : draftPosts.length ? (
+        draftPosts.map((post: IPost, index) => (
           <Post
             key={`${index}_${post.id}`}
             handleOpenModal={handleOpenModal}
