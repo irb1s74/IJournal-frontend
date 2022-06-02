@@ -2,10 +2,12 @@ export const translate = {
   /**
    * @type {I18nDictionary}
    */
+
   messages: {
     /**
      * Other below: translation of different UI components of the editor.js core
      */
+
     ui: {
       blockTunes: {
         toggler: {

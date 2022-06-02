@@ -21,7 +21,11 @@ export default function profileReducer(
         profileFetchStatus: action.status,
       };
     case ProfileActionEnum.SET_PUBLISH_POSTS:
-      return { ...state, publishPosts: action.payload };
+      return {
+        ...state,
+        publishPosts: action.payload,
+        profileFetchStatus: action.status,
+      };
     default:
       return state;
   }

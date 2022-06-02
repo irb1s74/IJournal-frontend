@@ -20,21 +20,28 @@ import {
   IoEllipsisHorizontalSharp,
   IoPersonAddSharp,
 } from 'react-icons/io5';
-import { Avatar, IconButton, MenuItem, Typography } from '@mui/material';
+import { Avatar, IconButton, Typography } from '@mui/material';
 import { IPost } from '../../../models/IPost';
 import { EModal } from '../../../models/EModal';
 import { renderConfig } from './renderConfig';
+import DropListItems from './widget/DropListItems';
 
 interface PostProps {
   post: IPost;
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
+  handleToUnPublish?: (postId: number) => () => void;
+  handleDeletePost?: (postId: number) => () => void;
   profileRender?: boolean;
+  isDraft?: boolean;
 }
 
 const Post: FC<PostProps> = ({
   post,
   handleOpenModal,
   profileRender = false,
+  handleToUnPublish,
+  isDraft = false,
+  handleDeletePost,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isDropListOpen = Boolean(anchorEl);
@@ -59,6 +66,20 @@ const Post: FC<PostProps> = ({
           <Typography variant='subtitle1'>{post.author.nickname}</Typography>
         </PostHeaderInfo>
         <PostHeaderAction>
+          {isDraft && (
+            <Typography
+              sx={{
+                bgcolor: '#29253C',
+                color: '#FFF',
+                p: '5px',
+                mr: '8px',
+                borderRadius: '5px',
+              }}
+              variant='overline'
+            >
+              Черновик
+            </Typography>
+          )}
           <IconButton sx={{ fontSize: 16 }}>
             <IoPersonAddSharp />
           </IconButton>
@@ -109,49 +130,13 @@ const Post: FC<PostProps> = ({
         anchorEl={anchorEl}
         handleDropListClose={handleDropListClose}
       >
-        {profileRender ? (
-          <>
-            <MenuItem
-              onClick={handleOpenModal(
-                EModal.createPostModal,
-                EModal.createPostModal,
-                post
-              )}
-            >
-              <Typography variant='body2'>Редактировать</Typography>
-            </MenuItem>
-            <MenuItem
-              onClick={handleOpenModal(
-                EModal.createPostModal,
-                EModal.createPostModal,
-                post
-              )}
-            >
-              <Typography variant='body2'>Удалить</Typography>
-            </MenuItem>
-          </>
-        ) : (
-          <>
-            <MenuItem
-              onClick={handleOpenModal(
-                EModal.createPostModal,
-                EModal.createPostModal,
-                post
-              )}
-            >
-              <Typography variant='body2'>Пожаловаться</Typography>
-            </MenuItem>
-            <MenuItem
-              onClick={handleOpenModal(
-                EModal.createPostModal,
-                EModal.createPostModal,
-                post
-              )}
-            >
-              <Typography variant='body2'>Скрыть</Typography>
-            </MenuItem>
-          </>
-        )}
+        <DropListItems
+          post={post}
+          handleOpenModal={handleOpenModal}
+          profileRender={profileRender}
+          handleToUnPublish={handleToUnPublish}
+          handleDeletePost={handleDeletePost}
+        />
       </DropList>
     </WrapperPost>
   );

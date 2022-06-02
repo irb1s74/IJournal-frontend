@@ -4,38 +4,40 @@ import { IPost } from '../../../models/IPost';
 import Post from '../../UI/Post/Post';
 import { EModal } from '../../../models/EModal';
 
-interface ProfileDraftsProps {
+interface ProfilePublishProps {
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
-  isLoading: boolean;
-  getDraftPosts: () => void;
+  handleToUnPublish: (postId: number) => () => void;
   handleDeletePost: (postId: number) => () => void;
-  draftPosts: IPost[];
+  isLoading: boolean;
+  getPublishPosts: () => void;
+  publishPosts: IPost[];
 }
 
-const ProfileDrafts: FC<ProfileDraftsProps> = ({
+const ProfilePublish: FC<ProfilePublishProps> = ({
   handleOpenModal,
+  getPublishPosts,
   isLoading,
-  getDraftPosts,
-  draftPosts,
+  publishPosts,
+  handleToUnPublish,
   handleDeletePost,
 }) => {
   useEffect(() => {
-    getDraftPosts();
+    getPublishPosts();
   }, []);
   return (
     <Stack direction='column' alignItems='center' spacing={5}>
       {/* eslint-disable-next-line no-nested-ternary */}
       {isLoading ? (
         <CircularProgress />
-      ) : draftPosts.length ? (
-        draftPosts.map((post: IPost, index) => (
+      ) : publishPosts.length ? (
+        publishPosts.map((post: IPost, index) => (
           <Post
             key={`${index}_${post.id}`}
             handleOpenModal={handleOpenModal}
+            handleToUnPublish={handleToUnPublish}
             handleDeletePost={handleDeletePost}
             post={post}
             profileRender
-            isDraft
           />
         ))
       ) : (
@@ -45,7 +47,7 @@ const ProfileDrafts: FC<ProfileDraftsProps> = ({
           alignItems='center'
           justifyContent='center'
         >
-          <Typography variant='h6'>У вас нету черновиков</Typography>
+          <Typography variant='h6'>У вас нету опубликованных постов</Typography>
           <Button
             onClick={handleOpenModal(
               EModal.createPostModal,
@@ -62,4 +64,4 @@ const ProfileDrafts: FC<ProfileDraftsProps> = ({
   );
 };
 
-export default memo(ProfileDrafts);
+export default memo(ProfilePublish);

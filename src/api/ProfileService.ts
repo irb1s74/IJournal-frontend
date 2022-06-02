@@ -19,4 +19,22 @@ export default class ProfileService {
         return error.response;
       });
   }
+
+  static async getPublish(token: string): Promise<AxiosResponse> {
+    return axios
+      .get('/post/publish', {
+        baseURL: ROOT_URL,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        return error.response;
+      });
+  }
 }
