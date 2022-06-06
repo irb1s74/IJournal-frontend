@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, memo, useCallback, useState } from 'react';
 import DropList from '../DropList/DropList';
 import Blocks from 'editorjs-blocks-react-renderer';
 import {
@@ -20,11 +20,12 @@ import {
   IoEllipsisHorizontalSharp,
   IoPersonAddSharp,
 } from 'react-icons/io5';
-import { Avatar, IconButton, Typography } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import { IPost } from '../../../models/IPost';
 import { EModal } from '../../../models/EModal';
 import { renderConfig } from './renderConfig';
 import DropListItems from './widget/DropListItems';
+import Avatar from '../Avatar/Avatar';
 
 interface PostProps {
   post: IPost;
@@ -59,9 +60,7 @@ const Post: FC<PostProps> = ({
           spacing={2}
         >
           <Avatar
-            alt={post.author.nickname}
-            src={post.author.avatar}
-            sx={{ width: 32, height: 32 }}
+            user={post.author}
           />
           <Typography variant='subtitle1'>{post.author.nickname}</Typography>
         </PostHeaderInfo>
@@ -142,4 +141,4 @@ const Post: FC<PostProps> = ({
   );
 };
 
-export default Post;
+export default memo(Post);

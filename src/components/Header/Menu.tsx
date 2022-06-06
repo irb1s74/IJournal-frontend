@@ -7,21 +7,24 @@ import {
   IoEllipsisVerticalSharp,
   IoNotifications,
 } from 'react-icons/io5';
-import { Avatar, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import HeaderList from './List';
 import { EModal } from '../../models/EModal';
+import { IUser } from '../../models/IUser';
+import Avatar from '../UI/Avatar/Avatar';
 
 interface HeaderMenuProps {
   isAuth: boolean;
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
   handleSignOut: () => void;
+  user: IUser;
 }
 
 const HeaderMenu: FC<HeaderMenuProps> = ({
   isAuth,
   handleOpenModal,
   handleSignOut,
-
+  user,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -72,10 +75,7 @@ const HeaderMenu: FC<HeaderMenuProps> = ({
           color='inherit'
           onClick={handleProfileMenuOpen}
         >
-          <Avatar
-            alt='Remy Sharp'
-            src='https://marscode.s3.eu-north-1.amazonaws.com/assets/img/nft/1625487699456.gif'
-          />
+          <Avatar user={user} />
         </IconButton>
       </Box>
       <Box

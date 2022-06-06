@@ -1,5 +1,9 @@
 @import './fonts.scss';
 
+* {
+  transition-duration: 3s;
+}
+
 body {
   font-family: 'Montserrat', sans-serif;
   height: 100vh;

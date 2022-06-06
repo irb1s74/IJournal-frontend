@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, memo, useCallback, useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -24,7 +24,6 @@ import {
   PostEditorUpdate,
   SetPostEditorId,
 } from '../../store/reducers/postEditorReducer/action';
-import TestEditor from '../../components/UI/Editor/TestEditor';
 
 interface PostEditorProps {
   initialRequest: (token: string) => void;
@@ -37,97 +36,100 @@ interface PostEditorProps {
   fetchStatus: EFetchStatus;
 }
 
-const PostEditor: FC<PostEditorProps> = ({
-  closeModal,
-  token,
-  option,
-  fetchStatus,
-  initialRequest,
-  updatePost,
-  setPostId,
-  postToPublish,
-}) => {
-  const [body, setBody] = useState<OutputData['blocks']>([]);
-  const editorCore = React.useRef(null)
-  const [postTitle, setPostTitle] = useState('');
-  useEffect(() => {
-    if (!option) {
-      initialRequest(token);
-    } else {
-      setPostId(option?.id);
-      setPostTitle(option?.data?.title);
-      setBody(option?.data?.entry);
-    }
-  }, []);
+const PostEditor: FC<PostEditorProps> = memo(
+  ({
+    closeModal,
+    token,
+    option,
+    fetchStatus,
+    initialRequest,
+    updatePost,
+    setPostId,
+    postToPublish,
+  }) => {
+    const [body, setBody] = useState<OutputData['blocks']>([]);
+    const editorCore = React.useRef(null);
+    const [postTitle, setPostTitle] = useState('');
+    useEffect(() => {
+      if (!option) {
+        initialRequest(token);
+      } else {
+        setPostId(option?.id);
+        setPostTitle(option?.data?.title);
+        setBody(option?.data?.entry);
+      }
+    }, []);
 
-  const handleOnChangeEditor = useCallback((arr: OutputData['blocks']) => {
-    setBody(arr);
-  }, []);
-  const handleInitialize = React.useCallback((instance) => {
-    editorCore.current = instance
-    console.log(instance)
-  }, [])
+    const handleOnChangeEditor = useCallback((arr: OutputData['blocks']) => {
+      setBody(arr);
+    }, []);
 
-  const handleOnChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPostTitle(event.target.value);
-  };
-  const handleUpdatePost = useDebounce(async (data) => {
-    updatePost(token, data);
-  }, 1000);
+    const handleInitialize = useCallback((instance) => {
+      editorCore.current = instance;
+    }, []);
 
-  useEffect(() => {
-    handleUpdatePost({ title: postTitle, entry: body });
-  }, [body, postTitle]);
+    const handleOnChangeTitle = (
+      event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+      setPostTitle(event.target.value);
+    };
+    const handleUpdatePost = useDebounce(async (data) => {
+      updatePost(token, data);
+    }, 1000);
 
-  const handlePostToPublish = () => {
-    postToPublish(token);
-  };
-  // <TestEditor initialBody={body} onChange={handleInitialize} />
+    useEffect(() => {
+      handleUpdatePost({ title: postTitle, entry: body });
+    }, [body, postTitle]);
 
-  return (
-    <Dialog
-      fullWidth
-      open
-      maxWidth='md'
-      onClose={closeModal}
-      aria-labelledby='alert-dialog-title'
-      aria-describedby='alert-dialog-description'
-    >
-      <DialogTitle sx={{ p: '10px 24px' }} id='alert-dialog-title'>
-        <Stack justifyContent='space-between' direction='row'>
-          <InputBase
-            value={postTitle}
-            placeholder='Заголовок'
-            sx={{ fontSize: '28px' }}
-            onChange={handleOnChangeTitle}
-          />
-          <Box>
-            <IconButton onClick={closeModal}>
-              <IoClose />
-            </IconButton>
-          </Box>
-        </Stack>
-      </DialogTitle>
-      <DialogContent dividers sx={{ minHeight: '100%' }}>
-       <Editor initialBody={body} onChange={handleOnChangeEditor}/>
-      </DialogContent>
-      <DialogActions>
-        <Stack direction='row' alignItems='center' spacing={2}>
-          {fetchStatus === 'loading' && (
-            <CircularProgress size={25} color='secondary' />
-          )}
-          {option?.publish ? (
-            <Button variant='contained'>Сохранить</Button>
-          ) : (
-            <Button onClick={handlePostToPublish} variant='contained'>
-              Опубликовать
-            </Button>
-          )}
-        </Stack>
-      </DialogActions>
-    </Dialog>
-  );
-};
+    const handlePostToPublish = () => {
+      postToPublish(token);
+    };
+
+    return (
+      <Dialog
+        fullWidth
+        open
+        maxWidth='md'
+        onClose={closeModal}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
+      >
+        <DialogTitle sx={{ p: '10px 24px' }} id='alert-dialog-title'>
+          <Stack justifyContent='space-between' direction='row'>
+            <InputBase
+              value={postTitle}
+              placeholder='Заголовок'
+              sx={{ fontSize: '28px' }}
+              onChange={handleOnChangeTitle}
+            />
+            <Box>
+              <IconButton onClick={closeModal}>
+                <IoClose />
+              </IconButton>
+            </Box>
+          </Stack>
+        </DialogTitle>
+        <DialogContent dividers sx={{ minHeight: '100%' }}>
+          <Editor initialBody={body} onChange={handleOnChangeEditor} />
+        </DialogContent>
+        <DialogActions>
+          <Stack direction='row' alignItems='center' spacing={2}>
+            {fetchStatus === 'loading' && (
+              <CircularProgress size={25} color='secondary' />
+            )}
+            {option?.publish ? (
+              <Button variant='contained'>Сохранить</Button>
+            ) : (
+              <Button onClick={handlePostToPublish} variant='contained'>
+                Опубликовать
+              </Button>
+            )}
+          </Stack>
+        </DialogActions>
+      </Dialog>
+    );
+  }
+);
 
 const ContainerPostEditor: FC<{ closeModal: () => void; option: any }> = ({
   closeModal,

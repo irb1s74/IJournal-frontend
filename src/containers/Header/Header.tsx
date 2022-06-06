@@ -23,84 +23,89 @@ interface HeaderProps {
   handleToggleMenu: () => IAppSetMenu;
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
   handleSignOut: () => void;
+  user: IUser;
   isAuth: boolean;
 }
 
-const Header: FC<HeaderProps> = memo(({ handleToggleMenu, handleOpenModal, handleSignOut, isAuth }) => {
-  const handleCreatePost = () => {
-    if (!isAuth) {
-      return handleOpenModal(EModal.authModal, EModal.authModal, null);
-    }
-    return handleOpenModal(
-      EModal.createPostModal,
-      EModal.createPostModal,
-      null
-    );
-  };
+const Header: FC<HeaderProps> = memo(
+  ({ handleToggleMenu, handleOpenModal, handleSignOut, isAuth, user }) => {
+    const handleCreatePost = () => {
+      if (!isAuth) {
+        return handleOpenModal(EModal.authModal, EModal.authModal, null);
+      }
+      return handleOpenModal(
+        EModal.createPostModal,
+        EModal.createPostModal,
+        null
+      );
+    };
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const handleToHome = () => {
-    navigate('/popular');
-  };
+    const handleToHome = () => {
+      navigate('/popular');
+    };
 
-  return (
-    <HeaderBox>
-      <AppBar position='sticky'>
-        <Toolbar>
-          <IconButton
-            size='large'
-            edge='start'
-            color='inherit'
-            aria-label='open drawer'
-            sx={{ mr: 2 }}
-            onClick={handleToggleMenu}
-          >
-            <IoMenu />
-          </IconButton>
-          <Box
-            sx={{
-              display: {
-                xs: 'none',
-                sm: 'flex',
-              },
-              alignItems: 'center',
-            }}
-          >
-            <Typography
-              onClick={handleToHome}
-              variant='h5'
-              component='div'
-              noWrap
-              sx={{ cursor: 'pointer' }}
+    return (
+      <HeaderBox>
+        <AppBar position='sticky'>
+          <Toolbar>
+            <IconButton
+              size='large'
+              edge='start'
+              color='inherit'
+              aria-label='open drawer'
+              sx={{ mr: 2 }}
+              onClick={handleToggleMenu}
             >
-              VIBE
-            </Typography>
-            <IoFlameSharp size={24} color='#DA4A5E' />
-          </Box>
-          <Search />
-          <Button
-            onClick={handleCreatePost()}
-            variant='contained'
-            color='secondary'
-          >
-            Новая Запись
-          </Button>
-          <Box sx={{ flexGrow: 1 }} />
-          <HeaderMenu
-            isAuth={isAuth}
-            handleOpenModal={handleOpenModal}
-            handleSignOut={handleSignOut}
-          />
-        </Toolbar>
-      </AppBar>
-    </HeaderBox>
-  );
-});
+              <IoMenu />
+            </IconButton>
+            <Box
+              sx={{
+                display: {
+                  xs: 'none',
+                  sm: 'flex',
+                },
+                alignItems: 'center',
+              }}
+            >
+              <Typography
+                onClick={handleToHome}
+                variant='h5'
+                component='div'
+                noWrap
+                sx={{ cursor: 'pointer' }}
+              >
+                VIBE
+              </Typography>
+              <IoFlameSharp size={24} color='#DA4A5E' />
+            </Box>
+            <Search />
+            <Button
+              onClick={handleCreatePost()}
+              variant='contained'
+              color='secondary'
+            >
+              Новая Запись
+            </Button>
+            <Box sx={{ flexGrow: 1 }} />
+            <HeaderMenu
+              isAuth={isAuth}
+              user={user}
+              handleOpenModal={handleOpenModal}
+              handleSignOut={handleSignOut}
+            />
+          </Toolbar>
+        </AppBar>
+      </HeaderBox>
+    );
+  }
+);
 
 const HeaderContainer = () => {
   const dispatch = useDispatch();
   const isAuth = useTypedSelector((state) => state.auth.isAuth);
+  const user = useTypedSelector((state) => state.auth.user);
   const handleToggleMenu = useCallback(() => dispatch(AppSetMenu()), []);
   const handleSignOut = useCallback(
     () => dispatch(SetUser({} as IUser, false)),
@@ -114,6 +119,7 @@ const HeaderContainer = () => {
   );
   return (
     <Header
+      user={user}
       handleToggleMenu={handleToggleMenu}
       handleOpenModal={handleOpenModal}
       handleSignOut={handleSignOut}

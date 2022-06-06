@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC, memo, useCallback, useEffect } from 'react';
 import Router from './router/Router';
 import Header from './containers/Header/Header';
 import Sidebar from './containers/Sidebar/Sidebar';
@@ -22,25 +22,27 @@ interface AppProps {
   handleAuthRef: () => void;
 }
 
-const App: FC<AppProps> = ({ modals, handleCloseModal, handleAuthRef }) => {
-  useEffect(() => {
-    handleAuthRef();
-  }, []);
-  return (
-    <>
-      <Header />
-      <Stack
-        sx={{ height: 'calc(100% - 64px)', width: '100%' }}
-        direction='row'
-        alignItems='center'
-      >
-        <Sidebar />
-        <Router />
-      </Stack>
-      {getModals(modals, handleCloseModal)}
-    </>
-  );
-};
+const App: FC<AppProps> = memo(
+  ({ modals, handleCloseModal, handleAuthRef }) => {
+    useEffect(() => {
+      handleAuthRef();
+    }, []);
+    return (
+      <>
+        <Header />
+        <Stack
+          sx={{ height: 'calc(100% - 64px)', width: '100%' }}
+          direction='row'
+          alignItems='center'
+        >
+          <Sidebar />
+          <Router />
+        </Stack>
+        {getModals(modals, handleCloseModal)}
+      </>
+    );
+  }
+);
 
 const AppContainer = () => {
   const dispatch = useDispatch();
