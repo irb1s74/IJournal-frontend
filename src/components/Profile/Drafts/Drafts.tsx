@@ -34,7 +34,7 @@ const ProfileDrafts: FC<ProfileDraftsProps> = ({
             handleOpenModal={handleOpenModal}
             handleDeletePost={handleDeletePost}
             post={post}
-            profileRender
+            profile
             isDraft
           />
         ))

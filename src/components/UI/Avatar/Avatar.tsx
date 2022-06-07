@@ -5,16 +5,16 @@ import { IAuthor } from '../../../models/IAuthor';
 
 interface AvatarProps {
   user?: IAuthor;
-  profileRender?: boolean;
+  profile?: boolean;
 }
 
-const Avatar: FC<AvatarProps> = ({ user, profileRender = false }) => {
+const Avatar: FC<AvatarProps> = ({ user, profile = false }) => {
   return (
     <CustomAvatar
       alt={user?.nickname}
       src={user?.avatar && `${ROOT_URL}avatars/${user.avatar}`}
       variant='rounded'
-      profileRender={profileRender}
+      profile={profile}
     />
   );
 };

@@ -17,6 +17,7 @@ declare module '@mui/material/Button' {
     };
   }
 }
+
 const palette = createTheme({
   typography: {
     fontFamily: ['Montserrat', '-apple-system', 'sans-serif'].join(','),

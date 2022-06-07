@@ -1,28 +1,38 @@
-import { Stack, styled } from '@mui/material';
-
-import { IoPencilSharp } from 'react-icons/io5';
+import { Fab, Stack, styled } from '@mui/material';
+import { ROOT_URL } from '../../../helpers/ROOT_URL';
 
 export const Header = styled('div')(() => ({
   width: '100%',
   position: 'relative',
   backgroundColor: '#fff',
   borderRadius: '12px',
-  marginBlock: '20px'
+  marginBlock: '20px',
 }));
-export const Banner = styled('div')(() => ({
+export const Banner = styled('label')<{ bg?: string }>(({ bg }) => ({
   width: '100%',
   borderRadius: '12px',
   height: '260px',
-  backgroundColor: '#29253C'
-  // overflow: 'hidden',
+  backgroundColor: '#29253C',
+  backgroundImage: `url(${ROOT_URL}banners/${bg})`,
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+  position: 'relative',
+  display: 'block',
 }));
 export const Info = styled(Stack)(() => ({
   padding: '15px',
   paddingBottom: '0',
-  position: 'relative'
+  position: 'relative',
 }));
 
-export const WrapperAvatar = styled('div')(
+export const FabBanner = styled(Fab)(({ theme }) => ({
+  position: 'absolute',
+  top: '10px',
+  bgColor: theme.palette.primary.main,
+  right: '10px',
+}));
+export const WrapperAvatar = styled('label')(
   `
   &:hover .icon-pen {
     display: block;
@@ -31,16 +41,7 @@ export const WrapperAvatar = styled('div')(
   () => ({
     zIndex: '4',
     position: 'absolute',
-    right: 'calc(50% - 80px)',
-    transform: 'translate(-50%, -70%)'
+    right: 'calc(50% - 104px)',
+    transform: 'translate(-50%, -70%)',
   })
 );
-export const PenIcon = styled(IoPencilSharp)(``, () => ({
-  position: 'absolute',
-  color: '#FFF',
-  bgColor: 'rgba(23, 23, 25, 0.5)',
-  top: '15px',
-  right: '15px',
-  display: 'none'
-  // transform: 'translate(-50%, 0)',
-}));

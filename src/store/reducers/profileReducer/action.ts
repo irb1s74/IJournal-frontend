@@ -6,9 +6,10 @@ import {
   ProfileActionEnum,
 } from './types';
 import { IPost } from '../../../models/IPost';
-import { AppDispatch } from '../../index';
+import { AppDispatch, store } from '../../index';
 import ProfileService from '../../../api/ProfileService';
 import PostService from '../../../api/PostService';
+import { SetUser } from '../authReducer/actions';
 
 export const SetProfileFetchStatus = (
   status: EFetchStatus
@@ -81,6 +82,31 @@ export const getPublishPosts =
       dispatch(SetProfileFetchStatus(EFetchStatus.loading));
       const response = await ProfileService.getPublish(token);
       dispatch(SetProfilePublishPosts(response.data, EFetchStatus.succeeded));
+    } catch (e) {
+      dispatch(SetProfileFetchStatus(EFetchStatus.failed));
+    }
+  };
+
+export const updateBanner =
+  (token: string, file: any) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(SetProfileFetchStatus(EFetchStatus.loading));
+      const response = await ProfileService.updateBanner(token, file);
+      const { user } = store.getState().auth;
+      dispatch(SetUser({ ...user, banner: response.data }, true));
+      dispatch(SetProfileFetchStatus(EFetchStatus.succeeded));
+    } catch (e) {
+      dispatch(SetProfileFetchStatus(EFetchStatus.failed));
+    }
+  };
+export const updateAvatar =
+  (token: string, file: any) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(SetProfileFetchStatus(EFetchStatus.loading));
+      const response = await ProfileService.updateAvatar(token, file);
+      const { user } = store.getState().auth;
+      dispatch(SetUser({ ...user, avatar: response.data }, true));
+      dispatch(SetProfileFetchStatus(EFetchStatus.succeeded));
     } catch (e) {
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));
     }

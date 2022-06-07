@@ -32,14 +32,14 @@ interface PostProps {
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
   handleToUnPublish?: (postId: number) => () => void;
   handleDeletePost?: (postId: number) => () => void;
-  profileRender?: boolean;
+  profile?: boolean;
   isDraft?: boolean;
 }
 
 const Post: FC<PostProps> = ({
   post,
   handleOpenModal,
-  profileRender = false,
+  profile = false,
   handleToUnPublish,
   isDraft = false,
   handleDeletePost,
@@ -59,9 +59,7 @@ const Post: FC<PostProps> = ({
           justifyContent='space-between'
           spacing={2}
         >
-          <Avatar
-            user={post.author}
-          />
+          <Avatar user={post.author} />
           <Typography variant='subtitle1'>{post.author.nickname}</Typography>
         </PostHeaderInfo>
         <PostHeaderAction>
@@ -132,7 +130,7 @@ const Post: FC<PostProps> = ({
         <DropListItems
           post={post}
           handleOpenModal={handleOpenModal}
-          profileRender={profileRender}
+          profile={profile}
           handleToUnPublish={handleToUnPublish}
           handleDeletePost={handleDeletePost}
         />

@@ -37,7 +37,7 @@ const ProfilePublish: FC<ProfilePublishProps> = ({
             handleToUnPublish={handleToUnPublish}
             handleDeletePost={handleDeletePost}
             post={post}
-            profileRender
+            profile
           />
         ))
       ) : (

@@ -16,6 +16,8 @@ import {
   getDraftPosts,
   getPublishPosts,
   toUnPublish,
+  updateAvatar,
+  updateBanner,
 } from '../../store/reducers/profileReducer/action';
 import { IPost } from '../../models/IPost';
 import { IUser } from '../../models/IUser';
@@ -27,6 +29,8 @@ interface ProfileProps {
   handleGetPublishPosts: () => void;
   handleToUnPublish: (postId: number) => () => void;
   handleDeletePost: (postId: number) => () => void;
+  handleUpdateBanner: (file: any) => void;
+  handleUpdateAvatar: (file: any) => void;
   draftPosts: IPost[];
   publishPosts: IPost[];
   user: IUser;
@@ -42,6 +46,8 @@ const Profile: FC<ProfileProps> = memo(
     publishPosts,
     handleToUnPublish,
     handleDeletePost,
+    handleUpdateBanner,
+    handleUpdateAvatar,
     user,
   }) => {
     const profileIsLoading =
@@ -50,7 +56,11 @@ const Profile: FC<ProfileProps> = memo(
 
     return (
       <PageWrapper>
-        <ProfileHeader user={user} />
+        <ProfileHeader
+          user={user}
+          handleUpdateBanner={handleUpdateBanner}
+          handleUpdateAvatar={handleUpdateAvatar}
+        />
         <ProfileContent>
           <Routes>
             <Route
@@ -68,7 +78,16 @@ const Profile: FC<ProfileProps> = memo(
             />
             <Route
               path='/comments'
-              element={<Typography variant='h1'> drafts</Typography>}
+              element={
+                <ProfilePublish
+                  publishPosts={publishPosts}
+                  isLoading={profileIsLoading}
+                  getPublishPosts={handleGetPublishPosts}
+                  handleOpenModal={handleOpenModal}
+                  handleToUnPublish={handleToUnPublish}
+                  handleDeletePost={handleDeletePost}
+                />
+              }
             />
             <Route
               path='/drafts'
@@ -84,11 +103,29 @@ const Profile: FC<ProfileProps> = memo(
             />
             <Route
               path='/donates'
-              element={<Typography variant='h1'> drafts</Typography>}
+              element={
+                <ProfilePublish
+                  publishPosts={publishPosts}
+                  isLoading={profileIsLoading}
+                  getPublishPosts={handleGetPublishPosts}
+                  handleOpenModal={handleOpenModal}
+                  handleToUnPublish={handleToUnPublish}
+                  handleDeletePost={handleDeletePost}
+                />
+              }
             />
             <Route
               path='/details'
-              element={<Typography variant='h1'> drafts</Typography>}
+              element={
+                <ProfilePublish
+                  publishPosts={publishPosts}
+                  isLoading={profileIsLoading}
+                  getPublishPosts={handleGetPublishPosts}
+                  handleOpenModal={handleOpenModal}
+                  handleToUnPublish={handleToUnPublish}
+                  handleDeletePost={handleDeletePost}
+                />
+              }
             />
           </Routes>
         </ProfileContent>
@@ -129,6 +166,14 @@ const ContainerProfile = () => {
     (postId: number) => () => dispatch(deletePost(token, postId)),
     []
   );
+  const handleUpdateBanner = useCallback(
+    (file: any) => dispatch(updateBanner(token, file)),
+    []
+  );
+  const handleUpdateAvatar = useCallback(
+    (file: any) => dispatch(updateAvatar(token, file)),
+    []
+  );
   return (
     <Profile
       profileFetchStatus={profileFetchStatus}
@@ -137,6 +182,8 @@ const ContainerProfile = () => {
       handleOpenModal={handleOpenModal}
       handleToUnPublish={handleToUnPublish}
       handleDeletePost={handleDeletePost}
+      handleUpdateBanner={handleUpdateBanner}
+      handleUpdateAvatar={handleUpdateAvatar}
       draftPosts={draftPosts}
       publishPosts={publishPosts}
       user={user}

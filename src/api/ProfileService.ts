@@ -37,4 +37,44 @@ export default class ProfileService {
         return error.response;
       });
   }
+
+  static async updateBanner(token: string, files: any): Promise<AxiosResponse> {
+    const formData = new FormData();
+    formData.append('banner', files.item(0));
+    return axios
+      .post('/profile/banner', formData, {
+        baseURL: ROOT_URL,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((e) => {
+        return e.response;
+      });
+  }
+
+  static async updateAvatar(token: string, files: any): Promise<AxiosResponse> {
+    const formData = new FormData();
+    formData.append('avatar', files.item(0));
+    return axios
+      .post('/profile/avatar', formData, {
+        baseURL: ROOT_URL,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((e) => {
+        return e.response;
+      });
+  }
 }
