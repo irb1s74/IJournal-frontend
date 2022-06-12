@@ -22,7 +22,6 @@ const ProfileTabs = () => {
         aria-label='secondary tabs example'
       >
         <Tab value='/profile' label='Статьи' />
-        <Tab value='/profile/comments' label='Комментарии' />
         <Tab value='/profile/drafts' label='Черновики' />
         <Tab value='/profile/donates' label='Донаты' />
         <Tab value='/profile/details' label='Подробнее' />

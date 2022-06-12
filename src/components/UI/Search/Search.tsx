@@ -6,7 +6,6 @@ import {
   StyledInputBase,
 } from './Search.styled';
 
-
 const Search = () => {
   return (
     <SearchInput>
@@ -14,7 +13,7 @@ const Search = () => {
         <IoSearch />
       </SearchIconWrapper>
       <StyledInputBase
-        placeholder="Search…"
+        placeholder='Поиск…'
         inputProps={{ 'aria-label': 'search' }}
       />
     </SearchInput>

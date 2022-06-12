@@ -38,7 +38,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({
     }
   };
   const bannerUpdate = () => {
-    if(bannerFile.current.files){
+    if (bannerFile.current.files) {
       handleUpdateBanner(bannerFile.current.files);
     }
   };

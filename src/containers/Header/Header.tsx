@@ -61,21 +61,17 @@ const Header: FC<HeaderProps> = memo(
               <IoMenu />
             </IconButton>
             <Box
+              onClick={handleToHome}
               sx={{
                 display: {
                   xs: 'none',
                   sm: 'flex',
                 },
+                cursor: 'pointer',
                 alignItems: 'center',
               }}
             >
-              <Typography
-                onClick={handleToHome}
-                variant='h5'
-                component='div'
-                noWrap
-                sx={{ cursor: 'pointer' }}
-              >
+              <Typography variant='h5' component='div' noWrap>
                 VIBE
               </Typography>
               <IoFlameSharp size={24} color='#DA4A5E' />

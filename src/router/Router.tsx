@@ -25,6 +25,7 @@ const Router: FC<{ isAuth: boolean }> = memo(({ isAuth }) => {
           <Route path='bookmarks' element={<div />} />
           <Route path='subs' element={<Subscriptions />} />
           <Route path='user/:id' element={<Profile />} />
+          <Route path='*' element={<Navigate to='popular' />} />
         </>
       )}
     </Routes>

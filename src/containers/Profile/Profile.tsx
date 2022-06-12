@@ -1,6 +1,5 @@
 import React, { FC, memo, useCallback } from 'react';
 import { PageWrapper, ProfileContent } from './Profile.styled';
-import { Typography } from '@mui/material';
 import ProfileHeader from '../../components/Profile/Header/Header';
 import { Route, Routes } from 'react-router-dom';
 import ProfileDrafts from '../../components/Profile/Drafts/Drafts';
@@ -21,6 +20,7 @@ import {
 } from '../../store/reducers/profileReducer/action';
 import { IPost } from '../../models/IPost';
 import { IUser } from '../../models/IUser';
+import ProfileDonates from '../../components/Profile/Donates/Donates';
 
 interface ProfileProps {
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
@@ -77,19 +77,6 @@ const Profile: FC<ProfileProps> = memo(
               }
             />
             <Route
-              path='/comments'
-              element={
-                <ProfilePublish
-                  publishPosts={publishPosts}
-                  isLoading={profileIsLoading}
-                  getPublishPosts={handleGetPublishPosts}
-                  handleOpenModal={handleOpenModal}
-                  handleToUnPublish={handleToUnPublish}
-                  handleDeletePost={handleDeletePost}
-                />
-              }
-            />
-            <Route
               path='/drafts'
               element={
                 <ProfileDrafts
@@ -101,19 +88,7 @@ const Profile: FC<ProfileProps> = memo(
                 />
               }
             />
-            <Route
-              path='/donates'
-              element={
-                <ProfilePublish
-                  publishPosts={publishPosts}
-                  isLoading={profileIsLoading}
-                  getPublishPosts={handleGetPublishPosts}
-                  handleOpenModal={handleOpenModal}
-                  handleToUnPublish={handleToUnPublish}
-                  handleDeletePost={handleDeletePost}
-                />
-              }
-            />
+            <Route path='/donates' element={<ProfileDonates />} />
             <Route
               path='/details'
               element={
