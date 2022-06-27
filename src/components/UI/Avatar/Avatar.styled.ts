@@ -1,6 +1,6 @@
 import { Avatar, styled } from '@mui/material';
 
-export const CustomAvatar = styled(Avatar)<{ profile?: boolean }>(
+export const CustomAvatar = styled(Avatar)<{ profile: boolean }>(
   ``,
   ({ theme, profile }) => ({
     backgroundColor: theme.palette.secondary.main,

@@ -1,7 +1,6 @@
 import React, { FC, memo } from 'react';
 import List from '../../components/Sidebar/List/List';
 import { BoxSidebar, WrapperSidebar } from './Sidebar.styled';
-import { Stack } from '@mui/material';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 interface ISidebar {
@@ -24,7 +23,6 @@ const Sidebar: FC<ISidebar> = memo(({ isMenuOpen }) => {
 
 const SidebarContainer = () => {
   const isMenuOpen = useTypedSelector((state) => state.app.isMenuOpen);
-
   return <Sidebar isMenuOpen={isMenuOpen} />;
 };
 

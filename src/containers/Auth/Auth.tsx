@@ -3,7 +3,6 @@ import React, {
   memo,
   useCallback,
   useEffect,
-  useMemo,
   useState,
 } from 'react';
 import { Dialog } from '@mui/material';

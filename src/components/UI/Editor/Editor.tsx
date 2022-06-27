@@ -1,7 +1,10 @@
 import React, { FC, useEffect } from 'react';
-import EditorJS, { OutputData } from '@editorjs/editorjs';
+import { OutputData } from '@editorjs/editorjs';
 import { EDITOR_JS_TOOLS } from '../../../helpers/editorTools';
 import { translate } from '../../../helpers/i18nEditor';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const EditorJS = require('@editorjs/editorjs');
 
 interface EditorProps {
   onChange?: (blocks: OutputData['blocks']) => void;

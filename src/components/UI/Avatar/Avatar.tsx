@@ -13,8 +13,8 @@ const Avatar: FC<AvatarProps> = ({ user, profile = false }) => {
     <CustomAvatar
       alt={user?.nickname}
       src={user?.avatar && `${ROOT_URL}avatars/${user.avatar}`}
+      profile={!!profile}
       variant='rounded'
-      profile={profile}
     />
   );
 };

@@ -23,7 +23,7 @@ interface SigInProps {
 const validationSchema = yup.object({
   nickname: yup
     .string()
-    .min(8, 'Никнэйм должен иметь длину не менее 3 символов')
+    .min(2, 'Никнэйм должен иметь длину не менее 2 символов')
     .required('Это обязательное поле'),
   email: yup
     .string()

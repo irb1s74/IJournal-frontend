@@ -4,6 +4,6 @@ export interface IUser {
   avatar: string;
   banner: string;
   token: string;
-  // about: string;
-  // updatedAt: string;
+  aboutUser: string;
+  createdAt: string;
 }

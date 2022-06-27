@@ -10,7 +10,7 @@ export const PageWrapper = styled('div')(() => ({
   flexDirection: 'column',
 }));
 
-export const ButtonSubscribe = styled(Button)(({ theme }) => ({
+export const ButtonSubscribe = styled(Button)(() => ({
   minWidth: '0px',
   fontSize: '16px',
   fontWeight: 'bold',

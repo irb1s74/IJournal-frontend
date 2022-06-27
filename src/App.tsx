@@ -1,5 +1,4 @@
 import React, { FC, memo, useCallback, useEffect } from 'react';
-import Router from './router/Router';
 import Header from './containers/Header/Header';
 import Sidebar from './containers/Sidebar/Sidebar';
 import { IModal } from './models/IModal';
@@ -8,6 +7,7 @@ import { closeModal } from './store/reducers/modalReducer/actions';
 import { useDispatch } from 'react-redux';
 import { getModal } from './helpers/getModal';
 import { AuthRef } from './store/reducers/authReducer/actions';
+import Router from './router/Router';
 import { Stack } from '@mui/material';
 
 const getModals = (modals: IModal[], handleCloseModal: () => void) => {
@@ -27,6 +27,7 @@ const App: FC<AppProps> = memo(
     useEffect(() => {
       handleAuthRef();
     }, []);
+
     return (
       <>
         <Header />

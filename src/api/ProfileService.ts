@@ -4,7 +4,7 @@ import { ROOT_URL } from '../helpers/ROOT_URL';
 export default class ProfileService {
   static async getDrafts(token: string): Promise<AxiosResponse> {
     return axios
-      .get('/post/drafts', {
+      .get('/profile/drafts', {
         baseURL: ROOT_URL,
         headers: {
           'Content-Type': 'application/json',
@@ -22,12 +22,46 @@ export default class ProfileService {
 
   static async getPublish(token: string): Promise<AxiosResponse> {
     return axios
-      .get('/post/publish', {
+      .get('/profile/publish', {
         baseURL: ROOT_URL,
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
           Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        return error.response;
+      });
+  }
+
+  static async getUserPosts(userId: number): Promise<AxiosResponse> {
+    return axios
+      .get(`/profile/${userId}/publish`, {
+        baseURL: ROOT_URL,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        return error.response;
+      });
+  }
+
+  static async getUser(userId: number): Promise<AxiosResponse> {
+    return axios
+      .get(`/profile/${userId}`, {
+        baseURL: ROOT_URL,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
         },
       })
       .then((res) => {

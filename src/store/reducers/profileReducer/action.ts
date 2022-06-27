@@ -3,6 +3,7 @@ import {
   IProfileSetDraftPosts,
   IProfileSetFetchStatus,
   IProfileSetPublishPosts,
+  IProfileSetUser,
   ProfileActionEnum,
 } from './types';
 import { IPost } from '../../../models/IPost';
@@ -10,6 +11,7 @@ import { AppDispatch, store } from '../../index';
 import ProfileService from '../../../api/ProfileService';
 import PostService from '../../../api/PostService';
 import { SetUser } from '../authReducer/actions';
+import { IAuthor } from '../../../models/IAuthor';
 
 export const SetProfileFetchStatus = (
   status: EFetchStatus
@@ -25,6 +27,15 @@ export const SetProfileDraftPosts = (
   type: ProfileActionEnum.SET_DRAFT_POSTS,
   status,
   payload: posts,
+});
+
+export const SetProfileUser = (
+  user: IAuthor,
+  status: EFetchStatus
+): IProfileSetUser => ({
+  type: ProfileActionEnum.SET_PROFILE_USER,
+  status,
+  user,
 });
 
 export const SetProfilePublishPosts = (
@@ -58,6 +69,7 @@ export const toUnPublish =
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));
     }
   };
+
 export const deletePost =
   (token: string, postId: number) => async (dispatch: AppDispatch) => {
     try {
@@ -99,6 +111,7 @@ export const updateBanner =
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));
     }
   };
+
 export const updateAvatar =
   (token: string, file: any) => async (dispatch: AppDispatch) => {
     try {
@@ -107,6 +120,19 @@ export const updateAvatar =
       const { user } = store.getState().auth;
       dispatch(SetUser({ ...user, avatar: response.data }, true));
       dispatch(SetProfileFetchStatus(EFetchStatus.succeeded));
+    } catch (e) {
+      dispatch(SetProfileFetchStatus(EFetchStatus.failed));
+    }
+  };
+
+export const getProfileUser =
+  (userId: number) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(SetProfileFetchStatus(EFetchStatus.loading));
+      const posts = await ProfileService.getUserPosts(userId);
+      const user = await ProfileService.getUser(userId);
+      dispatch(SetProfilePublishPosts(posts.data, EFetchStatus.loading));
+      dispatch(SetProfileUser(user.data, EFetchStatus.succeeded));
     } catch (e) {
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));
     }

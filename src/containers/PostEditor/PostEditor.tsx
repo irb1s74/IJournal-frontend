@@ -48,7 +48,6 @@ const PostEditor: FC<PostEditorProps> = memo(
     postToPublish,
   }) => {
     const [body, setBody] = useState<OutputData['blocks']>([]);
-    const editorCore = React.useRef(null);
     const [postTitle, setPostTitle] = useState('');
     useEffect(() => {
       if (!option) {
@@ -62,10 +61,6 @@ const PostEditor: FC<PostEditorProps> = memo(
 
     const handleOnChangeEditor = useCallback((arr: OutputData['blocks']) => {
       setBody(arr);
-    }, []);
-
-    const handleInitialize = useCallback((instance) => {
-      editorCore.current = instance;
     }, []);
 
     const handleOnChangeTitle = (

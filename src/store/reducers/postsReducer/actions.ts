@@ -9,12 +9,8 @@ export const PostsSetNews = (payload: IPost[]): IPostsSetNews => ({
 });
 
 export const getPosts = () => async (dispatch: AppDispatch) => {
-  try {
-    const response = await PostService.getPost();
-    if (response?.data) {
-      dispatch(PostsSetNews(response.data));
-    }
-  } catch (e) {
-    console.log(e);
+  const response = await PostService.getPost();
+  if (response?.data) {
+    dispatch(PostsSetNews(response.data));
   }
 };
