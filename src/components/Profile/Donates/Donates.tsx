@@ -1,7 +1,8 @@
 import React from 'react';
+import { Card } from './Donates.styled';
 
 const ProfileDonates = () => {
-  return <div />;
+  return <Card />;
 };
 
 export default ProfileDonates;

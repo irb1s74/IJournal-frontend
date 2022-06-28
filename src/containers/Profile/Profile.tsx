@@ -21,6 +21,7 @@ import {
 import { IPost } from '../../models/IPost';
 import { IUser } from '../../models/IUser';
 import ProfileDonates from '../../components/Profile/Donates/Donates';
+import ProfileSettings from '../../components/Profile/Settings/Settings';
 
 interface ProfileProps {
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
@@ -89,19 +90,7 @@ const Profile: FC<ProfileProps> = memo(
               }
             />
             <Route path='/donates' element={<ProfileDonates />} />
-            <Route
-              path='/details'
-              element={
-                <ProfilePublish
-                  publishPosts={publishPosts}
-                  isLoading={profileIsLoading}
-                  getPublishPosts={handleGetPublishPosts}
-                  handleOpenModal={handleOpenModal}
-                  handleToUnPublish={handleToUnPublish}
-                  handleDeletePost={handleDeletePost}
-                />
-              }
-            />
+            <Route path='/settings' element={<ProfileSettings />} />
           </Routes>
         </ProfileContent>
       </PageWrapper>

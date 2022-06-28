@@ -25,6 +25,8 @@ export const AuthRef = () => async (dispatch: AppDispatch) => {
         dispatch(SetUser(response.data, true));
         localStorage.setItem('token', response.data.token);
       }
+    } else {
+      dispatch(SetUser({} as IUser, false));
     }
   } catch (e) {
     dispatch(SetUser({} as IUser, false));
@@ -77,4 +79,3 @@ export const AuthSigIn =
       dispatch(SetMessageError('Произошла ошибка'));
     }
   };
-

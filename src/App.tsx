@@ -23,6 +23,7 @@ interface AppProps {
 }
 
 const App: FC<AppProps> = memo(
+
   ({ modals, handleCloseModal, handleAuthRef }) => {
     useEffect(() => {
       handleAuthRef();

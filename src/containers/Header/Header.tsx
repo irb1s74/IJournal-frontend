@@ -103,10 +103,11 @@ const HeaderContainer = () => {
   const isAuth = useTypedSelector((state) => state.auth.isAuth);
   const user = useTypedSelector((state) => state.auth.user);
   const handleToggleMenu = useCallback(() => dispatch(AppSetMenu()), []);
-  const handleSignOut = useCallback(
-    () => dispatch(SetUser({} as IUser, false)),
-    []
-  );
+  const handleSignOut = useCallback(() => {
+    localStorage.removeItem('token');
+
+    dispatch(SetUser({} as IUser, false));
+  }, []);
 
   const handleOpenModal = useCallback(
     (id: string, type: EModal, optional: any) => () =>

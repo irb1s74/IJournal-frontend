@@ -16,7 +16,7 @@ const Router: FC<{ isAuth: boolean }> = memo(({ isAuth }) => {
           <Route path='bookmarks' element={<div />} />
           <Route path='subs' element={<Subscriptions />} />
           <Route path='profile/*' element={<Profile />} />
-          <Route path='user/:id' element={<User />} />
+          <Route path='user/:id/*' element={<User />} />
           <Route path='*' element={<Navigate to='popular' />} />
         </>
       ) : (
@@ -25,7 +25,7 @@ const Router: FC<{ isAuth: boolean }> = memo(({ isAuth }) => {
           <Route path='new' element={<div />} />
           <Route path='bookmarks' element={<div />} />
           <Route path='subs' element={<Subscriptions />} />
-          <Route path='user/:id' element={<User />} />
+          <Route path='user/:id/*' element={<User />} />
           <Route path='*' element={<Navigate to='popular' />} />
         </>
       )}

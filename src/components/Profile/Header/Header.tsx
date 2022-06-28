@@ -86,9 +86,6 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({
             <Button variant='outlined' startIcon={<IoChatboxEllipses />}>
               Написать
             </Button>
-            <Button variant='contained' startIcon={<IoPersonAdd />}>
-              Подписаться
-            </Button>
           </Stack>
         </Stack>
         <Typography sx={{ mb: '10px' }}>

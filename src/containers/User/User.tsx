@@ -20,10 +20,17 @@ interface UserProps {
   publishPosts: IPost[];
   profileFetchStatus: EFetchStatus;
 }
+
 // <Route path='/adbour' element={<ProfileDrafts />} />
 
 const User: FC<UserProps> = memo(
-  ({ handleGetUser, user, profileFetchStatus, publishPosts , handleOpenModal }) => {
+  ({
+    handleGetUser,
+    user,
+    profileFetchStatus,
+    publishPosts,
+    handleOpenModal,
+  }) => {
     const { id } = useParams();
     const profileIsLoading =
       profileFetchStatus === EFetchStatus.loading ||
@@ -49,6 +56,16 @@ const User: FC<UserProps> = memo(
           <Routes>
             <Route
               index
+              element={
+                <UserPublish
+                  handleOpenModal={handleOpenModal}
+                  isLoading={profileIsLoading}
+                  publishPosts={publishPosts}
+                />
+              }
+            />
+            <Route
+              path='/details'
               element={
                 <UserPublish
                   handleOpenModal={handleOpenModal}
