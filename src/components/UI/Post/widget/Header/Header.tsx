@@ -5,7 +5,7 @@ import {
   PostHeaderInfo,
 } from './HeaderPost.styled';
 import Avatar from '../../../Avatar/Avatar';
-import { IconButton, Typography } from '@mui/material';
+import { IconButton, Link, Typography } from '@mui/material';
 import { IoEllipsisHorizontalSharp, IoPersonAddSharp } from 'react-icons/io5';
 import { IPost } from '../../../../../models/IPost';
 
@@ -29,7 +29,9 @@ const HeaderPost: FC<HeaderPostProps> = ({
         spacing={2}
       >
         <Avatar user={post.author} />
-        <Typography variant='subtitle1'>{post.author.nickname}</Typography>
+        <Link href={`user/${post.author.id}`} underline='none'>
+          <Typography variant='subtitle1'>{post.author.nickname}</Typography>
+        </Link>
       </PostHeaderInfo>
       <PostHeaderAction>
         {isDraft && (

@@ -8,10 +8,11 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { IAuthor } from '../../models/IAuthor';
 import { EFetchStatus } from '../../models/EFetchStatus';
 import { Skeleton } from '@mui/material';
-import UserPublish from '../../components/UserPage/Publish/Publish';
 import { EModal } from '../../models/EModal';
 import { openModal } from '../../store/reducers/modalReducer/actions';
 import { IPost } from '../../models/IPost';
+import Publish from '../../components/UserPage/Publish/Publish';
+import Details from '../../components/UserPage/Details/Details';
 
 interface UserProps {
   handleGetUser: (userId: number) => void;
@@ -20,8 +21,6 @@ interface UserProps {
   publishPosts: IPost[];
   profileFetchStatus: EFetchStatus;
 }
-
-// <Route path='/adbour' element={<ProfileDrafts />} />
 
 const User: FC<UserProps> = memo(
   ({
@@ -57,23 +56,14 @@ const User: FC<UserProps> = memo(
             <Route
               index
               element={
-                <UserPublish
+                <Publish
                   handleOpenModal={handleOpenModal}
                   isLoading={profileIsLoading}
                   publishPosts={publishPosts}
                 />
               }
             />
-            <Route
-              path='/details'
-              element={
-                <UserPublish
-                  handleOpenModal={handleOpenModal}
-                  isLoading={profileIsLoading}
-                  publishPosts={publishPosts}
-                />
-              }
-            />
+            <Route path='/details' element={<Details />} />
           </Routes>
         </UserContent>
       </PageWrapper>

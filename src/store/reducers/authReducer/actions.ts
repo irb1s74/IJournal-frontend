@@ -24,11 +24,15 @@ export const AuthRef = () => async (dispatch: AppDispatch) => {
       if (response.data.token) {
         dispatch(SetUser(response.data, true));
         localStorage.setItem('token', response.data.token);
+      }else{
+        dispatch(SetUser({} as IUser, false));
+        localStorage.removeItem('token')
       }
     } else {
       dispatch(SetUser({} as IUser, false));
     }
   } catch (e) {
+    localStorage.removeItem('token')
     dispatch(SetUser({} as IUser, false));
     dispatch(SetMessageError('Произошла ошибка'));
   }

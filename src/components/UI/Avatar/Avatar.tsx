@@ -2,9 +2,10 @@ import React, { FC, memo } from 'react';
 import { CustomAvatar } from './Avatar.styled';
 import { ROOT_URL } from '../../../helpers/ROOT_URL';
 import { IAuthor } from '../../../models/IAuthor';
+import { IUser } from '../../../models/IUser';
 
 interface AvatarProps {
-  user?: IAuthor;
+  user?: IAuthor | IUser;
   profile?: boolean;
 }
 

@@ -1,6 +1,6 @@
-import { IconButton, Stack, styled } from '@mui/material';
+import { CardActions, IconButton, Stack, styled } from '@mui/material';
 
-export const PostFooter = styled('div')(() => ({
+export const PostFooter = styled(CardActions)(() => ({
   paddingLeft: '20px',
   paddingRight: '16px',
   paddingBottom: '18px',

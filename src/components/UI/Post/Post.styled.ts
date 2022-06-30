@@ -1,6 +1,6 @@
-import { styled } from '@mui/material';
+import { Card, styled } from '@mui/material';
 
-export const WrapperPost = styled('div')(() => ({
+export const WrapperPost = styled(Card)(() => ({
   backgroundColor: '#FFF',
   maxWidth: '640px',
   width: '100%',
