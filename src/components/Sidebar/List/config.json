@@ -10,13 +10,13 @@
     "icon": "time"
   },
   {
+    "route": "/my",
+    "name": "Моя лента",
+    "icon": "my"
+  },
+  {
     "route": "/bookmarks",
     "name": "Закладки",
     "icon": "bookmark"
-  },
-  {
-    "route": "/subs",
-    "name": "Подписки",
-    "icon": "sub"
   }
 ]

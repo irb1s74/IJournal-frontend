@@ -1,6 +1,11 @@
 import { ReactElement } from 'react';
 import { MdLocalFireDepartment } from 'react-icons/md';
-import { IoBookmark, IoListOutline, IoTime } from 'react-icons/io5';
+import {
+  IoBookmark,
+  IoListOutline,
+  IoTime,
+  IoNewspaper,
+} from 'react-icons/io5';
 
 const getIcon = (icon: string): ReactElement | null => {
   switch (icon) {
@@ -12,6 +17,8 @@ const getIcon = (icon: string): ReactElement | null => {
       return <IoBookmark />;
     case 'sub':
       return <IoListOutline />;
+    case 'my':
+      return <IoNewspaper />;
     default:
       return null;
   }

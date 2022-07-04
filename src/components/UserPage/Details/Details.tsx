@@ -1,12 +1,13 @@
 import React, { memo } from 'react';
 import {
   Box,
+  Button,
   Divider,
+  Grid,
+  Link,
   List,
   ListItem,
   ListItemAvatar,
-  ListItemButton,
-  ListItemIcon,
   ListItemText,
   Typography,
 } from '@mui/material';
@@ -15,55 +16,111 @@ import { IoPersonAdd } from 'react-icons/io5';
 
 const UserDetails = () => {
   return (
-    <Box
-      sx={{
-        width: '100%',
-        bgcolor: 'background.paper',
-      }}
-    >
-      <Typography sx={{ ml: '16px', display: 'inline-block' }} variant='h6'>
-        Подписчики
-      </Typography>
-      <Typography
-        sx={{ ml: '10px', display: 'inline-block' }}
-        variant='subtitle2'
-      >
-        577
-      </Typography>
-      <List
+    <>
+      <Box
         sx={{
-          width: '100%',
+          bgcolor: 'background.paper',
+          p: '8px 16px',
+          borderRadius: '12px',
         }}
       >
-        {Array(10)
-          .fill(0)
-          .map(() => (
-            <>
-              <ListItem
-                sx={{
-                  width: '100%',
-                  maxWidth: '360px',
-                  bgcolor: 'background.paper',
-                }}
-                alignItems='flex-start'
-              >
-                <ListItemAvatar>
-                  <Avatar />
-                </ListItemAvatar>
-                <ListItemText
-                  primary='Brunch this weekend?'
-                />
-                <ListItemButton role={undefined} dense>
-                  <ListItemIcon>
-                    <IoPersonAdd />
-                  </ListItemIcon>
-                </ListItemButton>
-              </ListItem>
-              <Divider variant='inset' component='li' />
-            </>
-          ))}
-      </List>
-    </Box>
+        <Typography sx={{ display: 'inline-block' }} variant='h6'>
+          Подписчики
+        </Typography>
+        <Typography
+          sx={{ display: 'inline-block', ml: '10px' }}
+          variant='subtitle2'
+        >
+          577
+        </Typography>
+        <List>
+          <Grid container spacing={2}>
+            {Array(8)
+              .fill(0)
+              .map((item, index) => (
+                <Grid key={index} item xs={6}>
+                  <ListItem
+                    sx={{
+                      width: '100%',
+                    }}
+                    alignItems='center'
+                  >
+                    <ListItemAvatar>
+                      <Avatar />
+                    </ListItemAvatar>
+                    <ListItemText primary='Brunch this weekend?' />
+
+                    <Button
+                      variant='contained'
+                      sx={{ p: '10px', minWidth: '26px' }}
+                    >
+                      <IoPersonAdd />
+                    </Button>
+                  </ListItem>
+                  <Divider variant='inset' component='li' />
+                </Grid>
+              ))}
+          </Grid>
+        </List>
+        <Link href='user/' underline='none'>
+          <Typography sx={{ mt: '20px' }} variant='subtitle1'>
+            Показать всех
+          </Typography>
+        </Link>
+      </Box>
+      <Box
+        sx={{
+          mt: '18px',
+          bgcolor: 'background.paper',
+          p: '8px 16px',
+          borderRadius: '12px',
+        }}
+      >
+        <Typography sx={{ display: 'inline-block' }} variant='h6'>
+          Подписки
+        </Typography>
+        <Typography
+          sx={{ display: 'inline-block', ml: '10px' }}
+          variant='subtitle2'
+        >
+          577
+        </Typography>
+        <List>
+          <Grid container spacing={2}>
+            {Array(8)
+              .fill(0)
+              .map((item, index) => (
+                <Grid key={index} item xs={6}>
+                  <ListItem
+                    sx={{
+                      width: '100%',
+                    }}
+                    alignItems='center'
+                  >
+                    <ListItemAvatar>
+                      <Avatar />
+                    </ListItemAvatar>
+                    <ListItemText primary='Brunch this weekend?' />
+
+                    <Button
+                      variant='contained'
+                      sx={{ p: '10px', minWidth: '26px' }}
+                    >
+                      <IoPersonAdd />
+                    </Button>
+                  </ListItem>
+                  <Divider variant='inset' component='li' />
+                </Grid>
+              ))}
+          </Grid>
+        </List>
+        <Link href='user/' underline='none'>
+          <Typography sx={{ mt: '20px' }} variant='subtitle1'>
+            Показать всех
+          </Typography>
+        </Link>
+      </Box>
+    </>
   );
 };
 

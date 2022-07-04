@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import { Route, Routes, useParams } from 'react-router-dom';
 import Header from '../../components/UserPage/Header/Header';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { IAuthor } from '../../models/IAuthor';
 import { EFetchStatus } from '../../models/EFetchStatus';
 import { Skeleton } from '@mui/material';
 import { EModal } from '../../models/EModal';
@@ -13,11 +12,12 @@ import { openModal } from '../../store/reducers/modalReducer/actions';
 import { IPost } from '../../models/IPost';
 import Publish from '../../components/UserPage/Publish/Publish';
 import Details from '../../components/UserPage/Details/Details';
+import { IUser } from '../../models/IUser';
 
 interface UserProps {
   handleGetUser: (userId: number) => void;
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
-  user: IAuthor;
+  user: IUser;
   publishPosts: IPost[];
   profileFetchStatus: EFetchStatus;
 }

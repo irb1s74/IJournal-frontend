@@ -4,10 +4,10 @@ import { IoChatboxEllipses, IoPersonAdd } from 'react-icons/io5';
 import ProfileTabs from '../Tabs/Tabs';
 import { Banner, Header, Info, WrapperAvatar } from './Header.styled';
 import Avatar from '../../UI/Avatar/Avatar';
-import { IAuthor } from '../../../models/IAuthor';
+import { IUser } from '../../../models/IUser';
 
 interface ProfileHeaderProps {
-  user: IAuthor;
+  user: IUser;
 }
 
 const UserHeader: FC<ProfileHeaderProps> = ({ user }) => {

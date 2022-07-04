@@ -1,9 +1,10 @@
 import { ProfileAction, ProfileActionEnum, ProfileState } from './types';
 import { EFetchStatus } from '../../../models/EFetchStatus';
 import { IAuthor } from '../../../models/IAuthor';
+import { IUser } from '../../../models/IUser';
 
 const initialState: ProfileState = {
-  user: {} as IAuthor,
+  user: {} as IUser,
   publishPosts: [],
   draftPosts: [],
   profileFetchStatus: EFetchStatus.idle,

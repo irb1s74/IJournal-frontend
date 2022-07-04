@@ -11,7 +11,7 @@ import { AppDispatch, store } from '../../index';
 import ProfileService from '../../../api/ProfileService';
 import PostService from '../../../api/PostService';
 import { SetUser } from '../authReducer/actions';
-import { IAuthor } from '../../../models/IAuthor';
+import { IUser } from '../../../models/IUser';
 
 export const SetProfileFetchStatus = (
   status: EFetchStatus
@@ -30,7 +30,7 @@ export const SetProfileDraftPosts = (
 });
 
 export const SetProfileUser = (
-  user: IAuthor,
+  user: IUser,
   status: EFetchStatus
 ): IProfileSetUser => ({
   type: ProfileActionEnum.SET_PROFILE_USER,
@@ -129,10 +129,9 @@ export const getProfileUser =
   (userId: number) => async (dispatch: AppDispatch) => {
     try {
       dispatch(SetProfileFetchStatus(EFetchStatus.loading));
-      const posts = await ProfileService.getUserPosts(userId);
-      const user = await ProfileService.getUser(userId);
-      dispatch(SetProfilePublishPosts(posts.data, EFetchStatus.loading));
-      dispatch(SetProfileUser(user.data, EFetchStatus.succeeded));
+      const response = await ProfileService.getUser(userId);
+      dispatch(SetProfilePublishPosts(response.data.posts, EFetchStatus.loading));
+      dispatch(SetProfileUser(response.data, EFetchStatus.succeeded));
     } catch (e) {
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));
     }

@@ -1,9 +1,9 @@
 import { IPost } from '../../../models/IPost';
 import { EFetchStatus } from '../../../models/EFetchStatus';
-import { IAuthor } from '../../../models/IAuthor';
+import { IUser } from '../../../models/IUser';
 
 export interface ProfileState {
-  user: IAuthor;
+  user: IUser;
   publishPosts: IPost[];
   draftPosts: IPost[];
   profileFetchStatus: EFetchStatus;
@@ -25,7 +25,7 @@ export interface IProfileSetDraftPosts {
 export interface IProfileSetUser {
   type: ProfileActionEnum.SET_PROFILE_USER;
   status: EFetchStatus;
-  user: IAuthor;
+  user: IUser;
 }
 
 export interface IProfileSetPublishPosts {
