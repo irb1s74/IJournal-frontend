@@ -1,10 +1,10 @@
 import { Avatar, styled } from '@mui/material';
 
-export const CustomAvatar = styled(Avatar)<{ profile: boolean }>(
+export const CustomAvatar = styled(Avatar)<{ size: string }>(
   ``,
-  ({ theme, profile }) => ({
+  ({ theme, size }) => ({
     backgroundColor: theme.palette.secondary.main,
-    width: profile ? '80px' : undefined,
-    height: profile ? '80px' : undefined,
+    width: `${size}px`,
+    height: `${size}px`,
   })
 );

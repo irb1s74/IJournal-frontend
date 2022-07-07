@@ -1,5 +1,5 @@
-import { Fab, Stack, styled } from '@mui/material';
 import { ROOT_URL } from '../../../helpers/ROOT_URL';
+import { Fab, Stack, styled } from '@mui/material';
 
 export const Header = styled('div')(() => ({
   width: '100%',
@@ -8,6 +8,7 @@ export const Header = styled('div')(() => ({
   borderRadius: '12px',
   marginBlock: '20px',
 }));
+
 export const Banner = styled('label')<{ bg?: string }>(({ bg }) => ({
   width: '100%',
   borderRadius: '12px',

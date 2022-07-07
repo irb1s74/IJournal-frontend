@@ -72,6 +72,23 @@ export default class ProfileService {
       });
   }
 
+  static async getUserSubscriptions(userId: number): Promise<AxiosResponse> {
+    return axios
+      .get(`/profile/${userId}/subscriptions`, {
+        baseURL: ROOT_URL,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        return error.response;
+      });
+  }
+
   static async updateBanner(token: string, files: any): Promise<AxiosResponse> {
     const formData = new FormData();
     formData.append('banner', files.item(0));

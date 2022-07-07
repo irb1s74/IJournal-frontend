@@ -36,10 +36,7 @@ const FooterPost: FC<FooterPostProps> = ({ post }) => {
         <IconButton>
           <IoChevronDownOutline />
         </IconButton>
-        <Typography
-          // color='green'
-          variant='subtitle1'
-        >
+        <Typography color='#757575' variant='subtitle1'>
           {post.rating}
         </Typography>
         <IconButton>

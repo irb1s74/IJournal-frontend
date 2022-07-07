@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { FC, memo, useEffect } from 'react';
 import {
   Box,
   Button,
@@ -13,8 +13,28 @@ import {
 } from '@mui/material';
 import Avatar from '../../UI/Avatar/Avatar';
 import { IoPersonAdd } from 'react-icons/io5';
+import { useParams } from 'react-router-dom';
+import { ISubscriber } from '../../../models/ISubscriber';
+import { ISubscription } from '../../../models/ISubscription';
 
-const UserDetails = () => {
+interface UserDetailsProps {
+  handleGetUserSubscriptions: (userId: number) => void;
+  subscribers: ISubscriber[];
+  subscriptions: ISubscription[];
+}
+
+const UserDetails: FC<UserDetailsProps> = ({
+  handleGetUserSubscriptions,
+  subscriptions,
+  subscribers,
+}) => {
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      handleGetUserSubscriptions(+id);
+    }
+  }, []);
   return (
     <>
       <Box
@@ -31,35 +51,33 @@ const UserDetails = () => {
           sx={{ display: 'inline-block', ml: '10px' }}
           variant='subtitle2'
         >
-          577
+          {subscribers.length}
         </Typography>
         <List>
           <Grid container spacing={2}>
-            {Array(8)
-              .fill(0)
-              .map((item, index) => (
-                <Grid key={index} item xs={6}>
-                  <ListItem
-                    sx={{
-                      width: '100%',
-                    }}
-                    alignItems='center'
-                  >
-                    <ListItemAvatar>
-                      <Avatar />
-                    </ListItemAvatar>
-                    <ListItemText primary='Brunch this weekend?' />
+            {subscribers.map((subscriber, index) => (
+              <Grid key={index} item xs={6}>
+                <ListItem
+                  sx={{
+                    width: '100%',
+                  }}
+                  alignItems='center'
+                >
+                  <ListItemAvatar>
+                    <Avatar user={subscriber.subscriber} />
+                  </ListItemAvatar>
+                  <ListItemText primary={subscriber.subscriber.nickname} />
 
-                    <Button
-                      variant='contained'
-                      sx={{ p: '10px', minWidth: '26px' }}
-                    >
-                      <IoPersonAdd />
-                    </Button>
-                  </ListItem>
-                  <Divider variant='inset' component='li' />
-                </Grid>
-              ))}
+                  <Button
+                    variant='contained'
+                    sx={{ p: '10px', minWidth: '26px' }}
+                  >
+                    <IoPersonAdd />
+                  </Button>
+                </ListItem>
+                <Divider variant='inset' component='li' />
+              </Grid>
+            ))}
           </Grid>
         </List>
         <Link href='user/' underline='none'>
@@ -83,35 +101,33 @@ const UserDetails = () => {
           sx={{ display: 'inline-block', ml: '10px' }}
           variant='subtitle2'
         >
-          577
+          {subscriptions.length}
         </Typography>
         <List>
           <Grid container spacing={2}>
-            {Array(8)
-              .fill(0)
-              .map((item, index) => (
-                <Grid key={index} item xs={6}>
-                  <ListItem
-                    sx={{
-                      width: '100%',
-                    }}
-                    alignItems='center'
-                  >
-                    <ListItemAvatar>
-                      <Avatar />
-                    </ListItemAvatar>
-                    <ListItemText primary='Brunch this weekend?' />
+            {subscriptions.map((subscription, index) => (
+              <Grid key={index} item xs={6}>
+                <ListItem
+                  sx={{
+                    width: '100%',
+                  }}
+                  alignItems='center'
+                >
+                  <ListItemAvatar>
+                    <Avatar user={subscription.subscription} />
+                  </ListItemAvatar>
+                  <ListItemText primary={subscription.subscription.nickname} />
 
-                    <Button
-                      variant='contained'
-                      sx={{ p: '10px', minWidth: '26px' }}
-                    >
-                      <IoPersonAdd />
-                    </Button>
-                  </ListItem>
-                  <Divider variant='inset' component='li' />
-                </Grid>
-              ))}
+                  <Button
+                    variant='contained'
+                    sx={{ p: '10px', minWidth: '26px' }}
+                  >
+                    <IoPersonAdd />
+                  </Button>
+                </ListItem>
+                <Divider variant='inset' component='li' />
+              </Grid>
+            ))}
           </Grid>
         </List>
         <Link href='user/' underline='none'>

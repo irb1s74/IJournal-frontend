@@ -103,6 +103,7 @@ const ContainerProfile = () => {
 
   const token = useTypedSelector((state) => state.auth.user.token);
   const user = useTypedSelector((state) => state.auth.user);
+
   const profileFetchStatus = useTypedSelector(
     (state) => state.profile.profileFetchStatus
   );

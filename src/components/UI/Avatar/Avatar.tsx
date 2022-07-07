@@ -6,15 +6,15 @@ import { IUser } from '../../../models/IUser';
 
 interface AvatarProps {
   user?: IAuthor | IUser;
-  profile?: boolean;
+  size?: string;
 }
 
-const Avatar: FC<AvatarProps> = ({ user, profile = false }) => {
+const Avatar: FC<AvatarProps> = ({ user, size = '40' }) => {
   return (
     <CustomAvatar
       alt={user?.nickname}
       src={user?.avatar && `${ROOT_URL}avatars/${user.avatar}`}
-      profile={!!profile}
+      size={size}
       variant='rounded'
     />
   );

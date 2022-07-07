@@ -1,25 +1,33 @@
 import React, { FC, memo, useCallback, useEffect } from 'react';
 import { PageWrapper, UserContent } from './User.styled';
-import { getProfileUser } from '../../store/reducers/profileReducer/action';
+import {
+  getProfileUser,
+  getUserSubscriptions,
+} from '../../store/reducers/profileReducer/action';
 import { useDispatch } from 'react-redux';
 import { Route, Routes, useParams } from 'react-router-dom';
-import Header from '../../components/UserPage/Header/Header';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { EFetchStatus } from '../../models/EFetchStatus';
-import { Skeleton } from '@mui/material';
-import { EModal } from '../../models/EModal';
 import { openModal } from '../../store/reducers/modalReducer/actions';
-import { IPost } from '../../models/IPost';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { Skeleton } from '@mui/material';
+import Header from '../../components/UserPage/Header/Header';
 import Publish from '../../components/UserPage/Publish/Publish';
 import Details from '../../components/UserPage/Details/Details';
+import { IPost } from '../../models/IPost';
 import { IUser } from '../../models/IUser';
+import { ISubscriber } from '../../models/ISubscriber';
+import { ISubscription } from '../../models/ISubscription';
+import { EModal } from '../../models/EModal';
+import { EFetchStatus } from '../../models/EFetchStatus';
 
 interface UserProps {
   handleGetUser: (userId: number) => void;
+  handleGetUserSubscriptions: (userId: number) => void;
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
   user: IUser;
   publishPosts: IPost[];
   profileFetchStatus: EFetchStatus;
+  subscribers: ISubscriber[];
+  subscriptions: ISubscription[];
 }
 
 const User: FC<UserProps> = memo(
@@ -29,6 +37,9 @@ const User: FC<UserProps> = memo(
     profileFetchStatus,
     publishPosts,
     handleOpenModal,
+    handleGetUserSubscriptions,
+    subscribers,
+    subscriptions,
   }) => {
     const { id } = useParams();
     const profileIsLoading =
@@ -63,7 +74,16 @@ const User: FC<UserProps> = memo(
                 />
               }
             />
-            <Route path='/details' element={<Details />} />
+            <Route
+              path='/details'
+              element={
+                <Details
+                  subscribers={subscribers}
+                  subscriptions={subscriptions}
+                  handleGetUserSubscriptions={handleGetUserSubscriptions}
+                />
+              }
+            />
           </Routes>
         </UserContent>
       </PageWrapper>
@@ -75,12 +95,21 @@ const ContainerUser = () => {
   const dispatch = useDispatch();
   const user = useTypedSelector((state) => state.profile.user);
   const posts = useTypedSelector((state) => state.profile.publishPosts);
+  const subscribers = useTypedSelector((state) => state.profile.subscribers);
+  const subscriptions = useTypedSelector(
+    (state) => state.profile.subscriptions
+  );
   const profileFetchStatus = useTypedSelector(
     (state) => state.profile.profileFetchStatus
   );
 
   const handleGetUser = useCallback(
     (userId: number) => dispatch(getProfileUser(userId)),
+    []
+  );
+
+  const handleGetUserSubscriptions = useCallback(
+    (userId: number) => dispatch(getUserSubscriptions(userId)),
     []
   );
   const handleOpenModal = useCallback(
@@ -94,7 +123,10 @@ const ContainerUser = () => {
       handleOpenModal={handleOpenModal}
       publishPosts={posts}
       handleGetUser={handleGetUser}
+      handleGetUserSubscriptions={handleGetUserSubscriptions}
       user={user}
+      subscribers={subscribers}
+      subscriptions={subscriptions}
       profileFetchStatus={profileFetchStatus}
     />
   );

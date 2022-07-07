@@ -17,7 +17,7 @@ const UserHeader: FC<ProfileHeaderProps> = ({ user }) => {
       <Info>
         <WrapperAvatar>
           <Box>
-            <Avatar user={user} profile />
+            <Avatar user={user} size='80' />
           </Box>
         </WrapperAvatar>
         <Stack

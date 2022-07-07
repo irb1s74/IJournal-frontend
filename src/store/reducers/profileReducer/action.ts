@@ -3,6 +3,7 @@ import {
   IProfileSetDraftPosts,
   IProfileSetFetchStatus,
   IProfileSetPublishPosts,
+  IProfileSetSubscriptions,
   IProfileSetUser,
   ProfileActionEnum,
 } from './types';
@@ -12,12 +13,23 @@ import ProfileService from '../../../api/ProfileService';
 import PostService from '../../../api/PostService';
 import { SetUser } from '../authReducer/actions';
 import { IUser } from '../../../models/IUser';
+import { ISubscription } from '../../../models/ISubscription';
+import { ISubscriber } from '../../../models/ISubscriber';
 
 export const SetProfileFetchStatus = (
   status: EFetchStatus
 ): IProfileSetFetchStatus => ({
   type: ProfileActionEnum.SET_PROFILE_FETCH_STATUS,
   payload: status,
+});
+
+export const SetProfileSubscriptions = (
+  subscribers: ISubscriber[],
+  subscriptions: ISubscription[]
+): IProfileSetSubscriptions => ({
+  type: ProfileActionEnum.SET_SUBSCRIPTIONS,
+  subscribers,
+  subscriptions,
 });
 
 export const SetProfileDraftPosts = (
@@ -130,8 +142,24 @@ export const getProfileUser =
     try {
       dispatch(SetProfileFetchStatus(EFetchStatus.loading));
       const response = await ProfileService.getUser(userId);
-      dispatch(SetProfilePublishPosts(response.data.posts, EFetchStatus.loading));
+      dispatch(
+        SetProfilePublishPosts(response.data.posts, EFetchStatus.loading)
+      );
       dispatch(SetProfileUser(response.data, EFetchStatus.succeeded));
+    } catch (e) {
+      dispatch(SetProfileFetchStatus(EFetchStatus.failed));
+    }
+  };
+export const getUserSubscriptions =
+  (userId: number) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await ProfileService.getUserSubscriptions(userId);
+      dispatch(
+        SetProfileSubscriptions(
+          response.data.subscribers,
+          response.data.subscriptions
+        )
+      );
     } catch (e) {
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));
     }

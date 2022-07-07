@@ -65,7 +65,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({
               sx={{ position: 'relative' }}
               size='large'
             >
-              <Avatar user={user} profile />
+              <Avatar user={user} size='80' />
             </IconButton>
           </Tooltip>
           <input
