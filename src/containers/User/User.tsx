@@ -15,9 +15,9 @@ import {
 import { openModal } from '../../store/reducers/modalReducer/actions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { Skeleton } from '@mui/material';
-import Header from '../../components/UserPage/Header/Header';
-import Publish from '../../components/UserPage/Publish/Publish';
-import Details from '../../components/UserPage/Details/Details';
+import Header from '../../components/User/Header/Header';
+import Publish from '../../components/User/Publish/Publish';
+import Details from '../../components/User/Details/Details';
 import { IPost } from '../../models/IPost';
 import { IUser } from '../../models/IUser';
 import { ISubscriber } from '../../models/ISubscriber';

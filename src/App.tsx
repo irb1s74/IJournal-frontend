@@ -1,4 +1,11 @@
-import React, { FC, memo, useCallback, useLayoutEffect } from 'react';
+import React, {
+  FC,
+  lazy,
+  memo,
+  Suspense,
+  useCallback,
+  useLayoutEffect,
+} from 'react';
 import Header from './containers/Header/Header';
 import Sidebar from './containers/Sidebar/Sidebar';
 import { IModal } from './models/IModal';
@@ -7,8 +14,10 @@ import { closeModal } from './store/reducers/modalReducer/actions';
 import { useDispatch } from 'react-redux';
 import { getModal } from './helpers/getModal';
 import { AuthRef } from './store/reducers/authReducer/actions';
-import Router from './router/Router';
 import { Stack } from '@mui/material';
+import Loader from './components/UI/Loader/Loader';
+
+const Router = lazy(() => import('./router/Router'));
 
 const getModals = (modals: IModal[], handleCloseModal: () => void) => {
   return modals.map((modal, key) =>
@@ -29,7 +38,7 @@ const App: FC<AppProps> = memo(
     }, []);
 
     return (
-      <>
+      <Suspense fallback={<Loader />}>
         <Header />
         <Stack
           sx={{ height: 'calc(100% - 64px)', width: '100%' }}
@@ -40,7 +49,7 @@ const App: FC<AppProps> = memo(
           <Router />
         </Stack>
         {getModals(modals, handleCloseModal)}
-      </>
+      </Suspense>
     );
   }
 );
