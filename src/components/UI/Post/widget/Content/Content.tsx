@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 import { PostContent } from './ContentPost.styled';
 import { Typography } from '@mui/material';
-import { renderConfig } from '../../renderConfig';
+import { renderConfig } from './renderConfig';
 import Blocks from 'editorjs-blocks-react-renderer';
 import { IPost } from '../../../../../models/IPost';
 

@@ -23,7 +23,7 @@ const ProfileTabs = () => {
       >
         <Tab value='/profile' label='Статьи' />
         <Tab value='/profile/drafts' label='Черновики' />
-        <Tab value='/profile/donates' label='Донаты' />
+        <Tab value='/profile/details' label='Подробнее' />
         <Tab value='/profile/settings' label='Настройки' />
       </Tabs>
     </Box>

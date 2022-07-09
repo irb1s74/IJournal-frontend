@@ -1,29 +1,21 @@
 import React, { FC, memo, useEffect } from 'react';
-
-import { useNavigate, useParams } from 'react-router-dom';
 import { ISubscriber } from '../../../models/ISubscriber';
 import { ISubscription } from '../../../models/ISubscription';
 import Box from './widget/Box';
 
-interface UserDetailsProps {
-  handleGetUserSubscriptions: (userId: number) => void;
+interface ProfileDetailsProps {
+  handleGetUserSubscriptions: () => void;
   subscribers: ISubscriber[];
   subscriptions: ISubscription[];
 }
 
-const UserDetails: FC<UserDetailsProps> = ({
+const ProfileDetails: FC<ProfileDetailsProps> = ({
   handleGetUserSubscriptions,
   subscriptions,
   subscribers,
 }) => {
-  const { id } = useParams();
-  const navigate = useNavigate();
   useEffect(() => {
-    if (id && +id) {
-      handleGetUserSubscriptions(+id);
-    } else {
-      navigate('/');
-    }
+    handleGetUserSubscriptions();
   }, []);
 
   return (
@@ -34,4 +26,4 @@ const UserDetails: FC<UserDetailsProps> = ({
   );
 };
 
-export default memo(UserDetails);
+export default memo(ProfileDetails);

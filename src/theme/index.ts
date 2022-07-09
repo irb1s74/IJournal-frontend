@@ -37,7 +37,7 @@ const palette = createTheme({
       main: '#DA4A5E',
     },
     background: {
-      default: '#FCFBFE',
+      default: '#F2F2F2',
     },
 
     // text: {
@@ -100,7 +100,6 @@ const theme = createTheme(palette, {
       styleOverrides: {
         root: {
           borderRadius: '5px',
-          marginBottom: '15px',
           // color: palette.palette.secondary.main,
         },
       },

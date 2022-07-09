@@ -1,6 +1,6 @@
-import { Card, styled } from '@mui/material';
+import { Box, styled } from '@mui/material';
 
-export const WrapperPost = styled(Card)(() => ({
+export const WrapperPost = styled(Box)(() => ({
   backgroundColor: '#FFF',
   maxWidth: '640px',
   width: '100%',

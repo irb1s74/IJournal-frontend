@@ -22,6 +22,9 @@ const SidebarList = () => {
     <List sx={{ width: '80%' }} disablePadding={false}>
       {Lists.map((list) => (
         <ListItemButton
+          sx={{
+            mb: '15px',
+          }}
           key={`${list.name}`}
           onClick={toNavigate(list.route)}
           selected={list.route === location.pathname}

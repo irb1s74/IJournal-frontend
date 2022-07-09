@@ -1,4 +1,4 @@
-import React, { FC, memo, useCallback, useEffect } from 'react';
+import React, { FC, memo, useCallback, useLayoutEffect } from 'react';
 import Header from './containers/Header/Header';
 import Sidebar from './containers/Sidebar/Sidebar';
 import { IModal } from './models/IModal';
@@ -23,9 +23,8 @@ interface AppProps {
 }
 
 const App: FC<AppProps> = memo(
-
   ({ modals, handleCloseModal, handleAuthRef }) => {
-    useEffect(() => {
+    useLayoutEffect(() => {
       handleAuthRef();
     }, []);
 

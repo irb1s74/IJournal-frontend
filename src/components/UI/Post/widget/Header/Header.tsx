@@ -5,9 +5,10 @@ import {
   PostHeaderInfo,
 } from './HeaderPost.styled';
 import Avatar from '../../../Avatar/Avatar';
-import { IconButton, Link, Typography } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import { IoEllipsisHorizontalSharp, IoPersonAddSharp } from 'react-icons/io5';
 import { IPost } from '../../../../../models/IPost';
+import { Link } from 'react-router-dom';
 
 interface HeaderPostProps {
   post: IPost;
@@ -29,7 +30,7 @@ const HeaderPost: FC<HeaderPostProps> = ({
         spacing={2}
       >
         <Avatar user={post.author} />
-        <Link href={`user/${post.author.id}`} underline='none'>
+        <Link to={`/user/${post.author.id}`}>
           <Typography variant='subtitle1'>{post.author.nickname}</Typography>
         </Link>
       </PostHeaderInfo>

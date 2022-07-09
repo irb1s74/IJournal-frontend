@@ -1,6 +1,6 @@
 import React, { FC, memo, useRef } from 'react';
 import { Button, IconButton, Stack, Tooltip, Typography } from '@mui/material';
-import { IoChatboxEllipses, IoPersonAdd, IoPencilSharp } from 'react-icons/io5';
+import { IoChatboxEllipses, IoPencilSharp } from 'react-icons/io5';
 import ProfileTabs from '../Tabs/Tabs';
 import {
   Banner,
@@ -45,7 +45,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({
 
   return (
     <Header>
-      <Banner bg={user.banner}>
+      <Banner bg={'banner' in user ? user.banner : undefined}>
         <FabBanner onClick={clickToBanner} size='small'>
           <IoPencilSharp size='15' />
         </FabBanner>

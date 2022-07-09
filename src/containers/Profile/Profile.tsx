@@ -1,7 +1,7 @@
 import React, { FC, memo, useCallback } from 'react';
 import { PageWrapper, ProfileContent } from './Profile.styled';
 import ProfileHeader from '../../components/Profile/Header/Header';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import ProfileDrafts from '../../components/Profile/Drafts/Drafts';
 import ProfilePublish from '../../components/Profile/Publish/Publish';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
@@ -14,14 +14,17 @@ import {
   deletePost,
   getDraftPosts,
   getPublishPosts,
+  getUserSubscriptions,
   toUnPublish,
   updateAvatar,
   updateBanner,
 } from '../../store/reducers/profileReducer/action';
 import { IPost } from '../../models/IPost';
 import { IUser } from '../../models/IUser';
-import ProfileDonates from '../../components/Profile/Donates/Donates';
 import ProfileSettings from '../../components/Profile/Settings/Settings';
+import ProfileDetails from '../../components/Profile/Details/Details';
+import { ISubscriber } from '../../models/ISubscriber';
+import { ISubscription } from '../../models/ISubscription';
 
 interface ProfileProps {
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
@@ -35,20 +38,26 @@ interface ProfileProps {
   draftPosts: IPost[];
   publishPosts: IPost[];
   user: IUser;
+  subscribers: ISubscriber[];
+  subscriptions: ISubscription[];
+  handleGetUserSubscriptions: () => void;
 }
 
 const Profile: FC<ProfileProps> = memo(
   ({
     handleOpenModal,
-    profileFetchStatus,
     handleGetDraftPosts,
     handleGetPublishPosts,
-    draftPosts,
-    publishPosts,
     handleToUnPublish,
     handleDeletePost,
     handleUpdateBanner,
     handleUpdateAvatar,
+    handleGetUserSubscriptions,
+    profileFetchStatus,
+    draftPosts,
+    publishPosts,
+    subscribers,
+    subscriptions,
     user,
   }) => {
     const profileIsLoading =
@@ -89,8 +98,18 @@ const Profile: FC<ProfileProps> = memo(
                 />
               }
             />
-            <Route path='/donates' element={<ProfileDonates />} />
+            <Route
+              path='/details'
+              element={
+                <ProfileDetails
+                  handleGetUserSubscriptions={handleGetUserSubscriptions}
+                  subscriptions={subscriptions}
+                  subscribers={subscribers}
+                />
+              }
+            />
             <Route path='/settings' element={<ProfileSettings />} />
+            <Route path='*' element={<Navigate to='' />} />
           </Routes>
         </ProfileContent>
       </PageWrapper>
@@ -109,6 +128,10 @@ const ContainerProfile = () => {
   );
   const draftPosts = useTypedSelector((state) => state.profile.draftPosts);
   const publishPosts = useTypedSelector((state) => state.profile.publishPosts);
+  const subscribers = useTypedSelector((state) => state.profile.subscribers);
+  const subscriptions = useTypedSelector(
+    (state) => state.profile.subscriptions
+  );
 
   const handleGetDraftPosts = useCallback(
     () => dispatch(getDraftPosts(token)),
@@ -139,6 +162,10 @@ const ContainerProfile = () => {
     (file: any) => dispatch(updateAvatar(token, file)),
     []
   );
+  const handleGetUserSubscriptions = useCallback(
+    () => dispatch(getUserSubscriptions(user.id)),
+    []
+  );
   return (
     <Profile
       profileFetchStatus={profileFetchStatus}
@@ -149,8 +176,11 @@ const ContainerProfile = () => {
       handleDeletePost={handleDeletePost}
       handleUpdateBanner={handleUpdateBanner}
       handleUpdateAvatar={handleUpdateAvatar}
+      handleGetUserSubscriptions={handleGetUserSubscriptions}
       draftPosts={draftPosts}
       publishPosts={publishPosts}
+      subscribers={subscribers}
+      subscriptions={subscriptions}
       user={user}
     />
   );

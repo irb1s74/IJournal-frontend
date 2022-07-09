@@ -8,7 +8,7 @@ export const Header = styled('div')(() => ({
   borderRadius: '12px',
   marginBlock: '20px',
 }));
-export const Banner = styled('label')<{ bg?: string }>(({ bg }) => ({
+export const Banner = styled('div')<{ bg?: string }>(({ bg }) => ({
   width: '100%',
   borderRadius: '12px',
   height: '260px',

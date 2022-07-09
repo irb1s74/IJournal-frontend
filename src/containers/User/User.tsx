@@ -5,7 +5,13 @@ import {
   getUserSubscriptions,
 } from '../../store/reducers/profileReducer/action';
 import { useDispatch } from 'react-redux';
-import { Route, Routes, useParams } from 'react-router-dom';
+import {
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import { openModal } from '../../store/reducers/modalReducer/actions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { Skeleton } from '@mui/material';
@@ -41,13 +47,16 @@ const User: FC<UserProps> = memo(
     subscribers,
     subscriptions,
   }) => {
+    const navigate = useNavigate();
     const { id } = useParams();
     const profileIsLoading =
       profileFetchStatus === EFetchStatus.loading ||
       profileFetchStatus === EFetchStatus.idle;
     useEffect(() => {
-      if (id) {
+      if (id && +id) {
         handleGetUser(+id);
+      } else {
+        navigate('/');
       }
     }, [id]);
     return (
@@ -84,6 +93,7 @@ const User: FC<UserProps> = memo(
                 />
               }
             />
+            <Route path='*' element={<Navigate to='' />} />
           </Routes>
         </UserContent>
       </PageWrapper>
