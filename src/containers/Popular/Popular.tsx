@@ -12,12 +12,14 @@ import { openModal } from '../../store/reducers/modalReducer/actions';
 interface PopularProps {
   handleGetPosts: () => void;
   posts: IPost[];
+  token: string | undefined;
 }
 
-const Popular: FC<PopularProps> = memo(({ posts, handleGetPosts }) => {
+const Popular: FC<PopularProps> = memo(({ posts, handleGetPosts, token }) => {
   const dispatch = useDispatch();
+
   const handleOpenModal = useCallback(
-    (id: string, type: EModal, optional: any) => () =>
+    (id: string, type: EModal, optional: any) =>
       dispatch(openModal(id, type, optional)),
     []
   );
@@ -34,6 +36,7 @@ const Popular: FC<PopularProps> = memo(({ posts, handleGetPosts }) => {
       <Stack direction='column' alignItems='center' spacing={5}>
         {posts.map((post: IPost, index) => (
           <Post
+            token={token}
             key={`${index}_${post.id}`}
             handleOpenModal={handleOpenModal}
             post={post}
@@ -47,8 +50,11 @@ const Popular: FC<PopularProps> = memo(({ posts, handleGetPosts }) => {
 const ContainerPopular = () => {
   const dispatch = useDispatch();
   const posts = useTypedSelector((state) => state.posts.News);
+  const token = useTypedSelector((state) => state.auth.user.token);
   const handleGetPosts = useCallback(() => dispatch(getPosts()), []);
-  return <Popular posts={posts} handleGetPosts={handleGetPosts} />;
+  return (
+    <Popular posts={posts} token={token} handleGetPosts={handleGetPosts} />
+  );
 };
 
 export default ContainerPopular;

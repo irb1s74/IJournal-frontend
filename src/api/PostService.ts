@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { ROOT_URL } from '../helpers/ROOT_URL';
 import { OutputData } from '@editorjs/editorjs';
+import { IPost } from '../models/IPost';
 
 export default class PostService {
   static async create(token: string): Promise<AxiosResponse> {
@@ -112,6 +113,67 @@ export default class PostService {
           Authorization: `Bearer ${token}`,
         },
       })
+      .then((res) => {
+        return res;
+      })
+      .catch((e) => {
+        return e.response;
+      });
+  }
+
+  static async increaseRatingPost(
+    postId: number,
+    token: string
+  ): Promise<
+    AxiosResponse<{
+      response: IPost;
+    }>
+  > {
+    return axios
+      .post(
+        `post/increase`,
+        {
+          postId,
+        },
+        {
+          baseURL: ROOT_URL,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(
+        (
+          res: AxiosResponse<{
+            response: IPost;
+          }>
+        ) => {
+          return res;
+        }
+      )
+      .catch((e) => {
+        return e.response;
+      });
+  }
+
+  static async decreaseRatingPost(postId: number, token: string) {
+    return axios
+      .post(
+        `post/decrease`,
+        {
+          postId,
+        },
+        {
+          baseURL: ROOT_URL,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         return res;
       })

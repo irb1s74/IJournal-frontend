@@ -14,3 +14,9 @@ export const getPosts = () => async (dispatch: AppDispatch) => {
     dispatch(PostsSetNews(response.data));
   }
 };
+
+// export const increaseRatingPost =
+//   (postId: number, token: string) => async (dispatch: AppDispatch) => {
+//     const response = await PostService.increaseRatingPost(postId, token);
+//     if(response.data)
+//   };
