@@ -126,7 +126,7 @@ export default class PostService {
     token: string
   ): Promise<
     AxiosResponse<{
-      response: IPost;
+      rating: number;
     }>
   > {
     return axios
@@ -158,7 +158,14 @@ export default class PostService {
       });
   }
 
-  static async decreaseRatingPost(postId: number, token: string) {
+  static async decreaseRatingPost(
+    postId: number,
+    token: string
+  ): Promise<
+    AxiosResponse<{
+      rating: number;
+    }>
+  > {
     return axios
       .post(
         `post/decrease`,

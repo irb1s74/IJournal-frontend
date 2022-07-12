@@ -32,9 +32,11 @@ const FooterPost: FC<FooterPostProps> = ({ post, handleOpenModal, token }) => {
     if (token) {
       setFooterData({ ...footerData, isLoading: true });
       const response = await PostService.increaseRatingPost(post.id, token);
-      console.log(response);
-
-      setFooterData({ ...footerData, isLoading: false });
+      setFooterData({
+        ...footerData,
+        isLoading: false,
+        rating: response.data.rating,
+      });
     } else {
       handleOpenModal(EModal.authModal, EModal.authModal, {});
     }
@@ -43,18 +45,21 @@ const FooterPost: FC<FooterPostProps> = ({ post, handleOpenModal, token }) => {
     if (token) {
       setFooterData({ ...footerData, isLoading: true });
       const response = await PostService.decreaseRatingPost(post.id, token);
-      console.log(response);
-      setFooterData({ ...footerData, isLoading: false });
+      setFooterData({
+        ...footerData,
+        isLoading: false,
+        rating: response.data.rating,
+      });
     } else {
       handleOpenModal(EModal.authModal, EModal.authModal, {});
     }
   };
 
   const setColor = () => {
-    if (post.rating > 0) {
+    if (footerData.rating > 0) {
       return '#388e3c';
     }
-    if (post.rating < 0) {
+    if (footerData.rating < 0) {
       return '#d32f2f';
     }
     return '#757575';
@@ -73,15 +78,20 @@ const FooterPost: FC<FooterPostProps> = ({ post, handleOpenModal, token }) => {
           <IoBookmark />
         </PostBoxAction>
       </PostFooterAction>
-      <PostFooterVote direction='row' alignItems='center' spacing={1}>
+      <PostFooterVote direction='row' alignItems='center'>
         <IconButton
           disabled={footerData.isLoading}
           onClick={decreaseRatingPost}
         >
           <IoChevronDownOutline />
         </IconButton>
-        <Typography color={setColor} variant='subtitle1'>
-          {+post.rating}
+        <Typography
+          sx={{ width: '28px' }}
+          textAlign='center'
+          color={setColor}
+          variant='subtitle1'
+        >
+          {+footerData.rating}
         </Typography>
         <IconButton
           disabled={footerData.isLoading}

@@ -145,11 +145,12 @@ export const getProfileUser =
       dispatch(
         SetProfilePublishPosts(response.data.posts, EFetchStatus.loading)
       );
-      dispatch(SetProfileUser(response.data, EFetchStatus.succeeded));
+      dispatch(SetProfileUser(response.data.user, EFetchStatus.succeeded));
     } catch (e) {
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));
     }
   };
+
 export const getUserSubscriptions =
   (userId: number) => async (dispatch: AppDispatch) => {
     try {
