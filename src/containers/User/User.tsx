@@ -1,9 +1,6 @@
 import React, { FC, memo, useCallback, useEffect } from 'react';
 import { PageWrapper, UserContent } from './User.styled';
-import {
-  getProfileUser,
-  getUserSubscriptions,
-} from '../../store/reducers/profileReducer/action';
+import { getProfileUser } from '../../store/reducers/profileReducer/action';
 import { useDispatch } from 'react-redux';
 import {
   Navigate,
@@ -27,7 +24,6 @@ import { EFetchStatus } from '../../models/EFetchStatus';
 
 interface UserProps {
   handleGetUser: (userId: number) => void;
-  handleGetUserSubscriptions: (userId: number) => void;
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
   user: IUser;
   publishPosts: IPost[];
@@ -43,7 +39,6 @@ const User: FC<UserProps> = memo(
     profileFetchStatus,
     publishPosts,
     handleOpenModal,
-    handleGetUserSubscriptions,
     subscribers,
     subscriptions,
   }) => {
@@ -69,7 +64,7 @@ const User: FC<UserProps> = memo(
             sx={{ borderRadius: '20px' }}
           />
         ) : (
-          <Header user={user} />
+          <Header user={user} subscribers={subscribers.length} />
         )}
         <UserContent>
           <Routes>
@@ -89,7 +84,6 @@ const User: FC<UserProps> = memo(
                 <Details
                   subscribers={subscribers}
                   subscriptions={subscriptions}
-                  handleGetUserSubscriptions={handleGetUserSubscriptions}
                 />
               }
             />
@@ -118,10 +112,6 @@ const ContainerUser = () => {
     []
   );
 
-  const handleGetUserSubscriptions = useCallback(
-    (userId: number) => dispatch(getUserSubscriptions(userId)),
-    []
-  );
   const handleOpenModal = useCallback(
     (id: string, type: EModal, optional: any) => () =>
       dispatch(openModal(id, type, optional)),
@@ -133,7 +123,6 @@ const ContainerUser = () => {
       handleOpenModal={handleOpenModal}
       publishPosts={posts}
       handleGetUser={handleGetUser}
-      handleGetUserSubscriptions={handleGetUserSubscriptions}
       user={user}
       subscribers={subscribers}
       subscriptions={subscriptions}

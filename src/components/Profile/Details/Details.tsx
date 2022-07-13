@@ -4,20 +4,14 @@ import { ISubscription } from '../../../models/ISubscription';
 import Box from './widget/Box';
 
 interface ProfileDetailsProps {
-  handleGetUserSubscriptions: () => void;
   subscribers: ISubscriber[];
   subscriptions: ISubscription[];
 }
 
 const ProfileDetails: FC<ProfileDetailsProps> = ({
-  handleGetUserSubscriptions,
   subscriptions,
   subscribers,
 }) => {
-  useEffect(() => {
-    handleGetUserSubscriptions();
-  }, []);
-
   return (
     <>
       <Box nameBox='Подписки' users={subscriptions} />

@@ -7,10 +7,11 @@ import Avatar from '../../UI/Avatar/Avatar';
 import { IUser } from '../../../models/IUser';
 
 interface ProfileHeaderProps {
+  subscribers: number;
   user: IUser;
 }
 
-const UserHeader: FC<ProfileHeaderProps> = ({ user }) => {
+const UserHeader: FC<ProfileHeaderProps> = ({ user, subscribers }) => {
   return (
     <Header>
       <Banner bg={user.banner} />
@@ -38,8 +39,8 @@ const UserHeader: FC<ProfileHeaderProps> = ({ user }) => {
         <Typography sx={{ mb: '10px' }}>
           Suspendisse lobortis nunc tortor, a dapibus lorem euismod nec.
         </Typography>
-        <Typography variant='subtitle1' textAlign='left'>
-          650 подписчиков
+        <Typography variant='subtitle2' textAlign='left'>
+          Подписчики: <b> {subscribers} </b>
         </Typography>
         <ProfileTabs />
       </Info>

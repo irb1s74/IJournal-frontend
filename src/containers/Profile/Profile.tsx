@@ -1,4 +1,4 @@
-import React, { FC, memo, useCallback } from 'react';
+import React, { FC, memo, useCallback, useEffect } from 'react';
 import { PageWrapper, ProfileContent } from './Profile.styled';
 import ProfileHeader from '../../components/Profile/Header/Header';
 import { Navigate, Route, Routes } from 'react-router-dom';
@@ -35,12 +35,12 @@ interface ProfileProps {
   handleDeletePost: (postId: number) => () => void;
   handleUpdateBanner: (file: any) => void;
   handleUpdateAvatar: (file: any) => void;
+  handleGetUserSubscriptions: () => void;
   draftPosts: IPost[];
   publishPosts: IPost[];
   user: IUser;
   subscribers: ISubscriber[];
   subscriptions: ISubscription[];
-  handleGetUserSubscriptions: () => void;
 }
 
 const Profile: FC<ProfileProps> = memo(
@@ -52,17 +52,21 @@ const Profile: FC<ProfileProps> = memo(
     handleDeletePost,
     handleUpdateBanner,
     handleUpdateAvatar,
-    handleGetUserSubscriptions,
     profileFetchStatus,
     draftPosts,
     publishPosts,
     subscribers,
     subscriptions,
+    handleGetUserSubscriptions,
     user,
   }) => {
     const profileIsLoading =
       profileFetchStatus === EFetchStatus.loading ||
       profileFetchStatus === EFetchStatus.idle;
+
+    useEffect(() => {
+      handleGetUserSubscriptions();
+    }, []);
 
     return (
       <PageWrapper>
@@ -70,6 +74,7 @@ const Profile: FC<ProfileProps> = memo(
           user={user}
           handleUpdateBanner={handleUpdateBanner}
           handleUpdateAvatar={handleUpdateAvatar}
+          subscribers={subscribers.length}
         />
         <ProfileContent>
           <Routes>
@@ -102,7 +107,6 @@ const Profile: FC<ProfileProps> = memo(
               path='/details'
               element={
                 <ProfileDetails
-                  handleGetUserSubscriptions={handleGetUserSubscriptions}
                   subscriptions={subscriptions}
                   subscribers={subscribers}
                 />
@@ -119,10 +123,8 @@ const Profile: FC<ProfileProps> = memo(
 
 const ContainerProfile = () => {
   const dispatch = useDispatch();
-
   const token = useTypedSelector((state) => state.auth.user.token);
   const user = useTypedSelector((state) => state.auth.user);
-
   const profileFetchStatus = useTypedSelector(
     (state) => state.profile.profileFetchStatus
   );
@@ -135,6 +137,10 @@ const ContainerProfile = () => {
 
   const handleGetDraftPosts = useCallback(
     () => dispatch(getDraftPosts(token)),
+    []
+  );
+  const handleGetUserSubscriptions = useCallback(
+    () => dispatch(getUserSubscriptions(user.id)),
     []
   );
   const handleGetPublishPosts = useCallback(
@@ -162,13 +168,10 @@ const ContainerProfile = () => {
     (file: any) => dispatch(updateAvatar(token, file)),
     []
   );
-  const handleGetUserSubscriptions = useCallback(
-    () => dispatch(getUserSubscriptions(user.id)),
-    []
-  );
   return (
     <Profile
       profileFetchStatus={profileFetchStatus}
+      handleGetUserSubscriptions={handleGetUserSubscriptions}
       handleGetDraftPosts={handleGetDraftPosts}
       handleGetPublishPosts={handleGetPublishPosts}
       handleOpenModal={handleOpenModal}
@@ -176,7 +179,6 @@ const ContainerProfile = () => {
       handleDeletePost={handleDeletePost}
       handleUpdateBanner={handleUpdateBanner}
       handleUpdateAvatar={handleUpdateAvatar}
-      handleGetUserSubscriptions={handleGetUserSubscriptions}
       draftPosts={draftPosts}
       publishPosts={publishPosts}
       subscribers={subscribers}

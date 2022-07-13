@@ -1,31 +1,14 @@
-import React, { FC, memo, useEffect } from 'react';
-
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { FC, memo } from 'react';
 import { ISubscriber } from '../../../models/ISubscriber';
 import { ISubscription } from '../../../models/ISubscription';
 import Box from './widget/Box';
 
 interface UserDetailsProps {
-  handleGetUserSubscriptions: (userId: number) => void;
   subscribers: ISubscriber[];
   subscriptions: ISubscription[];
 }
 
-const UserDetails: FC<UserDetailsProps> = ({
-  handleGetUserSubscriptions,
-  subscriptions,
-  subscribers,
-}) => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (id && +id) {
-      handleGetUserSubscriptions(+id);
-    } else {
-      navigate('/');
-    }
-  }, []);
-
+const UserDetails: FC<UserDetailsProps> = ({ subscriptions, subscribers }) => {
   return (
     <>
       <Box nameBox='Подписки' users={subscriptions} />

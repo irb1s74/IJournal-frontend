@@ -146,6 +146,12 @@ export const getProfileUser =
         SetProfilePublishPosts(response.data.posts, EFetchStatus.loading)
       );
       dispatch(SetProfileUser(response.data.user, EFetchStatus.succeeded));
+      dispatch(
+        SetProfileSubscriptions(
+          response.data.subs.subscribers,
+          response.data.subs.subscriptions
+        )
+      );
     } catch (e) {
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));
     }
