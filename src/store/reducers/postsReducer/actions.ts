@@ -1,22 +1,25 @@
-import { IPostsSetNews, PostsActionEnum } from './types';
+import { IPostsSetPosts, PostsActionEnum } from './types';
 import { IPost } from '../../../models/IPost';
 import { AppDispatch } from '../../index';
 import PostService from '../../../api/PostService';
 
-export const PostsSetNews = (payload: IPost[]): IPostsSetNews => ({
-  type: PostsActionEnum.SET_NEWS,
+export const SetPosts = (payload: IPost[]): IPostsSetPosts => ({
+  type: PostsActionEnum.SET_POSTS,
   payload,
 });
 
-export const getPosts = () => async (dispatch: AppDispatch) => {
-  const response = await PostService.getPost();
+export const getPopularPosts = () => async (dispatch: AppDispatch) => {
+  console.log('pop');
+  const response = await PostService.getPopularPost();
   if (response?.data) {
-    dispatch(PostsSetNews(response.data));
+    dispatch(SetPosts(response.data));
   }
 };
 
-// export const increaseRatingPost =
-//   (postId: number, token: string) => async (dispatch: AppDispatch) => {
-//     const response = await PostService.increaseRatingPost(postId, token);
-//     if(response.data)
-//   };
+export const getNewPosts = () => async (dispatch: AppDispatch) => {
+  console.log('new');
+  const response = await PostService.getNewPost();
+  if (response?.data) {
+    dispatch(SetPosts(response.data));
+  }
+};

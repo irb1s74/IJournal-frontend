@@ -55,20 +55,6 @@ const HeaderMenu: FC<HeaderMenuProps> = ({
           alignContent: 'center',
         }}
       >
-        <IconButton size='large' aria-label='show new mails' color='inherit'>
-          <Badge badgeContent={4} color='error'>
-            <IoChatboxEllipses />
-          </Badge>
-        </IconButton>
-        <IconButton
-          size='large'
-          aria-label='show new notifications'
-          color='inherit'
-        >
-          <Badge badgeContent={17} color='error'>
-            <IoNotifications />
-          </Badge>
-        </IconButton>
         <IconButton
           size='large'
           aria-label='show new notifications'

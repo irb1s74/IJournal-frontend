@@ -1,16 +1,16 @@
 import { IPost } from '../../../models/IPost';
 
 export interface PostsState {
-  News: IPost[];
+  posts: IPost[];
 }
 
 export enum PostsActionEnum {
-  SET_NEWS = 'SET_NEWS',
+  SET_POSTS = 'SET_POSTS',
 }
 
-export interface IPostsSetNews {
-  type: PostsActionEnum.SET_NEWS;
+export interface IPostsSetPosts {
+  type: PostsActionEnum.SET_POSTS;
   payload: IPost[];
 }
 
-export type PostsAction = IPostsSetNews;
+export type PostsAction = IPostsSetPosts;

@@ -7,7 +7,6 @@ import {
 } from './FooterPost.styled';
 import {
   IoBookmark,
-  IoChatbubbles,
   IoChevronDownOutline,
   IoChevronUpOutline,
 } from 'react-icons/io5';
@@ -67,17 +66,6 @@ const FooterPost: FC<FooterPostProps> = ({ post, handleOpenModal, token }) => {
 
   return (
     <PostFooter>
-      <PostFooterAction direction='row' alignItems='center' spacing={2}>
-        <PostBoxAction disableRipple>
-          <IoChatbubbles />
-          <Typography sx={{ ml: '8px' }} variant='subtitle1'>
-            52
-          </Typography>
-        </PostBoxAction>
-        <PostBoxAction>
-          <IoBookmark />
-        </PostBoxAction>
-      </PostFooterAction>
       <PostFooterVote direction='row' alignItems='center'>
         <IconButton
           disabled={footerData.isLoading}
@@ -100,6 +88,11 @@ const FooterPost: FC<FooterPostProps> = ({ post, handleOpenModal, token }) => {
           <IoChevronUpOutline />
         </IconButton>
       </PostFooterVote>
+      <PostFooterAction direction='row' alignItems='center' spacing={2}>
+        <PostBoxAction>
+          <IoBookmark />
+        </PostBoxAction>
+      </PostFooterAction>
     </PostFooter>
   );
 };

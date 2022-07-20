@@ -28,9 +28,6 @@ const UserHeader: FC<ProfileHeaderProps> = ({ user, subscribers }) => {
         >
           <Typography variant='h4'>Irb1s</Typography>
           <Stack direction='row' spacing={2}>
-            <Button variant='outlined' startIcon={<IoChatboxEllipses />}>
-              Написать
-            </Button>
             <Button variant='contained' startIcon={<IoPersonAdd />}>
               Подписаться
             </Button>

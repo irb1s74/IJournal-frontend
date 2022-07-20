@@ -26,9 +26,26 @@ export default class PostService {
       });
   }
 
-  static async getPost() {
+  static async getNewPost() {
     return axios
       .get('post/new', {
+        baseURL: ROOT_URL,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        return error.response;
+      });
+  }
+
+  static async getPopularPost() {
+    return axios
+      .get('post/popular', {
         baseURL: ROOT_URL,
         headers: {
           'Content-Type': 'application/json',

@@ -84,11 +84,6 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({
           justifyContent='space-between'
         >
           <Typography variant='h4'>Irb1s</Typography>
-          <Stack direction='row' spacing={2}>
-            <Button variant='outlined' startIcon={<IoChatboxEllipses />}>
-              Написать
-            </Button>
-          </Stack>
         </Stack>
         <Typography sx={{ mb: '10px' }}>
           Suspendisse lobortis nunc tortor, a dapibus lorem euismod nec.

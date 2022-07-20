@@ -4,18 +4,19 @@ import { Stack, Typography } from '@mui/material';
 import Post from '../../components/UI/Post/Post';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { IPost } from '../../models/IPost';
-import { getPosts } from '../../store/reducers/postsReducer/actions';
 import { useDispatch } from 'react-redux';
 import { EModal } from '../../models/EModal';
 import { openModal } from '../../store/reducers/modalReducer/actions';
+import { ELayouts } from '../../models/ELayouts';
+import { getPosts } from '../../helpers/getPosts';
 
-interface PopularProps {
+interface LayoutProps {
   handleGetPosts: () => void;
   posts: IPost[];
   token: string | undefined;
 }
 
-const Popular: FC<PopularProps> = memo(({ posts, handleGetPosts, token }) => {
+const Layout: FC<LayoutProps> = memo(({ posts, handleGetPosts, token }) => {
   const dispatch = useDispatch();
 
   const handleOpenModal = useCallback(
@@ -26,7 +27,7 @@ const Popular: FC<PopularProps> = memo(({ posts, handleGetPosts, token }) => {
 
   useEffect(() => {
     handleGetPosts();
-  }, []);
+  }, [handleGetPosts]);
 
   return (
     <PageWrapper>
@@ -47,14 +48,12 @@ const Popular: FC<PopularProps> = memo(({ posts, handleGetPosts, token }) => {
   );
 });
 
-const ContainerPopular = () => {
+const ContainerLayout: FC<{ type: ELayouts }> = ({ type }) => {
   const dispatch = useDispatch();
-  const posts = useTypedSelector((state) => state.posts.News);
+  const posts = useTypedSelector((state) => state.posts.posts);
   const token = useTypedSelector((state) => state.auth.user.token);
-  const handleGetPosts = useCallback(() => dispatch(getPosts()), []);
-  return (
-    <Popular posts={posts} token={token} handleGetPosts={handleGetPosts} />
-  );
+  const handleGetPosts = useCallback(() => dispatch(getPosts(type)), [type]);
+  return <Layout posts={posts} token={token} handleGetPosts={handleGetPosts} />;
 };
 
-export default ContainerPopular;
+export default ContainerLayout;
