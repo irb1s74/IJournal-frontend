@@ -52,7 +52,10 @@ const ContainerLayout: FC<{ type: ELayouts }> = ({ type }) => {
   const dispatch = useDispatch();
   const posts = useTypedSelector((state) => state.posts.posts);
   const token = useTypedSelector((state) => state.auth.user.token);
-  const handleGetPosts = useCallback(() => dispatch(getPosts(type)), [type]);
+  const handleGetPosts = useCallback(
+    () => dispatch(getPosts(type, token)),
+    [type]
+  );
   return <Layout posts={posts} token={token} handleGetPosts={handleGetPosts} />;
 };
 

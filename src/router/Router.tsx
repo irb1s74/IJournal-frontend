@@ -12,7 +12,7 @@ const Router: FC<{ isAuth: boolean }> = memo(({ isAuth }) => {
     <Routes>
       <Route element={<PrivateRoutes auth={isAuth} />}>
         <Route path='bookmarks' element={<div />} />
-        <Route path='my' element={<div />} />
+        <Route path='subs' element={<Layout type={ELayouts.subs} />} />
         <Route path='profile/*' element={<Profile />} />
       </Route>
       <Route path='popular' element={<Layout type={ELayouts.popular} />} />

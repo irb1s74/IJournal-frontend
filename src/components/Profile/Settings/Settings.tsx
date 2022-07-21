@@ -15,28 +15,23 @@ const validationSchema = yup.object({
     .required('Это обязательное поле'),
   aboutUser: yup
     .string()
-    .max(90, 'Пароль должен иметь длину не более 90  символов')
+    .max(90, 'Пароль должен иметь длину не более 90  символов'),
 });
 
 const ProfileSettings = () => {
   const formik = useFormik({
     initialValues: {
       nickname: '',
-      aboutUser: ''
+      aboutUser: '',
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log(values);
       formik.setSubmitting(false);
-    }
+    },
   });
   return (
     <Card>
-      <Stack
-        direction='column'
-        spacing={3}
-        alignItems='stretch'
-      >
+      <Stack direction='column' spacing={3} alignItems='stretch'>
         <TextField
           label='Никнэйм'
           variant='outlined'

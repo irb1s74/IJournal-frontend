@@ -60,6 +60,24 @@ export default class PostService {
       });
   }
 
+  static async getSubsPost(token: string) {
+    return axios
+      .get('post/subs', {
+        baseURL: ROOT_URL,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        return error.response;
+      });
+  }
+
   static async update(
     token: string,
     data: {

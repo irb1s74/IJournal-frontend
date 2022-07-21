@@ -10,7 +10,7 @@
     "icon": "time"
   },
   {
-    "route": "/my",
+    "route": "/subs",
     "name": "Моя лента",
     "icon": "my"
   },
