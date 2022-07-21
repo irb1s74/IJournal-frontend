@@ -171,3 +171,18 @@ export const getUserSubscriptions =
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));
     }
   };
+export const toSubscribe =
+  (token: string, userId: number) => async (dispatch: AppDispatch) => {
+    try {
+      await ProfileService.toSubscribe(token, userId);
+      const response = await ProfileService.getUserSubscriptions(userId);
+      dispatch(
+        SetProfileSubscriptions(
+          response.data.subscribers,
+          response.data.subscriptions
+        )
+      );
+    } catch (e) {
+      dispatch(SetProfileFetchStatus(EFetchStatus.failed));
+    }
+  };

@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react';
 import { Box, Button, Stack, Typography } from '@mui/material';
-import { IoChatboxEllipses, IoPersonAdd } from 'react-icons/io5';
+import { IoPersonAdd } from 'react-icons/io5';
 import ProfileTabs from '../Tabs/Tabs';
 import { Banner, Header, Info, WrapperAvatar } from './Header.styled';
 import Avatar from '../../UI/Avatar/Avatar';
@@ -9,9 +9,16 @@ import { IUser } from '../../../models/IUser';
 interface ProfileHeaderProps {
   subscribers: number;
   user: IUser;
+  isSubscriber: boolean;
+  handleToSubscribe: () => void;
 }
 
-const UserHeader: FC<ProfileHeaderProps> = ({ user, subscribers }) => {
+const UserHeader: FC<ProfileHeaderProps> = ({
+  user,
+  subscribers,
+  isSubscriber,
+  handleToSubscribe,
+}) => {
   return (
     <Header>
       <Banner bg={user.banner} />
@@ -28,14 +35,16 @@ const UserHeader: FC<ProfileHeaderProps> = ({ user, subscribers }) => {
         >
           <Typography variant='h4'>Irb1s</Typography>
           <Stack direction='row' spacing={2}>
-            <Button variant='contained' startIcon={<IoPersonAdd />}>
-              Подписаться
+            <Button
+              onClick={handleToSubscribe}
+              variant={isSubscriber ? 'outlined' : 'contained'}
+              startIcon={!isSubscriber && <IoPersonAdd />}
+            >
+              {isSubscriber ? 'Отписаться' : 'Подписаться'}
             </Button>
           </Stack>
         </Stack>
-        <Typography sx={{ mb: '10px' }}>
-          Suspendisse lobortis nunc tortor, a dapibus lorem euismod nec.
-        </Typography>
+        <Typography sx={{ mb: '10px' }}>{user.aboutUser}</Typography>
         <Typography variant='subtitle2' textAlign='left'>
           Подписчики: <b> {subscribers} </b>
         </Typography>

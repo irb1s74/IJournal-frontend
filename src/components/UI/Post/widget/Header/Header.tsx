@@ -66,9 +66,7 @@ const HeaderPost: FC<HeaderPostProps> = ({
               Черновик
             </Typography>
           )}
-          <IconButton sx={{ fontSize: 16 }}>
-            <IoPersonAddSharp />
-          </IconButton>
+
           <IconButton onClick={handleDropListOpen} sx={{ fontSize: 16 }}>
             <IoEllipsisHorizontalSharp />
           </IconButton>

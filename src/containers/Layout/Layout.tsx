@@ -31,9 +31,6 @@ const Layout: FC<LayoutProps> = memo(({ posts, handleGetPosts, token }) => {
 
   return (
     <PageWrapper>
-      <Typography textAlign='center' variant='h6'>
-        Top news
-      </Typography>
       <Stack direction='column' alignItems='center' spacing={5}>
         {posts.map((post: IPost, index) => (
           <Post

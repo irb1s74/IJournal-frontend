@@ -1,6 +1,9 @@
-import React, { FC, memo, useCallback, useEffect } from 'react';
+import React, { FC, memo, useCallback, useEffect, useMemo } from 'react';
 import { PageWrapper, UserContent } from './User.styled';
-import { getProfileUser } from '../../store/reducers/profileReducer/action';
+import {
+  getProfileUser,
+  toSubscribe,
+} from '../../store/reducers/profileReducer/action';
 import { useDispatch } from 'react-redux';
 import {
   Navigate,
@@ -24,12 +27,14 @@ import { EFetchStatus } from '../../models/EFetchStatus';
 
 interface UserProps {
   handleGetUser: (userId: number) => void;
+  handleToSubscribe: () => void;
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
   user: IUser;
   publishPosts: IPost[];
   profileFetchStatus: EFetchStatus;
   subscribers: ISubscriber[];
   subscriptions: ISubscription[];
+  isSubscriber: boolean;
 }
 
 const User: FC<UserProps> = memo(
@@ -41,6 +46,8 @@ const User: FC<UserProps> = memo(
     handleOpenModal,
     subscribers,
     subscriptions,
+    handleToSubscribe,
+    isSubscriber,
   }) => {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -64,7 +71,12 @@ const User: FC<UserProps> = memo(
             sx={{ borderRadius: '20px' }}
           />
         ) : (
-          <Header user={user} subscribers={subscribers.length} />
+          <Header
+            isSubscriber={isSubscriber}
+            user={user}
+            subscribers={subscribers.length}
+            handleToSubscribe={handleToSubscribe}
+          />
         )}
         <UserContent>
           <Routes>
@@ -98,6 +110,7 @@ const User: FC<UserProps> = memo(
 const ContainerUser = () => {
   const dispatch = useDispatch();
   const user = useTypedSelector((state) => state.profile.user);
+  const guest = useTypedSelector((state) => state.auth.user);
   const posts = useTypedSelector((state) => state.profile.publishPosts);
   const subscribers = useTypedSelector((state) => state.profile.subscribers);
   const subscriptions = useTypedSelector(
@@ -112,12 +125,20 @@ const ContainerUser = () => {
     []
   );
 
+  const handleToSubscribe = useCallback(
+    () => dispatch(toSubscribe(guest.token, user.id)),
+    []
+  );
+
   const handleOpenModal = useCallback(
     (id: string, type: EModal, optional: any) => () =>
       dispatch(openModal(id, type, optional)),
     []
   );
 
+  const isSubscriber = useMemo(() => {
+    return subscribers.find((item) => item.subscriber.id === guest.id);
+  }, [subscribers, guest]);
   return (
     <User
       handleOpenModal={handleOpenModal}
@@ -127,6 +148,8 @@ const ContainerUser = () => {
       subscribers={subscribers}
       subscriptions={subscriptions}
       profileFetchStatus={profileFetchStatus}
+      isSubscriber={!!isSubscriber}
+      handleToSubscribe={handleToSubscribe}
     />
   );
 };

@@ -128,4 +128,29 @@ export default class ProfileService {
         return e.response;
       });
   }
+
+  static async toSubscribe(
+    token: string,
+    userId: number
+  ): Promise<AxiosResponse> {
+    return axios
+      .post(
+        '/subscriptions/to/subscribe',
+        { userId },
+        {
+          baseURL: ROOT_URL,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res;
+      })
+      .catch((e) => {
+        return e.response;
+      });
+  }
 }
