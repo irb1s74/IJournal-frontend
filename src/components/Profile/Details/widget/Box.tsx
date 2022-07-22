@@ -11,13 +11,20 @@ import Avatar from '../../../UI/Avatar/Avatar';
 import { Link } from 'react-router-dom';
 import { ISubscriber } from '../../../../models/ISubscriber';
 import { ISubscription } from '../../../../models/ISubscription';
+import { EModal } from '../../../../models/EModal';
 
 interface ProfileDetailsBoxProps {
   nameBox: string;
   users: ISubscriber[] | ISubscription[];
+  handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
 }
 
-const ProfileDetailsBox: FC<ProfileDetailsBoxProps> = ({ users, nameBox }) => {
+const ProfileDetailsBox: FC<ProfileDetailsBoxProps> = ({
+  users,
+  nameBox,
+  handleOpenModal,
+}) => {
+  const shortUser = users.slice(0, 4);
   return (
     <Box
       sx={{
@@ -38,7 +45,7 @@ const ProfileDetailsBox: FC<ProfileDetailsBoxProps> = ({ users, nameBox }) => {
       </Typography>
       <List>
         <Grid container spacing={2}>
-          {users.map((user, index) => (
+          {shortUser.map((user, index) => (
             <Grid key={index} item xs={3}>
               <Link
                 to={`/user/${
@@ -68,11 +75,16 @@ const ProfileDetailsBox: FC<ProfileDetailsBoxProps> = ({ users, nameBox }) => {
           ))}
         </Grid>
       </List>
-      <Link to='profile'>
-        <Typography sx={{ mt: '20px' }} variant='subtitle1'>
-          Показать всех
-        </Typography>
-      </Link>
+      <Typography
+        onClick={handleOpenModal(EModal.modalList, EModal.modalList, {
+          users,
+          nameBox,
+        })}
+        sx={{ mt: '20px', cursor: 'pointer' }}
+        variant='subtitle1'
+      >
+        Показать всех
+      </Typography>
     </Box>
   );
 };

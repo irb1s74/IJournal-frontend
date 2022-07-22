@@ -1,10 +1,4 @@
-import React, {
-  FC,
-  memo,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import React, { FC, memo, useCallback, useEffect, useState } from 'react';
 import { Dialog } from '@mui/material';
 import {
   AuthLogin,
@@ -23,6 +17,7 @@ interface AuthProps {
   handleSigIn: (nickname: string, email: string, password: string) => void;
   handleSetError: (error: string) => void;
 }
+
 const Auth: FC<AuthProps> = memo(
   ({ messageError, closeModal, handleLogin, handleSigIn, handleSetError }) => {
     const [auth, setAuth] = useState(false);
@@ -66,9 +61,7 @@ const AuthContainer: FC<{
   closeModal: () => void;
 }> = ({ closeModal }) => {
   const dispatch = useDispatch();
-
   const messageError = useTypedSelector((state) => state.auth.messageError);
-
   const Login = useCallback(
     (email: string, password: string) => dispatch(AuthLogin(email, password)),
     []
@@ -78,7 +71,6 @@ const AuthContainer: FC<{
       dispatch(AuthSigIn(nickname, email, password)),
     []
   );
-
   const setError = useCallback(
     (error: string) => dispatch(SetMessageError(error)),
     []

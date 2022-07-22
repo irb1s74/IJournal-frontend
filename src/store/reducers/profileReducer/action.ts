@@ -142,15 +142,15 @@ export const getProfileUser =
     try {
       dispatch(SetProfileFetchStatus(EFetchStatus.loading));
       const response = await ProfileService.getUser(userId);
-      dispatch(
-        SetProfilePublishPosts(response.data.posts, EFetchStatus.loading)
-      );
-      dispatch(SetProfileUser(response.data.user, EFetchStatus.succeeded));
+      dispatch(SetProfileUser(response.data.user, EFetchStatus.loading));
       dispatch(
         SetProfileSubscriptions(
           response.data.subs.subscribers,
           response.data.subs.subscriptions
         )
+      );
+      dispatch(
+        SetProfilePublishPosts(response.data.posts, EFetchStatus.succeeded)
       );
     } catch (e) {
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));

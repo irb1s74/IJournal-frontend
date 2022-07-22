@@ -1,4 +1,11 @@
-import React, { FC, memo, useCallback, useEffect, useMemo } from 'react';
+import React, {
+  FC,
+  memo,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+} from 'react';
 import { PageWrapper, UserContent } from './User.styled';
 import {
   getProfileUser,
@@ -54,13 +61,18 @@ const User: FC<UserProps> = memo(
     const profileIsLoading =
       profileFetchStatus === EFetchStatus.loading ||
       profileFetchStatus === EFetchStatus.idle;
-    useEffect(() => {
+    useLayoutEffect(() => {
       if (id && +id) {
         handleGetUser(+id);
       } else {
         navigate('/');
       }
     }, [id]);
+    useEffect(() => {
+      if (!user) {
+        navigate('/');
+      }
+    }, [user]);
     return (
       <PageWrapper>
         {profileIsLoading ? (
@@ -96,6 +108,7 @@ const User: FC<UserProps> = memo(
                 <Details
                   subscribers={subscribers}
                   subscriptions={subscriptions}
+                  handleOpenModal={handleOpenModal}
                 />
               }
             />
@@ -127,7 +140,7 @@ const ContainerUser = () => {
 
   const handleToSubscribe = useCallback(
     () => dispatch(toSubscribe(guest.token, user.id)),
-    []
+    [guest, user]
   );
 
   const handleOpenModal = useCallback(

@@ -107,6 +107,7 @@ const Profile: FC<ProfileProps> = memo(
               path='/details'
               element={
                 <ProfileDetails
+                  handleOpenModal={handleOpenModal}
                   subscriptions={subscriptions}
                   subscribers={subscribers}
                 />
