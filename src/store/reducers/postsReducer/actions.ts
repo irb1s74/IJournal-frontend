@@ -1,10 +1,14 @@
-import { IPostsSetPosts, PostsActionEnum } from './types';
+import { IPostsSetBookmarks, IPostsSetPosts, PostsActionEnum } from './types';
 import { IPost } from '../../../models/IPost';
 import { AppDispatch } from '../../index';
 import PostService from '../../../api/PostService';
 
 export const SetPosts = (payload: IPost[]): IPostsSetPosts => ({
   type: PostsActionEnum.SET_POSTS,
+  payload,
+});
+export const SetBookmarks = (payload: IPost[]): IPostsSetBookmarks => ({
+  type: PostsActionEnum.SET_BOOKMARKS,
   payload,
 });
 
@@ -34,5 +38,13 @@ export const getBookmarksPosts =
     const response = await PostService.getBookmarksPosts(token);
     if (response?.data) {
       dispatch(SetPosts(response.data));
+    }
+  };
+
+export const initialGetBookmarksPosts =
+  (token: string) => async (dispatch: AppDispatch) => {
+    const response = await PostService.getBookmarksPosts(token);
+    if (response?.data) {
+      dispatch(SetBookmarks(response.data));
     }
   };

@@ -2,10 +2,12 @@ import { IPost } from '../../../models/IPost';
 
 export interface PostsState {
   posts: IPost[];
+  bookmarks: IPost[];
 }
 
 export enum PostsActionEnum {
   SET_POSTS = 'SET_POSTS',
+  SET_BOOKMARKS = 'SET_BOOKMARKS',
 }
 
 export interface IPostsSetPosts {
@@ -13,4 +15,9 @@ export interface IPostsSetPosts {
   payload: IPost[];
 }
 
-export type PostsAction = IPostsSetPosts;
+export interface IPostsSetBookmarks {
+  type: PostsActionEnum.SET_BOOKMARKS;
+  payload: IPost[];
+}
+
+export type PostsAction = IPostsSetPosts | IPostsSetBookmarks;

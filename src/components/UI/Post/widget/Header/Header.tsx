@@ -16,7 +16,7 @@ import { EModal } from '../../../../../models/EModal';
 interface HeaderPostProps {
   post: IPost;
   isDraft: boolean;
-  handleOpenModal: (id: string, type: EModal, optional: any) => void;
+  handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
   profile: boolean;
   handleToUnPublish?: (postId: number) => () => void;
   handleDeletePost?: (postId: number) => () => void;

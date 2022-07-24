@@ -8,7 +8,7 @@ import HeaderMenu from '../../components/Header/Menu';
 import Search from '../../components/UI/Search/Search';
 import { Button } from '@mui/material';
 import { HeaderBox } from './Header.styled';
-import { IoMenu, IoFlameSharp } from 'react-icons/io5';
+import { IoFlameSharp, IoMenu } from 'react-icons/io5';
 import { IAppSetMenu } from '../../store/reducers/appReducer/types';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypedSelector';

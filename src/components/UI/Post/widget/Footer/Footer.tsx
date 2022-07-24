@@ -19,13 +19,19 @@ interface FooterPostProps {
   post: IPost;
   handleOpenModal: (id: string, type: EModal, optional: any) => void;
   token: string | undefined;
+  inBookmarks: boolean;
 }
 
-const FooterPost: FC<FooterPostProps> = ({ post, handleOpenModal, token }) => {
+const FooterPost: FC<FooterPostProps> = ({
+  post,
+  handleOpenModal,
+  token,
+  inBookmarks,
+}) => {
   const [footerData, setFooterData] = useState({
     isLoading: false,
     rating: post.rating,
-    inBookmarks: false,
+    inBookmarks,
   });
 
   const toBookmarks = async () => {

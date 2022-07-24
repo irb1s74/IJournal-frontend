@@ -4,6 +4,7 @@ import React, {
   memo,
   Suspense,
   useCallback,
+  useEffect,
   useLayoutEffect,
 } from 'react';
 import Header from './containers/Header/Header';
@@ -16,6 +17,7 @@ import { getModal } from './helpers/getModal';
 import { AuthRef } from './store/reducers/authReducer/actions';
 import { Stack } from '@mui/material';
 import Loader from './components/UI/Loader/Loader';
+import { initialGetBookmarksPosts } from './store/reducers/postsReducer/actions';
 
 const Router = lazy(() => import('./router/Router'));
 
@@ -26,16 +28,30 @@ const getModals = (modals: IModal[], handleCloseModal: () => void) => {
 };
 
 interface AppProps {
+  isAuth: boolean;
   modals: IModal[];
   handleCloseModal: () => void;
   handleAuthRef: () => void;
+  handleInitialGetBookmarksPosts: () => void;
 }
 
 const App: FC<AppProps> = memo(
-  ({ modals, handleCloseModal, handleAuthRef }) => {
+  ({
+    modals,
+    handleCloseModal,
+    handleAuthRef,
+    handleInitialGetBookmarksPosts,
+    isAuth,
+  }) => {
     useLayoutEffect(() => {
       handleAuthRef();
     }, []);
+
+    useEffect(() => {
+      if (isAuth) {
+        handleInitialGetBookmarksPosts();
+      }
+    }, [handleInitialGetBookmarksPosts]);
 
     return (
       <Suspense fallback={<Loader />}>
@@ -57,11 +73,19 @@ const App: FC<AppProps> = memo(
 const AppContainer = () => {
   const dispatch = useDispatch();
   const modals = useTypedSelector((state) => state.modal.modals);
+  const isAuth = useTypedSelector((state) => state.auth.isAuth);
+  const token = useTypedSelector((state) => state.auth.user.token);
   const handleCloseModal = useCallback(() => dispatch(closeModal()), []);
   const handleAuthRef = useCallback(() => dispatch(AuthRef()), []);
+  const handleInitialGetBookmarksPosts = useCallback(
+    () => dispatch(initialGetBookmarksPosts(token)),
+    [token]
+  );
 
   return (
     <App
+      isAuth={isAuth}
+      handleInitialGetBookmarksPosts={handleInitialGetBookmarksPosts}
       modals={modals}
       handleCloseModal={handleCloseModal}
       handleAuthRef={handleAuthRef}

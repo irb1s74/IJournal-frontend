@@ -4,9 +4,9 @@ import { IUser } from '../../../models/IUser';
 
 const initialState: ProfileState = {
   user: {} as IUser,
+  profileFetchStatus: EFetchStatus.idle,
   publishPosts: [],
   draftPosts: [],
-  profileFetchStatus: EFetchStatus.idle,
   subscribers: [],
   subscriptions: [],
 };

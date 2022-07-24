@@ -8,11 +8,12 @@ import Footer from './widget/Footer/Footer';
 
 interface PostProps {
   post: IPost;
-  handleOpenModal: (id: string, type: EModal, optional: any) => void;
+  handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
   handleToUnPublish?: (postId: number) => () => void;
   handleDeletePost?: (postId: number) => () => void;
   profile?: boolean;
   isDraft?: boolean;
+  inBookmarks?: boolean;
   token?: string;
 }
 
@@ -22,6 +23,7 @@ const Post: FC<PostProps> = ({
   isDraft = false,
   token,
   profile = false,
+  inBookmarks = false,
   handleToUnPublish,
   handleDeletePost,
 }) => {
@@ -36,7 +38,12 @@ const Post: FC<PostProps> = ({
         handleDeletePost={handleDeletePost}
       />
       <Content post={post} />
-      <Footer post={post} token={token} handleOpenModal={handleOpenModal} />
+      <Footer
+        post={post}
+        token={token}
+        handleOpenModal={handleOpenModal}
+        inBookmarks={inBookmarks}
+      />
     </WrapperPost>
   );
 };
