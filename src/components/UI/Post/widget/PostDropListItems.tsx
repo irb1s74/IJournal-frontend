@@ -11,7 +11,7 @@ interface ProfileDropListItemsProps {
   handleDeletePost?: (postId: number) => () => void;
 }
 
-const ProfileDropListItems: FC<ProfileDropListItemsProps> = ({
+const PostDropListItems: FC<ProfileDropListItemsProps> = ({
   post,
   handleOpenModal,
   profile,
@@ -51,4 +51,4 @@ const ProfileDropListItems: FC<ProfileDropListItemsProps> = ({
   );
 };
 
-export default ProfileDropListItems;
+export default PostDropListItems;

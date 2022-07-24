@@ -1,6 +1,6 @@
 import React, { FC, memo, useCallback, useEffect } from 'react';
 import { PageWrapper } from './Popular.styled';
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import Post from '../../components/UI/Post/Post';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { IPost } from '../../models/IPost';

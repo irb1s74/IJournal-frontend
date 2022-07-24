@@ -6,11 +6,11 @@ import {
 } from './HeaderPost.styled';
 import Avatar from '../../../Avatar/Avatar';
 import { IconButton, Typography } from '@mui/material';
-import { IoEllipsisHorizontalSharp, IoPersonAddSharp } from 'react-icons/io5';
+import { IoEllipsisHorizontalSharp } from 'react-icons/io5';
 import { IPost } from '../../../../../models/IPost';
 import { Link } from 'react-router-dom';
 import DropList from '../../../DropList/DropList';
-import DropListItems from '../DropListItems';
+import PostDropListItems from '../PostDropListItems';
 import { EModal } from '../../../../../models/EModal';
 
 interface HeaderPostProps {
@@ -40,17 +40,17 @@ const HeaderPost: FC<HeaderPostProps> = ({
   return (
     <>
       <PostHeader>
-        <PostHeaderInfo
-          direction='row'
-          alignItems='center'
-          justifyContent='space-between'
-          spacing={2}
-        >
-          <Avatar user={post.author} />
-          <Link to={`/user/${post.author.id}`}>
+        <Link to={`/user/${post.author.id}`}>
+          <PostHeaderInfo
+            direction='row'
+            alignItems='center'
+            justifyContent='space-between'
+            spacing={2}
+          >
+            <Avatar user={post.author} />
             <Typography variant='subtitle1'>{post.author.nickname}</Typography>
-          </Link>
-        </PostHeaderInfo>
+          </PostHeaderInfo>
+        </Link>
         <PostHeaderAction>
           {isDraft && (
             <Typography
@@ -77,7 +77,7 @@ const HeaderPost: FC<HeaderPostProps> = ({
         anchorEl={anchorEl}
         handleDropListClose={handleDropListClose}
       >
-        <DropListItems
+        <PostDropListItems
           post={post}
           handleOpenModal={handleOpenModal}
           profile={profile}

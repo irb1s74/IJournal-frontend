@@ -25,7 +25,31 @@ const FooterPost: FC<FooterPostProps> = ({ post, handleOpenModal, token }) => {
   const [footerData, setFooterData] = useState({
     isLoading: false,
     rating: post.rating,
+    inBookmarks: false,
   });
+
+  const toBookmarks = async () => {
+    if (token) {
+      setFooterData({ ...footerData, isLoading: true });
+      const response = await PostService.toBookmark(token, post.id);
+      if (response.status === 201) {
+        setFooterData({
+          ...footerData,
+          isLoading: false,
+          inBookmarks: true,
+        });
+      }
+      if (response.data.status === 200) {
+        setFooterData({
+          ...footerData,
+          isLoading: false,
+          inBookmarks: false,
+        });
+      }
+    } else {
+      handleOpenModal(EModal.authModal, EModal.authModal, {});
+    }
+  };
 
   const increaseRatingPost = async () => {
     if (token) {
@@ -82,14 +106,18 @@ const FooterPost: FC<FooterPostProps> = ({ post, handleOpenModal, token }) => {
           {+footerData.rating}
         </Typography>
         <IconButton
-          disabled={footerData.isLoading}
           onClick={increaseRatingPost}
+          disabled={footerData.isLoading}
         >
           <IoChevronUpOutline />
         </IconButton>
       </PostFooterVote>
       <PostFooterAction direction='row' alignItems='center' spacing={2}>
-        <PostBoxAction>
+        <PostBoxAction
+          onClick={toBookmarks}
+          disabled={footerData.isLoading}
+          color={footerData.inBookmarks ? 'secondary' : 'default'}
+        >
           <IoBookmark />
         </PostBoxAction>
       </PostFooterAction>

@@ -11,7 +11,10 @@ const Router: FC<{ isAuth: boolean }> = memo(({ isAuth }) => {
   return (
     <Routes>
       <Route element={<PrivateRoutes auth={isAuth} />}>
-        <Route path='bookmarks' element={<div />} />
+        <Route
+          path='bookmarks'
+          element={<Layout type={ELayouts.bookmarks} />}
+        />
         <Route path='subs' element={<Layout type={ELayouts.subs} />} />
         <Route path='profile/*' element={<Profile />} />
       </Route>

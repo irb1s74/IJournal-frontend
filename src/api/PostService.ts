@@ -43,6 +43,24 @@ export default class PostService {
       });
   }
 
+  static async getBookmarksPosts(token: string) {
+    return axios
+      .get('post/bookmarks', {
+        baseURL: ROOT_URL,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        return error.response;
+      });
+  }
+
   static async getPopularPost() {
     return axios
       .get('post/popular', {
@@ -112,6 +130,30 @@ export default class PostService {
           Authorization: `Bearer ${token}`,
         },
       })
+      .then((res) => {
+        return res;
+      })
+      .catch((e) => {
+        return e.response;
+      });
+  }
+
+  static async toBookmark(token: string, postId: number) {
+    return axios
+      .post(
+        `bookmarks/to/bookmark`,
+        {
+          postId,
+        },
+        {
+          baseURL: ROOT_URL,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         return res;
       })

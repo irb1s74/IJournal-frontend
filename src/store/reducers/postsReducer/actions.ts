@@ -28,3 +28,11 @@ export const getSubsPosts =
       dispatch(SetPosts(response.data));
     }
   };
+
+export const getBookmarksPosts =
+  (token: string) => async (dispatch: AppDispatch) => {
+    const response = await PostService.getBookmarksPosts(token);
+    if (response?.data) {
+      dispatch(SetPosts(response.data));
+    }
+  };
