@@ -9,7 +9,10 @@ interface ProfileDraftsProps {
   isLoading: boolean;
   getDraftPosts: () => void;
   handleDeletePost: (postId: number) => () => void;
+  handleToBookmarks: (postId: number) => void;
   draftPosts: IPost[];
+  bookmarks: IPost[];
+  token: string;
 }
 
 const ProfileDrafts: FC<ProfileDraftsProps> = ({
@@ -18,6 +21,9 @@ const ProfileDrafts: FC<ProfileDraftsProps> = ({
   getDraftPosts,
   draftPosts,
   handleDeletePost,
+  handleToBookmarks,
+  bookmarks,
+  token,
 }) => {
   useEffect(() => {
     getDraftPosts();
@@ -30,10 +36,13 @@ const ProfileDrafts: FC<ProfileDraftsProps> = ({
       ) : draftPosts.length ? (
         draftPosts.map((post: IPost, index) => (
           <Post
+            token={token}
             key={`${index}_${post.id}`}
             handleOpenModal={handleOpenModal}
             handleDeletePost={handleDeletePost}
+            handleToBookmarks={handleToBookmarks}
             post={post}
+            inBookmarks={!!bookmarks.find((item) => item.id === post.id)}
             profile
             isDraft
           />

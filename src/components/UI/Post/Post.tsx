@@ -11,6 +11,7 @@ interface PostProps {
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
   handleToUnPublish?: (postId: number) => () => void;
   handleDeletePost?: (postId: number) => () => void;
+  handleToBookmarks?: (postId: number) => void;
   profile?: boolean;
   isDraft?: boolean;
   inBookmarks?: boolean;
@@ -26,6 +27,7 @@ const Post: FC<PostProps> = ({
   inBookmarks = false,
   handleToUnPublish,
   handleDeletePost,
+  handleToBookmarks,
 }) => {
   return (
     <WrapperPost>
@@ -43,6 +45,7 @@ const Post: FC<PostProps> = ({
         token={token}
         handleOpenModal={handleOpenModal}
         inBookmarks={inBookmarks}
+        handleToBookmarks={handleToBookmarks}
       />
     </WrapperPost>
   );

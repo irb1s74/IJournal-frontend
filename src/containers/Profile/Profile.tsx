@@ -25,6 +25,7 @@ import ProfileSettings from '../../components/Profile/Settings/Settings';
 import ProfileDetails from '../../components/Profile/Details/Details';
 import { ISubscriber } from '../../models/ISubscriber';
 import { ISubscription } from '../../models/ISubscription';
+import { toBookmarks } from '../../store/reducers/postsReducer/actions';
 
 interface ProfileProps {
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
@@ -35,8 +36,10 @@ interface ProfileProps {
   handleDeletePost: (postId: number) => () => void;
   handleUpdateBanner: (file: any) => void;
   handleUpdateAvatar: (file: any) => void;
+  handleToBookmarks: (postId: number) => void;
   handleGetUserSubscriptions: () => void;
   draftPosts: IPost[];
+  bookmarks: IPost[];
   publishPosts: IPost[];
   user: IUser;
   subscribers: ISubscriber[];
@@ -52,12 +55,14 @@ const Profile: FC<ProfileProps> = memo(
     handleDeletePost,
     handleUpdateBanner,
     handleUpdateAvatar,
+    handleToBookmarks,
     profileFetchStatus,
     draftPosts,
     publishPosts,
     subscribers,
     subscriptions,
     handleGetUserSubscriptions,
+    bookmarks,
     user,
   }) => {
     const profileIsLoading =
@@ -82,12 +87,15 @@ const Profile: FC<ProfileProps> = memo(
               index
               element={
                 <ProfilePublish
+                  token={user.token}
+                  bookmarks={bookmarks}
                   publishPosts={publishPosts}
                   isLoading={profileIsLoading}
                   getPublishPosts={handleGetPublishPosts}
                   handleOpenModal={handleOpenModal}
                   handleToUnPublish={handleToUnPublish}
                   handleDeletePost={handleDeletePost}
+                  handleToBookmarks={handleToBookmarks}
                 />
               }
             />
@@ -95,11 +103,14 @@ const Profile: FC<ProfileProps> = memo(
               path='/drafts'
               element={
                 <ProfileDrafts
+                  token={user.token}
+                  bookmarks={bookmarks}
                   draftPosts={draftPosts}
                   isLoading={profileIsLoading}
                   getDraftPosts={handleGetDraftPosts}
                   handleOpenModal={handleOpenModal}
                   handleDeletePost={handleDeletePost}
+                  handleToBookmarks={handleToBookmarks}
                 />
               }
             />
@@ -132,6 +143,7 @@ const ContainerProfile = () => {
   const draftPosts = useTypedSelector((state) => state.profile.draftPosts);
   const publishPosts = useTypedSelector((state) => state.profile.publishPosts);
   const subscribers = useTypedSelector((state) => state.profile.subscribers);
+  const bookmarks = useTypedSelector((state) => state.posts.bookmarks);
   const subscriptions = useTypedSelector(
     (state) => state.profile.subscriptions
   );
@@ -169,8 +181,13 @@ const ContainerProfile = () => {
     (file: any) => dispatch(updateAvatar(token, file)),
     []
   );
+  const handleToBookmarks = useCallback((postId: number) => {
+    dispatch(toBookmarks(token, postId));
+  }, []);
+
   return (
     <Profile
+      bookmarks={bookmarks}
       profileFetchStatus={profileFetchStatus}
       handleGetUserSubscriptions={handleGetUserSubscriptions}
       handleGetDraftPosts={handleGetDraftPosts}
@@ -180,6 +197,7 @@ const ContainerProfile = () => {
       handleDeletePost={handleDeletePost}
       handleUpdateBanner={handleUpdateBanner}
       handleUpdateAvatar={handleUpdateAvatar}
+      handleToBookmarks={handleToBookmarks}
       draftPosts={draftPosts}
       publishPosts={publishPosts}
       subscribers={subscribers}

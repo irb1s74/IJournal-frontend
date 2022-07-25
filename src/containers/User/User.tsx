@@ -31,6 +31,7 @@ import { ISubscriber } from '../../models/ISubscriber';
 import { ISubscription } from '../../models/ISubscription';
 import { EModal } from '../../models/EModal';
 import { EFetchStatus } from '../../models/EFetchStatus';
+import { toBookmarks } from '../../store/reducers/postsReducer/actions';
 
 interface UserProps {
   handleGetUser: (userId: number) => void;
@@ -41,7 +42,10 @@ interface UserProps {
   profileFetchStatus: EFetchStatus;
   subscribers: ISubscriber[];
   subscriptions: ISubscription[];
+  handleToBookmarks: (postId: number) => void;
   isSubscriber: boolean;
+  bookmarks: IPost[];
+  token: string;
 }
 
 const User: FC<UserProps> = memo(
@@ -54,6 +58,9 @@ const User: FC<UserProps> = memo(
     subscribers,
     subscriptions,
     handleToSubscribe,
+    handleToBookmarks,
+    bookmarks,
+    token,
     isSubscriber,
   }) => {
     const navigate = useNavigate();
@@ -96,6 +103,9 @@ const User: FC<UserProps> = memo(
               index
               element={
                 <Publish
+                  bookmarks={bookmarks}
+                  token={token}
+                  handleToBookmarks={handleToBookmarks}
                   handleOpenModal={handleOpenModal}
                   isLoading={profileIsLoading}
                   publishPosts={publishPosts}
@@ -129,6 +139,8 @@ const ContainerUser = () => {
   const subscriptions = useTypedSelector(
     (state) => state.profile.subscriptions
   );
+  const bookmarks = useTypedSelector((state) => state.posts.bookmarks);
+
   const profileFetchStatus = useTypedSelector(
     (state) => state.profile.profileFetchStatus
   );
@@ -152,9 +164,18 @@ const ContainerUser = () => {
   const isSubscriber = useMemo(() => {
     return subscribers.find((item) => item.subscriber.id === guest.id);
   }, [subscribers, guest]);
+
+  const handleToBookmarks = useCallback(
+    (postId: number) => {
+      dispatch(toBookmarks(guest.token, postId));
+    },
+    [guest]
+  );
+
   return (
     <User
       handleOpenModal={handleOpenModal}
+      handleToBookmarks={handleToBookmarks}
       publishPosts={posts}
       handleGetUser={handleGetUser}
       user={user}
@@ -163,6 +184,8 @@ const ContainerUser = () => {
       profileFetchStatus={profileFetchStatus}
       isSubscriber={!!isSubscriber}
       handleToSubscribe={handleToSubscribe}
+      token={guest.token}
+      bookmarks={bookmarks}
     />
   );
 };

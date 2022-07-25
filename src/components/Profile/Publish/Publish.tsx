@@ -8,9 +8,12 @@ interface ProfilePublishProps {
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
   handleToUnPublish: (postId: number) => () => void;
   handleDeletePost: (postId: number) => () => void;
+  handleToBookmarks: (postId: number) => void;
   isLoading: boolean;
   getPublishPosts: () => void;
   publishPosts: IPost[];
+  bookmarks: IPost[];
+  token: string;
 }
 
 const ProfilePublish: FC<ProfilePublishProps> = ({
@@ -20,6 +23,9 @@ const ProfilePublish: FC<ProfilePublishProps> = ({
   publishPosts,
   handleToUnPublish,
   handleDeletePost,
+  handleToBookmarks,
+  bookmarks,
+  token,
 }) => {
   useEffect(() => {
     getPublishPosts();
@@ -32,11 +38,14 @@ const ProfilePublish: FC<ProfilePublishProps> = ({
       ) : publishPosts.length ? (
         publishPosts.map((post: IPost, index) => (
           <Post
+            token={token}
             key={`${index}_${post.id}`}
             handleOpenModal={handleOpenModal}
             handleToUnPublish={handleToUnPublish}
             handleDeletePost={handleDeletePost}
+            handleToBookmarks={handleToBookmarks}
             post={post}
+            inBookmarks={!!bookmarks.find((item) => item.id === post.id)}
             profile
           />
         ))

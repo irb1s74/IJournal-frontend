@@ -41,6 +41,14 @@ export const getBookmarksPosts =
     }
   };
 
+export const toBookmarks =
+  (token: string, postId: number) => async (dispatch: AppDispatch) => {
+    const response = await PostService.toBookmark(token, postId);
+    if (response?.data) {
+      dispatch(SetBookmarks(response.data));
+    }
+  };
+
 export const initialGetBookmarksPosts =
   (token: string) => async (dispatch: AppDispatch) => {
     const response = await PostService.getBookmarksPosts(token);

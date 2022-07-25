@@ -77,6 +77,7 @@ const AppContainer = () => {
   const token = useTypedSelector((state) => state.auth.user.token);
   const handleCloseModal = useCallback(() => dispatch(closeModal()), []);
   const handleAuthRef = useCallback(() => dispatch(AuthRef()), []);
+
   const handleInitialGetBookmarksPosts = useCallback(
     () => dispatch(initialGetBookmarksPosts(token)),
     [token]

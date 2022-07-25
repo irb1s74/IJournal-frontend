@@ -20,6 +20,7 @@ interface FooterPostProps {
   handleOpenModal: (id: string, type: EModal, optional: any) => void;
   token: string | undefined;
   inBookmarks: boolean;
+  handleToBookmarks?: (postId: number) => void;
 }
 
 const FooterPost: FC<FooterPostProps> = ({
@@ -27,6 +28,7 @@ const FooterPost: FC<FooterPostProps> = ({
   handleOpenModal,
   token,
   inBookmarks,
+  handleToBookmarks = () => undefined,
 }) => {
   const [footerData, setFooterData] = useState({
     isLoading: false,
@@ -37,21 +39,27 @@ const FooterPost: FC<FooterPostProps> = ({
   const toBookmarks = async () => {
     if (token) {
       setFooterData({ ...footerData, isLoading: true });
-      const response = await PostService.toBookmark(token, post.id);
-      if (response.status === 201) {
-        setFooterData({
-          ...footerData,
-          isLoading: false,
-          inBookmarks: true,
-        });
-      }
-      if (response.data.status === 200) {
-        setFooterData({
-          ...footerData,
-          isLoading: false,
-          inBookmarks: false,
-        });
-      }
+      handleToBookmarks(post.id);
+      setFooterData({
+        ...footerData,
+        isLoading: false,
+        inBookmarks: !inBookmarks,
+      });
+
+      // const response = await PostService.toBookmark(token, post.id);
+      // if (response.status === 201) {
+      //   setFooterData({
+      //     ...footerData,
+      //     isLoading: false,
+      //     inBookmarks: true,
+      //   });
+      // }
+      // if (response.data.status === 200) {
+      //   setFooterData({
+      //     ...footerData,
+      //     isLoading: false,
+      //     inBookmarks: false,
+      //   });
     } else {
       handleOpenModal(EModal.authModal, EModal.authModal, {});
     }
@@ -130,5 +138,4 @@ const FooterPost: FC<FooterPostProps> = ({
     </PostFooter>
   );
 };
-
 export default memo(FooterPost);

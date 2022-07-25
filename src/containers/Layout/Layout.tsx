@@ -9,16 +9,18 @@ import { EModal } from '../../models/EModal';
 import { openModal } from '../../store/reducers/modalReducer/actions';
 import { ELayouts } from '../../models/ELayouts';
 import { getPosts } from '../../helpers/getPosts';
+import { toBookmarks } from '../../store/reducers/postsReducer/actions';
 
 interface LayoutProps {
   handleGetPosts: () => void;
+  handleToBookmarks: (postId: number) => void;
   posts: IPost[];
   bookmarks: IPost[];
   token: string | undefined;
 }
 
 const Layout: FC<LayoutProps> = memo(
-  ({ posts, handleGetPosts, token, bookmarks }) => {
+  ({ posts, handleGetPosts, token, bookmarks, handleToBookmarks }) => {
     const dispatch = useDispatch();
 
     const handleOpenModal = useCallback(
@@ -36,6 +38,7 @@ const Layout: FC<LayoutProps> = memo(
         <Stack direction='column' alignItems='center' spacing={5}>
           {posts.map((post: IPost, index) => (
             <Post
+              handleToBookmarks={handleToBookmarks}
               inBookmarks={!!bookmarks.find((item) => item.id === post.id)}
               token={token}
               key={`${index}_${post.id}`}
@@ -54,6 +57,11 @@ const ContainerLayout: FC<{ type: ELayouts }> = ({ type }) => {
   const posts = useTypedSelector((state) => state.posts.posts);
   const bookmarks = useTypedSelector((state) => state.posts.bookmarks);
   const token = useTypedSelector((state) => state.auth.user.token);
+
+  const handleToBookmarks = useCallback((postId: number) => {
+    dispatch(toBookmarks(token, postId));
+  }, []);
+
   const handleGetPosts = useCallback(
     () => dispatch(getPosts(type, token)),
     [type]
@@ -64,6 +72,7 @@ const ContainerLayout: FC<{ type: ELayouts }> = ({ type }) => {
       token={token}
       bookmarks={bookmarks}
       handleGetPosts={handleGetPosts}
+      handleToBookmarks={handleToBookmarks}
     />
   );
 };
