@@ -11,13 +11,14 @@ import Header from './containers/Header/Header';
 import Sidebar from './containers/Sidebar/Sidebar';
 import { IModal } from './models/IModal';
 import { useTypedSelector } from './hooks/useTypedSelector';
-import { closeModal } from './store/reducers/modalReducer/actions';
+import { closeModal } from './store/reducers/appReducer/actions';
 import { useDispatch } from 'react-redux';
 import { getModal } from './helpers/getModal';
 import { AuthRef } from './store/reducers/authReducer/actions';
 import { Stack } from '@mui/material';
 import Loader from './components/UI/Loader/Loader';
 import { initialGetBookmarksPosts } from './store/reducers/postsReducer/actions';
+import useNotifier from './hooks/useNotifier';
 
 const Router = lazy(() => import('./router/Router'));
 
@@ -43,6 +44,7 @@ const App: FC<AppProps> = memo(
     handleInitialGetBookmarksPosts,
     isAuth,
   }) => {
+    useNotifier();
     useLayoutEffect(() => {
       handleAuthRef();
     }, []);
@@ -72,7 +74,7 @@ const App: FC<AppProps> = memo(
 
 const AppContainer = () => {
   const dispatch = useDispatch();
-  const modals = useTypedSelector((state) => state.modal.modals);
+  const modals = useTypedSelector((state) => state.app.modals);
   const isAuth = useTypedSelector((state) => state.auth.isAuth);
   const token = useTypedSelector((state) => state.auth.user.token);
   const handleCloseModal = useCallback(() => dispatch(closeModal()), []);

@@ -11,7 +11,7 @@ interface PostProps {
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
   handleToUnPublish?: (postId: number) => () => void;
   handleDeletePost?: (postId: number) => () => void;
-  handleToBookmarks?: (postId: number) => void;
+  handleToBookmarks?: (postId: number, inBookmark: boolean) => void;
   profile?: boolean;
   isDraft?: boolean;
   inBookmarks?: boolean;

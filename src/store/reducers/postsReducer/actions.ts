@@ -2,6 +2,7 @@ import { IPostsSetBookmarks, IPostsSetPosts, PostsActionEnum } from './types';
 import { IPost } from '../../../models/IPost';
 import { AppDispatch } from '../../index';
 import PostService from '../../../api/PostService';
+import { enqueueNotification } from '../appReducer/actions';
 
 export const SetPosts = (payload: IPost[]): IPostsSetPosts => ({
   type: PostsActionEnum.SET_POSTS,
@@ -42,10 +43,34 @@ export const getBookmarksPosts =
   };
 
 export const toBookmarks =
-  (token: string, postId: number) => async (dispatch: AppDispatch) => {
-    const response = await PostService.toBookmark(token, postId);
-    if (response?.data) {
-      dispatch(SetBookmarks(response.data));
+  (token: string, postId: number, inBookmarks: boolean) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const response = await PostService.toBookmark(token, postId);
+      if (response?.data) {
+        dispatch(SetBookmarks(response.data));
+        dispatch(
+          enqueueNotification({
+            message: inBookmarks
+              ? 'Пост удален из избранного'
+              : 'Пост добавлен в избранное',
+            options: {
+              key: new Date().getTime() + Math.random(),
+              variant: 'info',
+            },
+          })
+        );
+      }
+    } catch (e) {
+      dispatch(
+        enqueueNotification({
+          message: 'Произошла ошибка повторите попытку позже',
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'error',
+          },
+        })
+      );
     }
   };
 

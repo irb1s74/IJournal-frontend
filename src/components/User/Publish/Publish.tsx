@@ -6,7 +6,7 @@ import { EModal } from '../../../models/EModal';
 
 interface UserPublishProps {
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
-  handleToBookmarks: (postId: number) => void;
+  handleToBookmarks: (postId: number, inBookmark: boolean) => void;
   isLoading: boolean;
   publishPosts: IPost[];
   bookmarks: IPost[];

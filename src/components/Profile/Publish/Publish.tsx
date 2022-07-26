@@ -8,7 +8,7 @@ interface ProfilePublishProps {
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
   handleToUnPublish: (postId: number) => () => void;
   handleDeletePost: (postId: number) => () => void;
-  handleToBookmarks: (postId: number) => void;
+  handleToBookmarks: (postId: number, inBookmark: boolean) => void;
   isLoading: boolean;
   getPublishPosts: () => void;
   publishPosts: IPost[];

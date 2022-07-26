@@ -6,14 +6,14 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { IPost } from '../../models/IPost';
 import { useDispatch } from 'react-redux';
 import { EModal } from '../../models/EModal';
-import { openModal } from '../../store/reducers/modalReducer/actions';
+import { openModal } from '../../store/reducers/appReducer/actions';
 import { ELayouts } from '../../models/ELayouts';
 import { getPosts } from '../../helpers/getPosts';
 import { toBookmarks } from '../../store/reducers/postsReducer/actions';
 
 interface LayoutProps {
   handleGetPosts: () => void;
-  handleToBookmarks: (postId: number) => void;
+  handleToBookmarks: (postId: number, inBookmark: boolean) => void;
   posts: IPost[];
   bookmarks: IPost[];
   token: string | undefined;
@@ -58,9 +58,12 @@ const ContainerLayout: FC<{ type: ELayouts }> = ({ type }) => {
   const bookmarks = useTypedSelector((state) => state.posts.bookmarks);
   const token = useTypedSelector((state) => state.auth.user.token);
 
-  const handleToBookmarks = useCallback((postId: number) => {
-    dispatch(toBookmarks(token, postId));
-  }, []);
+  const handleToBookmarks = useCallback(
+    (postId: number, inBookmark: boolean) => {
+      dispatch(toBookmarks(token, postId, inBookmark));
+    },
+    []
+  );
 
   const handleGetPosts = useCallback(
     () => dispatch(getPosts(type, token)),

@@ -7,7 +7,7 @@ import ProfilePublish from '../../components/Profile/Publish/Publish';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
 import { EModal } from '../../models/EModal';
-import { openModal } from '../../store/reducers/modalReducer/actions';
+import { openModal } from '../../store/reducers/appReducer/actions';
 import { EFetchStatus } from '../../models/EFetchStatus';
 
 import {
@@ -36,7 +36,7 @@ interface ProfileProps {
   handleDeletePost: (postId: number) => () => void;
   handleUpdateBanner: (file: any) => void;
   handleUpdateAvatar: (file: any) => void;
-  handleToBookmarks: (postId: number) => void;
+  handleToBookmarks: (postId: number, inBookmark: boolean) => void;
   handleGetUserSubscriptions: () => void;
   draftPosts: IPost[];
   bookmarks: IPost[];
@@ -181,9 +181,12 @@ const ContainerProfile = () => {
     (file: any) => dispatch(updateAvatar(token, file)),
     []
   );
-  const handleToBookmarks = useCallback((postId: number) => {
-    dispatch(toBookmarks(token, postId));
-  }, []);
+  const handleToBookmarks = useCallback(
+    (postId: number, inBookmark: boolean) => {
+      dispatch(toBookmarks(token, postId, inBookmark));
+    },
+    []
+  );
 
   return (
     <Profile

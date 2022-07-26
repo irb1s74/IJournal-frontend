@@ -9,7 +9,7 @@ interface ProfileDraftsProps {
   isLoading: boolean;
   getDraftPosts: () => void;
   handleDeletePost: (postId: number) => () => void;
-  handleToBookmarks: (postId: number) => void;
+  handleToBookmarks: (postId: number, inBookmark: boolean) => void;
   draftPosts: IPost[];
   bookmarks: IPost[];
   token: string;

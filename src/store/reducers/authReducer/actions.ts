@@ -2,7 +2,7 @@ import { AuthActionEnum, IAuthSetMessageError, IAuthSetUser } from './types';
 import { IUser } from '../../../models/IUser';
 import AuthService from '../../../api/AuthService';
 import { AppDispatch, store } from '../../index';
-import { setModals } from '../modalReducer/actions';
+import { setModals } from '../appReducer/actions';
 
 export const SetUser = (user: IUser, isAuth: boolean): IAuthSetUser => ({
   type: AuthActionEnum.SET_USER,
@@ -24,15 +24,15 @@ export const AuthRef = () => async (dispatch: AppDispatch) => {
       if (response.data.token) {
         dispatch(SetUser(response.data, true));
         localStorage.setItem('token', response.data.token);
-      }else{
+      } else {
         dispatch(SetUser({} as IUser, false));
-        localStorage.removeItem('token')
+        localStorage.removeItem('token');
       }
     } else {
       dispatch(SetUser({} as IUser, false));
     }
   } catch (e) {
-    localStorage.removeItem('token')
+    localStorage.removeItem('token');
     dispatch(SetUser({} as IUser, false));
     dispatch(SetMessageError('Произошла ошибка'));
   }
@@ -45,7 +45,7 @@ export const AuthLogin =
       if (response.data.token) {
         dispatch(SetUser(response.data, true));
         localStorage.setItem('token', response.data.token);
-        const { modals } = store.getState().modal;
+        const { modals } = store.getState().app;
         modals.pop();
         dispatch(setModals([...modals]));
       }
@@ -67,7 +67,7 @@ export const AuthSigIn =
       if (response.status === 201) {
         dispatch(SetUser(response.data, true));
         localStorage.setItem('token', response.data.token);
-        const { modals } = store.getState().modal;
+        const { modals } = store.getState().app;
         modals.pop();
         dispatch(setModals([...modals]));
       }

@@ -19,7 +19,7 @@ import {
   useNavigate,
   useParams,
 } from 'react-router-dom';
-import { openModal } from '../../store/reducers/modalReducer/actions';
+import { openModal } from '../../store/reducers/appReducer/actions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { Skeleton } from '@mui/material';
 import Header from '../../components/User/Header/Header';
@@ -42,7 +42,7 @@ interface UserProps {
   profileFetchStatus: EFetchStatus;
   subscribers: ISubscriber[];
   subscriptions: ISubscription[];
-  handleToBookmarks: (postId: number) => void;
+  handleToBookmarks: (postId: number, inBookmark: boolean) => void;
   isSubscriber: boolean;
   bookmarks: IPost[];
   token: string;
@@ -166,8 +166,8 @@ const ContainerUser = () => {
   }, [subscribers, guest]);
 
   const handleToBookmarks = useCallback(
-    (postId: number) => {
-      dispatch(toBookmarks(guest.token, postId));
+    (postId: number, inBookmark: boolean) => {
+      dispatch(toBookmarks(guest.token, postId, inBookmark));
     },
     [guest]
   );

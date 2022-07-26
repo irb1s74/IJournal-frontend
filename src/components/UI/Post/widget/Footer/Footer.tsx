@@ -20,7 +20,7 @@ interface FooterPostProps {
   handleOpenModal: (id: string, type: EModal, optional: any) => void;
   token: string | undefined;
   inBookmarks: boolean;
-  handleToBookmarks?: (postId: number) => void;
+  handleToBookmarks?: (postId: number, inBookmark: boolean) => void;
 }
 
 const FooterPost: FC<FooterPostProps> = ({
@@ -39,27 +39,12 @@ const FooterPost: FC<FooterPostProps> = ({
   const toBookmarks = async () => {
     if (token) {
       setFooterData({ ...footerData, isLoading: true });
-      handleToBookmarks(post.id);
+      handleToBookmarks(post.id, inBookmarks);
       setFooterData({
         ...footerData,
         isLoading: false,
         inBookmarks: !inBookmarks,
       });
-
-      // const response = await PostService.toBookmark(token, post.id);
-      // if (response.status === 201) {
-      //   setFooterData({
-      //     ...footerData,
-      //     isLoading: false,
-      //     inBookmarks: true,
-      //   });
-      // }
-      // if (response.data.status === 200) {
-      //   setFooterData({
-      //     ...footerData,
-      //     isLoading: false,
-      //     inBookmarks: false,
-      //   });
     } else {
       handleOpenModal(EModal.authModal, EModal.authModal, {});
     }

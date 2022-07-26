@@ -6,7 +6,7 @@ import {
 } from './types';
 import { AppDispatch, store } from '../../index';
 import PostService from '../../../api/PostService';
-import { setModals } from '../modalReducer/actions';
+import { setModals } from '../appReducer/actions';
 import {
   SetProfileDraftPosts,
   SetProfileFetchStatus,
@@ -64,7 +64,7 @@ export const PostEditorToPublish =
       const { postId } = store.getState().postEditor;
       dispatch(SetPostEditorFetchStatus(EFetchStatus.succeeded));
       await PostService.toPublish(token, postId);
-      const { modals } = store.getState().modal;
+      const { modals } = store.getState().app;
       modals.pop();
       dispatch(SetProfileFetchStatus(EFetchStatus.loading));
       const response = await ProfileService.getDrafts(token);
