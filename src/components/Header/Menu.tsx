@@ -1,12 +1,7 @@
 import React, { FC, useCallback, useState } from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
-import {
-  IoChatboxEllipses,
-  IoEllipsisVerticalSharp,
-  IoNotifications,
-} from 'react-icons/io5';
+import { IoEllipsisVerticalSharp } from 'react-icons/io5';
 import { Button } from '@mui/material';
 import HeaderList from './List';
 import { EModal } from '../../models/EModal';

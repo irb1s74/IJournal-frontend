@@ -1,13 +1,21 @@
 import React, { FC, memo, useCallback, useLayoutEffect } from 'react';
-import { Container, Paper, Stack, Typography } from '@mui/material';
+import {
+  CircularProgress,
+  Container,
+  Paper,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { getPost } from '../../store/reducers/postsReducer/actions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { IPost } from '../../models/IPost';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Blocks from 'editorjs-blocks-react-renderer';
 import { renderConfig } from '../../components/UI/Post/widget/Content/renderConfig';
 import { EFetchStatus } from '../../models/EFetchStatus';
+import Avatar from '../../components/UI/Avatar/Avatar';
+import dayjs from 'dayjs';
 
 interface PostProps {
   handleGetPost: (id: number) => void;
@@ -27,7 +35,6 @@ const Post: FC<PostProps> = memo(
     const postsIsLoading =
       postsFetchStatus === EFetchStatus.loading ||
       postsFetchStatus === EFetchStatus.idle;
-
     return (
       <Paper
         sx={{
@@ -37,12 +44,31 @@ const Post: FC<PostProps> = memo(
         }}
       >
         <Container maxWidth='xl'>
-          <Stack alignItems='center' flexDirection='column'>
-            {!postsIsLoading && (
-              <>
-                <Typography sx={{ mb: '7px', mt: '12px' }} variant='h6'>
-                  {post?.title}
+          {!postsIsLoading ? (
+            <>
+              <Stack
+                alignItems='center'
+                flexDirection='row'
+                justifyContent='space-between'
+              >
+                <Link to={`/user/${post.author.id}`}>
+                  <Stack alignItems='center' flexDirection='row'>
+                    <Avatar user={post.author} size='40' />
+                    <Typography sx={{ ml: '15px' }} variant='h5'>
+                      {post.author.nickname}
+                    </Typography>
+                  </Stack>
+                </Link>
+                <Typography sx={{ ml: '10px' }}>
+                  {dayjs(post.updatedAt)
+                    .locale('ru')
+                    .format('D MMMM [at] HH:mm')}
                 </Typography>
+              </Stack>
+              <Typography sx={{ mb: '7px', mt: '12px' }} variant='h6'>
+                {post?.title}
+              </Typography>
+              <Stack alignItems='center' flexDirection='column'>
                 <Blocks
                   data={{
                     time: 1610632160642,
@@ -51,9 +77,17 @@ const Post: FC<PostProps> = memo(
                   }}
                   config={renderConfig}
                 />
-              </>
-            )}
-          </Stack>
+              </Stack>
+            </>
+          ) : (
+            <Stack
+              sx={{ height: 'calc(70vh)' }}
+              alignItems='center'
+              justifyContent='center'
+            >
+              <CircularProgress />
+            </Stack>
+          )}
         </Container>
       </Paper>
     );

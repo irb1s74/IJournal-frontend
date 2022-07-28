@@ -1,6 +1,6 @@
 import React, { FC, memo, useRef } from 'react';
-import { Button, IconButton, Stack, Tooltip, Typography } from '@mui/material';
-import { IoChatboxEllipses, IoPencilSharp } from 'react-icons/io5';
+import { IconButton, Stack, Tooltip, Typography } from '@mui/material';
+import { IoPencilSharp } from 'react-icons/io5';
 import ProfileTabs from '../Tabs/Tabs';
 import {
   Banner,

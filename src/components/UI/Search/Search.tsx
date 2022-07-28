@@ -89,7 +89,11 @@ const Search: FC<SearchProps> = ({ handleFindPosts, foundPosts }) => {
               <List>
                 {foundPosts.length ? (
                   foundPosts.map((post, index) => (
-                    <ListItemButton key={index} sx={{ width: '267px' }}>
+                    <ListItemButton
+                      onClick={toNavigate(`/post/${post.id}`)}
+                      key={index}
+                      sx={{ width: '267px' }}
+                    >
                       <ListItemText>{post.title}</ListItemText>
                       <ListItemText
                         sx={{

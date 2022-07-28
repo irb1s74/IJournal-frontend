@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Card } from './Settings.styled';
-import { Button, Stack, TextField, Typography } from '@mui/material';
+import { Button, Stack, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
@@ -25,7 +25,7 @@ const ProfileSettings = () => {
       aboutUser: '',
     },
     validationSchema,
-    onSubmit: (values) => {
+    onSubmit: () => {
       formik.setSubmitting(false);
     },
   });

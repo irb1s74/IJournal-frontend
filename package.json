@@ -15,6 +15,7 @@
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.9",
     "axios": "^0.26.1",
+    "dayjs": "^1.11.4",
     "editorjs-blocks-react-renderer": "^1.2.4",
     "formik": "^2.2.9",
     "node-sass": "^7.0.1",
@@ -57,6 +58,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "resolutions": {
+    "@types/react": "17.0.2",
+    "@types/react-dom": "17.0.2"
   },
   "devDependencies": {
     "@editorjs/code": "^2.7.0",
