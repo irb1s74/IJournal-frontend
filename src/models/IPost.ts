@@ -4,11 +4,11 @@ import { IAuthor } from './IAuthor';
 export interface IPost {
   id: number;
   author: IAuthor;
+  title: string;
   data: {
-    title: string;
     entry: OutputData['blocks'];
   };
-  publish: boolean
+  publish: boolean;
   rating: number;
   updatedAt: string;
 }

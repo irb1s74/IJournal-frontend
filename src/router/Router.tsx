@@ -5,6 +5,7 @@ import Profile from '../containers/Profile/Profile';
 import User from '../containers/User/User';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import PrivateRoutes from '../helpers/privateRoutes';
+import Post from '../containers/Post/Post';
 import { ELayouts } from '../models/ELayouts';
 
 const Router: FC<{ isAuth: boolean }> = memo(({ isAuth }) => {
@@ -22,6 +23,7 @@ const Router: FC<{ isAuth: boolean }> = memo(({ isAuth }) => {
       <Route path='new' element={<Layout type={ELayouts.new} />} />
       <Route path='bookmarks' element={<Layout type={ELayouts.bookmarks} />} />
       <Route path='user/:id/*' element={<User />} />
+      <Route path='post/:id' element={<Post />} />
       <Route path='*' element={<Navigate to='popular' />} />
     </Routes>
   );

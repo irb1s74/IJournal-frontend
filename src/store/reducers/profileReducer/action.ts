@@ -15,6 +15,7 @@ import { SetUser } from '../authReducer/actions';
 import { IUser } from '../../../models/IUser';
 import { ISubscription } from '../../../models/ISubscription';
 import { ISubscriber } from '../../../models/ISubscriber';
+import { enqueueNotification } from '../appReducer/actions';
 
 export const SetProfileFetchStatus = (
   status: EFetchStatus
@@ -67,6 +68,15 @@ export const getDraftPosts =
       dispatch(SetProfileDraftPosts(response.data, EFetchStatus.succeeded));
     } catch (e) {
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));
+      dispatch(
+        enqueueNotification({
+          message: 'Произошла ошибка повторите попытку позже',
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'error',
+          },
+        })
+      );
     }
   };
 
@@ -77,8 +87,26 @@ export const toUnPublish =
       await PostService.toUnPublish(token, postId);
       const response = await ProfileService.getPublish(token);
       dispatch(SetProfilePublishPosts(response.data, EFetchStatus.succeeded));
+      dispatch(
+        enqueueNotification({
+          message: 'Пост распубликован',
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'success',
+          },
+        })
+      );
     } catch (e) {
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));
+      dispatch(
+        enqueueNotification({
+          message: 'Произошла ошибка повторите попытку позже',
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'error',
+          },
+        })
+      );
     }
   };
 
@@ -95,8 +123,26 @@ export const deletePost =
       dispatch(
         SetProfileDraftPosts(responseDrafts.data, EFetchStatus.succeeded)
       );
+      dispatch(
+        enqueueNotification({
+          message: 'Пост удален',
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'success',
+          },
+        })
+      );
     } catch (e) {
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));
+      dispatch(
+        enqueueNotification({
+          message: 'Произошла ошибка повторите попытку позже',
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'error',
+          },
+        })
+      );
     }
   };
 
@@ -108,6 +154,15 @@ export const getPublishPosts =
       dispatch(SetProfilePublishPosts(response.data, EFetchStatus.succeeded));
     } catch (e) {
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));
+      dispatch(
+        enqueueNotification({
+          message: 'Произошла ошибка повторите попытку позже',
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'error',
+          },
+        })
+      );
     }
   };
 
@@ -121,6 +176,15 @@ export const updateBanner =
       dispatch(SetProfileFetchStatus(EFetchStatus.succeeded));
     } catch (e) {
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));
+      dispatch(
+        enqueueNotification({
+          message: 'Произошла ошибка повторите попытку позже',
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'error',
+          },
+        })
+      );
     }
   };
 
@@ -134,6 +198,15 @@ export const updateAvatar =
       dispatch(SetProfileFetchStatus(EFetchStatus.succeeded));
     } catch (e) {
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));
+      dispatch(
+        enqueueNotification({
+          message: 'Произошла ошибка повторите попытку позже',
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'error',
+          },
+        })
+      );
     }
   };
 
@@ -154,6 +227,15 @@ export const getProfileUser =
       );
     } catch (e) {
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));
+      dispatch(
+        enqueueNotification({
+          message: 'Произошла ошибка повторите попытку позже',
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'error',
+          },
+        })
+      );
     }
   };
 
@@ -169,6 +251,15 @@ export const getUserSubscriptions =
       );
     } catch (e) {
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));
+      dispatch(
+        enqueueNotification({
+          message: 'Произошла ошибка повторите попытку позже',
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'error',
+          },
+        })
+      );
     }
   };
 export const toSubscribe =
@@ -184,5 +275,14 @@ export const toSubscribe =
       );
     } catch (e) {
       dispatch(SetProfileFetchStatus(EFetchStatus.failed));
+      dispatch(
+        enqueueNotification({
+          message: 'Произошла ошибка повторите попытку позже',
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'error',
+          },
+        })
+      );
     }
   };

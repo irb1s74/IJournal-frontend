@@ -26,6 +26,23 @@ export default class PostService {
       });
   }
 
+  static async getPost(id: number) {
+    return axios
+      .get(`post/get/${id}`, {
+        baseURL: ROOT_URL,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        return error.response;
+      });
+  }
+
   static async getNewPost() {
     return axios
       .get('post/new', {
@@ -78,6 +95,23 @@ export default class PostService {
       });
   }
 
+  static async findPosts(content: string) {
+    return axios
+      .get(`post/find/${content}`, {
+        baseURL: ROOT_URL,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        return error.response;
+      });
+  }
+
   static async getSubsPost(token: string) {
     return axios
       .get('post/subs', {
@@ -100,7 +134,8 @@ export default class PostService {
     token: string,
     data: {
       postId: number;
-      data: { title: string; entry: OutputData['blocks'] };
+      data: { entry: OutputData['blocks'] };
+      title: string;
     }
   ) {
     return axios

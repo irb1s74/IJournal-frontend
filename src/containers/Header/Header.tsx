@@ -17,17 +17,29 @@ import { EModal } from '../../models/EModal';
 import { SetUser } from '../../store/reducers/authReducer/actions';
 import { IUser } from '../../models/IUser';
 import { useNavigate } from 'react-router-dom';
+import { findPosts } from '../../store/reducers/postsReducer/actions';
+import { IPost } from '../../models/IPost';
 
 interface HeaderProps {
   handleToggleMenu: () => IAppSetMenu;
   handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
   handleSignOut: () => void;
+  handleFindPosts: (content: string) => void;
   user: IUser;
   isAuth: boolean;
+  foundPosts: IPost[];
 }
 
 const Header: FC<HeaderProps> = memo(
-  ({ handleToggleMenu, handleOpenModal, handleSignOut, isAuth, user }) => {
+  ({
+    handleToggleMenu,
+    handleOpenModal,
+    handleSignOut,
+    handleFindPosts,
+    isAuth,
+    user,
+    foundPosts,
+  }) => {
     const handleCreatePost = () => {
       if (!isAuth) {
         return handleOpenModal(EModal.authModal, EModal.authModal, null);
@@ -75,7 +87,7 @@ const Header: FC<HeaderProps> = memo(
               </Typography>
               <IoFlameSharp size={24} color='#DA4A5E' />
             </Box>
-            <Search />
+            <Search foundPosts={foundPosts} handleFindPosts={handleFindPosts} />
             <Button
               onClick={handleCreatePost()}
               variant='contained'
@@ -100,12 +112,16 @@ const Header: FC<HeaderProps> = memo(
 const HeaderContainer = () => {
   const dispatch = useDispatch();
   const isAuth = useTypedSelector((state) => state.auth.isAuth);
+  const foundPosts = useTypedSelector((state) => state.posts.foundPosts);
   const user = useTypedSelector((state) => state.auth.user);
   const handleToggleMenu = useCallback(() => dispatch(AppSetMenu()), []);
   const handleSignOut = useCallback(() => {
     localStorage.removeItem('token');
-
     dispatch(SetUser({} as IUser, false));
+  }, []);
+
+  const handleFindPosts = useCallback((content: string) => {
+    dispatch(findPosts(content));
   }, []);
 
   const handleOpenModal = useCallback(
@@ -119,6 +135,8 @@ const HeaderContainer = () => {
       handleToggleMenu={handleToggleMenu}
       handleOpenModal={handleOpenModal}
       handleSignOut={handleSignOut}
+      handleFindPosts={handleFindPosts}
+      foundPosts={foundPosts}
       isAuth={isAuth}
     />
   );

@@ -1,12 +1,12 @@
 import { EFetchStatus } from '../../../models/EFetchStatus';
 import {
-  PostEditorActionEnum,
-  ISetPostEditorId,
   ISetPostEditorFetchStatus,
+  ISetPostEditorId,
+  PostEditorActionEnum,
 } from './types';
 import { AppDispatch, store } from '../../index';
 import PostService from '../../../api/PostService';
-import { setModals } from '../appReducer/actions';
+import { enqueueNotification, setModals } from '../appReducer/actions';
 import {
   SetProfileDraftPosts,
   SetProfileFetchStatus,
@@ -33,11 +33,18 @@ export const PostEditorInitialRequest =
       if (response.data.id) {
         dispatch(SetPostEditorId(response.data.id));
         dispatch(SetPostEditorFetchStatus(EFetchStatus.succeeded));
-      } else {
-        dispatch(SetPostEditorFetchStatus(EFetchStatus.failed));
       }
     } catch (e) {
       dispatch(SetPostEditorFetchStatus(EFetchStatus.failed));
+      dispatch(
+        enqueueNotification({
+          message: 'Произошла ошибка повторите попытку позже',
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'error',
+          },
+        })
+      );
     }
   };
 
@@ -47,13 +54,22 @@ export const PostEditorUpdate =
       dispatch(SetPostEditorFetchStatus(EFetchStatus.loading));
       const { postId } = store.getState().postEditor;
       if (postId) {
-        await PostService.update(token, { postId, data });
+        await PostService.update(token, { postId, data, title: data.title });
         dispatch(SetPostEditorFetchStatus(EFetchStatus.succeeded));
       } else {
         dispatch(SetPostEditorFetchStatus(EFetchStatus.failed));
       }
     } catch (e) {
       dispatch(SetPostEditorFetchStatus(EFetchStatus.failed));
+      dispatch(
+        enqueueNotification({
+          message: 'Произошла ошибка повторите попытку позже',
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'error',
+          },
+        })
+      );
     }
   };
 
@@ -70,7 +86,25 @@ export const PostEditorToPublish =
       const response = await ProfileService.getDrafts(token);
       dispatch(SetProfileDraftPosts(response.data, EFetchStatus.succeeded));
       dispatch(setModals([...modals]));
+      dispatch(
+        enqueueNotification({
+          message: 'Пост опубликован',
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'success',
+          },
+        })
+      );
     } catch (e) {
       dispatch(SetPostEditorFetchStatus(EFetchStatus.failed));
+      dispatch(
+        enqueueNotification({
+          message: 'Произошла ошибка повторите попытку позже',
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'error',
+          },
+        })
+      );
     }
   };
