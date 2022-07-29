@@ -15,6 +15,13 @@ interface IHeaderList {
   handleSignOut: () => void;
 }
 
+// <MenuItem onClick={toNavigate('/profile/settings')}>
+//   <ListItemIcon sx={{ color: '#29253C' }}>
+//     <IoCogSharp />
+//   </ListItemIcon>
+//   <Typography variant='body2'>Настройки</Typography>
+// </MenuItem>
+
 const HeaderList: FC<IHeaderList> = ({
   isMenuOpen,
   handleMenuClose,
@@ -56,12 +63,7 @@ const HeaderList: FC<IHeaderList> = ({
         </ListItemIcon>
         <Typography variant='body2'>Черновики</Typography>
       </MenuItem>
-      <MenuItem onClick={toNavigate('/profile/settings')}>
-        <ListItemIcon sx={{ color: '#29253C' }}>
-          <IoCogSharp />
-        </ListItemIcon>
-        <Typography variant='body2'>Настройки</Typography>
-      </MenuItem>
+
       <MenuItem onClick={handleSignOut}>
         <ListItemIcon sx={{ color: '#29253C' }}>
           <IoLogOut />

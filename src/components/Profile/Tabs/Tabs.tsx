@@ -4,6 +4,8 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+// <Tab value='/profile/settings' label='Настройки' />
+
 const ProfileTabs = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,7 +26,6 @@ const ProfileTabs = () => {
         <Tab value='/profile' label='Статьи' />
         <Tab value='/profile/drafts' label='Черновики' />
         <Tab value='/profile/details' label='Подробнее' />
-        <Tab value='/profile/settings' label='Настройки' />
       </Tabs>
     </Box>
   );
