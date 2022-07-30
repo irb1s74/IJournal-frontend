@@ -6,6 +6,7 @@ import {
   StyledInputBase,
 } from './Search.styled';
 import {
+  CircularProgress,
   ClickAwayListener,
   Fade,
   List,
@@ -13,20 +14,27 @@ import {
   ListItemText,
   Paper,
   Popper,
+  Stack,
   Typography,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { IPost } from '../../../models/IPost';
+import { EFetchStatus } from '../../../models/EFetchStatus';
 
 interface SearchProps {
   handleFindPosts: (content: string) => void;
+  findFetchStatus: EFetchStatus;
   foundPosts: IPost[];
 }
 
-const Search: FC<SearchProps> = ({ handleFindPosts, foundPosts }) => {
+const Search: FC<SearchProps> = ({
+  handleFindPosts,
+  foundPosts,
+  findFetchStatus,
+}) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLInputElement | null>(null);
   const [open, setOpen] = React.useState(false);
-
+  const findIsLoading = findFetchStatus === EFetchStatus.loading;
   const navigate = useNavigate();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,7 +95,14 @@ const Search: FC<SearchProps> = ({ handleFindPosts, foundPosts }) => {
           <Fade {...TransitionProps} timeout={350}>
             <Paper sx={{ mt: '8px' }}>
               <List>
-                {foundPosts.length ? (
+                {findIsLoading ? (
+                  <Stack
+                    alignItems='center'
+                    sx={{ width: '267px', padding: '15px' }}
+                  >
+                    <CircularProgress size={26} />
+                  </Stack>
+                ) : foundPosts.length ? (
                   foundPosts.map((post, index) => (
                     <ListItemButton
                       onClick={toNavigate(`/post/${post.id}`)}

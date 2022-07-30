@@ -65,9 +65,7 @@ const User: FC<UserProps> = memo(
   }) => {
     const navigate = useNavigate();
     const { id } = useParams();
-    const profileIsLoading =
-      profileFetchStatus === EFetchStatus.loading ||
-      profileFetchStatus === EFetchStatus.idle;
+
     useLayoutEffect(() => {
       if (id && +id) {
         handleGetUser(+id);
@@ -75,11 +73,15 @@ const User: FC<UserProps> = memo(
         navigate('/');
       }
     }, [id]);
+
     useEffect(() => {
-      if (!user) {
+      if (!user.id) {
         navigate('/');
       }
     }, [user]);
+    const profileIsLoading =
+      profileFetchStatus === EFetchStatus.loading ||
+      profileFetchStatus === EFetchStatus.idle;
     return (
       <PageWrapper>
         {profileIsLoading ? (

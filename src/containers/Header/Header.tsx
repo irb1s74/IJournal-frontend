@@ -19,6 +19,7 @@ import { IUser } from '../../models/IUser';
 import { useNavigate } from 'react-router-dom';
 import { findPosts } from '../../store/reducers/postsReducer/actions';
 import { IPost } from '../../models/IPost';
+import { EFetchStatus } from '../../models/EFetchStatus';
 
 interface HeaderProps {
   handleToggleMenu: () => IAppSetMenu;
@@ -28,6 +29,7 @@ interface HeaderProps {
   user: IUser;
   isAuth: boolean;
   foundPosts: IPost[];
+  findFetchStatus: EFetchStatus;
 }
 
 const Header: FC<HeaderProps> = memo(
@@ -39,6 +41,7 @@ const Header: FC<HeaderProps> = memo(
     isAuth,
     user,
     foundPosts,
+    findFetchStatus,
   }) => {
     const handleCreatePost = () => {
       if (!isAuth) {
@@ -87,7 +90,11 @@ const Header: FC<HeaderProps> = memo(
               </Typography>
               <IoFlameSharp size={24} color='#DA4A5E' />
             </Box>
-            <Search foundPosts={foundPosts} handleFindPosts={handleFindPosts} />
+            <Search
+              findFetchStatus={findFetchStatus}
+              foundPosts={foundPosts}
+              handleFindPosts={handleFindPosts}
+            />
             <Button
               onClick={handleCreatePost()}
               variant='contained'
@@ -119,7 +126,9 @@ const HeaderContainer = () => {
     localStorage.removeItem('token');
     dispatch(SetUser({} as IUser, false));
   }, []);
-
+  const findFetchStatus = useTypedSelector(
+    (state) => state.posts.findFetchStatus
+  );
   const handleFindPosts = useCallback((content: string) => {
     dispatch(findPosts(content));
   }, []);
@@ -137,6 +146,7 @@ const HeaderContainer = () => {
       handleSignOut={handleSignOut}
       handleFindPosts={handleFindPosts}
       foundPosts={foundPosts}
+      findFetchStatus={findFetchStatus}
       isAuth={isAuth}
     />
   );

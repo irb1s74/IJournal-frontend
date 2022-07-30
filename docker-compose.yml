@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+
+  client:
+    container_name: client
+    image: irb1s/vibe_client
+    ports:
+      - "80:80"
+
+  api_prod:
+    container_name: server
+    image: irb1s/vibe_backend
+    command: npm run start:prod
+    ports:
+      - 5000:5000
+      - 9229:9229
+    volumes:
+      - .:/server/usr/src/app
+      - /server/usr/src/app/node_modules
+    restart: unless-stopped
+
+  db:
+    container_name: db
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: irb1s
+      POSTGRES_PASSWORD: 2205
+      POSTGRES_DB: db_vibe
+    ports:
+      - 5432:5432

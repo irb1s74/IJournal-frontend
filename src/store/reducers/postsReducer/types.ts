@@ -7,6 +7,8 @@ export interface PostsState {
   foundPosts: IPost[];
   post: IPost;
   postsFetchStatus: EFetchStatus;
+  findFetchStatus: EFetchStatus;
+  postFetchStatus: EFetchStatus;
 }
 
 export enum PostsActionEnum {
@@ -14,7 +16,9 @@ export enum PostsActionEnum {
   SET_POSTS = 'SET_POSTS',
   SET_BOOKMARKS = 'SET_BOOKMARKS',
   SET_FOUND_POSTS = 'SET_FOUND_POSTS',
-  SET_POSTS_FETCH_STATUS = 'SET_PROFILE_FETCH_STATUS',
+  SET_POSTS_FETCH_STATUS = 'SET_POSTS_FETCH_STATUS',
+  SET_FIND_FETCH_STATUS = 'SET_FIND_FETCH_STATUS',
+  SET_POST_FETCH_STATUS = 'SET_FIND_FETCH_STATUS',
 }
 
 export interface IPostsSetPosts {
@@ -42,9 +46,21 @@ export interface IPostsSetFetchStatus {
   payload: EFetchStatus;
 }
 
+export interface IFindSetFetchStatus {
+  type: PostsActionEnum.SET_FIND_FETCH_STATUS;
+  payload: EFetchStatus;
+}
+
+export interface IPostSetFetchStatus {
+  type: PostsActionEnum.SET_POST_FETCH_STATUS;
+  payload: EFetchStatus;
+}
+
 export type PostsAction =
   | IPostsSetFetchStatus
   | IPostsSetPosts
   | IPostsSetBookmarks
   | IPostsSetFoundPosts
-  | IPostsSetPost;
+  | IPostsSetPost
+  | IPostSetFetchStatus
+  | IFindSetFetchStatus;

@@ -4,6 +4,8 @@ import { EFetchStatus } from '../../../models/EFetchStatus';
 
 const initialState: PostsState = {
   postsFetchStatus: EFetchStatus.idle,
+  findFetchStatus: EFetchStatus.idle,
+  postFetchStatus: EFetchStatus.idle,
   post: {} as IPost,
   posts: [],
   bookmarks: [],
@@ -14,8 +16,12 @@ export default function postsReducer(
   action: PostsAction
 ): PostsState {
   switch (action.type) {
+    case PostsActionEnum.SET_POST_FETCH_STATUS:
+      return { ...state, postFetchStatus: action.payload };
     case PostsActionEnum.SET_POSTS_FETCH_STATUS:
       return { ...state, postsFetchStatus: action.payload };
+    case PostsActionEnum.SET_FIND_FETCH_STATUS:
+      return { ...state, findFetchStatus: action.payload };
     case PostsActionEnum.SET_POST:
       return { ...state, post: action.payload };
     case PostsActionEnum.SET_POSTS:

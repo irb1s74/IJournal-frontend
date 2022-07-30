@@ -1,4 +1,6 @@
 import {
+  IFindSetFetchStatus,
+  IPostSetFetchStatus,
   IPostsSetBookmarks,
   IPostsSetFetchStatus,
   IPostsSetFoundPosts,
@@ -16,6 +18,19 @@ export const SetFetchStatus = (
   payload: EFetchStatus
 ): IPostsSetFetchStatus => ({
   type: PostsActionEnum.SET_POSTS_FETCH_STATUS,
+  payload,
+});
+
+export const SetFindFetchStatus = (
+  payload: EFetchStatus
+): IFindSetFetchStatus => ({
+  type: PostsActionEnum.SET_FIND_FETCH_STATUS,
+  payload,
+});
+export const SetPostFetchStatus = (
+  payload: EFetchStatus
+): IPostSetFetchStatus => ({
+  type: PostsActionEnum.SET_POST_FETCH_STATUS,
   payload,
 });
 
@@ -38,13 +53,13 @@ export const SetFoundPosts = (payload: IPost[]): IPostsSetFoundPosts => ({
 
 export const getPost = (id: number) => async (dispatch: AppDispatch) => {
   try {
-    dispatch(SetFetchStatus(EFetchStatus.loading));
+    dispatch(SetPostFetchStatus(EFetchStatus.loading));
     const response = await PostService.getPost(id);
     if (response.data) {
       dispatch(SetPost(response.data[0]));
-      dispatch(SetFetchStatus(EFetchStatus.succeeded));
+      dispatch(SetPostFetchStatus(EFetchStatus.succeeded));
     } else {
-      dispatch(SetFetchStatus(EFetchStatus.failed));
+      dispatch(SetPostFetchStatus(EFetchStatus.failed));
       enqueueNotification({
         message: 'Пост не был найден',
         options: {
@@ -67,13 +82,14 @@ export const getPost = (id: number) => async (dispatch: AppDispatch) => {
 
 export const findPosts = (content: string) => async (dispatch: AppDispatch) => {
   try {
+    dispatch(SetFindFetchStatus(EFetchStatus.loading));
     const response = await PostService.findPosts(content);
     if (response?.data) {
       dispatch(SetFoundPosts(response.data));
+      dispatch(SetFindFetchStatus(EFetchStatus.succeeded));
     }
   } catch (e) {
-    dispatch(SetFetchStatus(EFetchStatus.failed));
-
+    dispatch(SetFindFetchStatus(EFetchStatus.failed));
     dispatch(
       enqueueNotification({
         message: 'Произошла ошибка повторите попытку позже',
@@ -88,9 +104,11 @@ export const findPosts = (content: string) => async (dispatch: AppDispatch) => {
 
 export const getPopularPosts = () => async (dispatch: AppDispatch) => {
   try {
+    dispatch(SetFetchStatus(EFetchStatus.loading));
     const response = await PostService.getPopularPost();
     if (response?.data) {
       dispatch(SetPosts(response.data));
+      dispatch(SetFetchStatus(EFetchStatus.succeeded));
     }
   } catch (e) {
     dispatch(SetFetchStatus(EFetchStatus.failed));
@@ -108,9 +126,11 @@ export const getPopularPosts = () => async (dispatch: AppDispatch) => {
 
 export const getNewPosts = () => async (dispatch: AppDispatch) => {
   try {
+    dispatch(SetFetchStatus(EFetchStatus.loading));
     const response = await PostService.getNewPost();
     if (response?.data) {
       dispatch(SetPosts(response.data));
+      dispatch(SetFetchStatus(EFetchStatus.succeeded));
     }
   } catch (e) {
     dispatch(SetFetchStatus(EFetchStatus.failed));
@@ -128,9 +148,11 @@ export const getNewPosts = () => async (dispatch: AppDispatch) => {
 export const getSubsPosts =
   (token: string) => async (dispatch: AppDispatch) => {
     try {
+      dispatch(SetFetchStatus(EFetchStatus.loading));
       const response = await PostService.getSubsPost(token);
       if (response?.data) {
         dispatch(SetPosts(response.data));
+        dispatch(SetFetchStatus(EFetchStatus.succeeded));
       }
     } catch (e) {
       dispatch(SetFetchStatus(EFetchStatus.failed));
@@ -149,9 +171,11 @@ export const getSubsPosts =
 export const getBookmarksPosts =
   (token: string) => async (dispatch: AppDispatch) => {
     try {
+      dispatch(SetFetchStatus(EFetchStatus.loading));
       const response = await PostService.getBookmarksPosts(token);
       if (response?.data) {
         dispatch(SetPosts(response.data));
+        dispatch(SetFetchStatus(EFetchStatus.succeeded));
       }
     } catch (e) {
       dispatch(SetFetchStatus(EFetchStatus.failed));
@@ -208,7 +232,6 @@ export const initialGetBookmarksPosts =
         dispatch(SetBookmarks(response.data));
       }
     } catch (e) {
-      dispatch(SetFetchStatus(EFetchStatus.failed));
       dispatch(
         enqueueNotification({
           message: 'Произошла ошибка повторите попытку позже',
