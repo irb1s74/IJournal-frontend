@@ -62,8 +62,8 @@ const Layout: FC<LayoutProps> = memo(
                 handleToBookmarks={handleToBookmarks}
                 inBookmarks={!!bookmarks.find((item) => item.id === post.id)}
                 token={token}
-                key={`${index}_${post.id}`}
                 handleOpenModal={handleOpenModal}
+                key={`${index}_${post.id}`}
                 post={post}
               />
             ))

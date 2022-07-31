@@ -96,6 +96,12 @@ const Header: FC<HeaderProps> = memo(
               handleFindPosts={handleFindPosts}
             />
             <Button
+              sx={{
+                display: {
+                  xs: 'none',
+                  md: 'flex',
+                },
+              }}
               onClick={handleCreatePost()}
               variant='contained'
               color='secondary'

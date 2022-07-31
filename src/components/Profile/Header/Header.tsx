@@ -48,7 +48,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({
   return (
     <Header>
       <Banner bg={'banner' in user ? user.banner : undefined}>
-        <FabBanner onClick={clickToBanner} size='small'>
+        <FabBanner onClick={clickToBanner} size='small' sx={{ zIndex: '5' }}>
           <IoPencilSharp size='15' />
         </FabBanner>
         <input

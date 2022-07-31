@@ -2,7 +2,7 @@ import { styled } from '@mui/material';
 
 export const PageWrapper = styled('div')(() => ({
   flexGrow: '1',
-  paddingTop: '15px',
+  padding: '15px 10px 0 10px',
   maxWidth: '960px',
   margin: '0 auto',
 }));

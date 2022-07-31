@@ -5,6 +5,7 @@ import { EModal } from '../../../models/EModal';
 import Header from './widget/Header/Header';
 import Content from './widget/Content/Content';
 import Footer from './widget/Footer/Footer';
+import { Fade } from '@mui/material';
 
 interface PostProps {
   post: IPost;
@@ -30,24 +31,26 @@ const Post: FC<PostProps> = ({
   handleToBookmarks,
 }) => {
   return (
-    <WrapperPost>
-      <Header
-        post={post}
-        profile={profile}
-        isDraft={isDraft}
-        handleOpenModal={handleOpenModal}
-        handleToUnPublish={handleToUnPublish}
-        handleDeletePost={handleDeletePost}
-      />
-      <Content post={post} />
-      <Footer
-        post={post}
-        token={token}
-        handleOpenModal={handleOpenModal}
-        inBookmarks={inBookmarks}
-        handleToBookmarks={handleToBookmarks}
-      />
-    </WrapperPost>
+    <Fade in={true}>
+      <WrapperPost>
+        <Header
+          post={post}
+          profile={profile}
+          isDraft={isDraft}
+          handleOpenModal={handleOpenModal}
+          handleToUnPublish={handleToUnPublish}
+          handleDeletePost={handleDeletePost}
+        />
+        <Content post={post} />
+        <Footer
+          post={post}
+          token={token}
+          handleOpenModal={handleOpenModal}
+          inBookmarks={inBookmarks}
+          handleToBookmarks={handleToBookmarks}
+        />
+      </WrapperPost>
+    </Fade>
   );
 };
 

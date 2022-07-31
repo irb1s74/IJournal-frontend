@@ -54,7 +54,10 @@ const Post: FC<PostProps> = memo(({ post, handleGetPost, postFetchStatus }) => {
     <Paper
       sx={{
         padding: '16px 0',
-        width: '60%',
+        width: {
+          xs: '95%',
+          md: '60%',
+        },
         margin: '15px auto 0 auto',
       }}
     >

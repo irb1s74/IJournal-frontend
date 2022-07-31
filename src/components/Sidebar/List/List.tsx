@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
   List,
   ListItemButton,
@@ -10,16 +10,31 @@ import Lists from './config.json';
 import { getIcon } from '../../../helpers/getIcon';
 import theme from '../../../theme';
 
-const SidebarList = () => {
+interface SidebarListProps {
+  handleToggleMenu?: () => void;
+}
+
+const SidebarList: FC<SidebarListProps> = ({ handleToggleMenu }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const toNavigate = (link: string) => {
     return () => {
       navigate(link);
+      if (handleToggleMenu) {
+        handleToggleMenu();
+      }
     };
   };
   return (
-    <List sx={{ width: '80%' }} disablePadding={false}>
+    <List
+      sx={{
+        width: {
+          xs: '100%',
+          md: '80%',
+        },
+      }}
+      disablePadding={false}
+    >
       {Lists.map((list) => (
         <ListItemButton
           sx={{
