@@ -19,7 +19,6 @@ import { Stack } from '@mui/material';
 import Loader from './components/UI/Loader/Loader';
 import { initialGetBookmarksPosts } from './store/reducers/postsReducer/actions';
 import useNotifier from './hooks/useNotifier';
-
 const Router = lazy(() => import('./router/Router'));
 
 const getModals = (modals: IModal[], handleCloseModal: () => void) => {

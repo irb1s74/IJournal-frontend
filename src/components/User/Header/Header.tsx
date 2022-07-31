@@ -24,7 +24,7 @@ const UserHeader: FC<ProfileHeaderProps> = ({
       <Banner bg={user.banner} />
       <Info>
         <WrapperAvatar>
-          <Box>
+          <Box sx={{ display: 'flex', position: 'relative' }}>
             <Avatar user={user} size='80' />
           </Box>
         </WrapperAvatar>

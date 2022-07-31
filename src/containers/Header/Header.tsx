@@ -86,7 +86,7 @@ const Header: FC<HeaderProps> = memo(
               }}
             >
               <Typography variant='h5' component='div' noWrap>
-                VIBE
+                IJournal
               </Typography>
               <IoFlameSharp size={24} color='#DA4A5E' />
             </Box>

@@ -1,7 +1,7 @@
 import { AppAction, AppActionEnum, AppState } from './types';
 
 const initialState: AppState = {
-  isMenuOpen: true,
+  isMenuOpen: false,
   modals: [],
   notifications: [],
 };
