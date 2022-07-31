@@ -85,9 +85,6 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({
         >
           <Typography variant='h4'>Irb1s</Typography>
         </Stack>
-        <Typography sx={{ mb: '10px' }}>
-          Suspendisse lobortis nunc tortor, a dapibus lorem euismod nec.
-        </Typography>
         <Typography variant='subtitle2' textAlign='left'>
           Подписчики: <b> {subscribers} </b>
         </Typography>

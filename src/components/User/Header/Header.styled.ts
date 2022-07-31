@@ -33,16 +33,15 @@ export const FabBanner = styled(Fab)(({ theme }) => ({
   bgColor: theme.palette.primary.main,
   right: '10px',
 }));
+
 export const WrapperAvatar = styled('label')(
-  `
-  &:hover .icon-pen {
+  `&:hover .icon-pen {
     display: block;
-  }
-`,
+  }`,
   () => ({
     zIndex: '4',
     position: 'absolute',
-    right: 'calc(50% - 104px)',
+    right: 'calc(50% - 75px)',
     transform: 'translate(-50%, -70%)',
   })
 );
