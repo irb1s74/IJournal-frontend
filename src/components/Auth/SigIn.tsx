@@ -120,7 +120,6 @@ const SigIn: FC<SigInProps> = ({
           >
             Зарегистрироваться
           </Button>
-          <Button variant='filter'>Не помню пароль </Button>
         </Stack>
       </DialogContent>
       <Divider />

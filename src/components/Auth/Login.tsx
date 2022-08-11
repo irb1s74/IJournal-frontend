@@ -100,7 +100,6 @@ const Login: FC<LoginProps> = ({
           <Typography variant='body1' color='error'>
             {messageError}
           </Typography>
-          <Button variant='filter'>Не помню пароль</Button>
         </Stack>
       </DialogContent>
       <Divider />
