@@ -9,20 +9,30 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Lists from './config.json';
 import { getIcon } from '../../../helpers/getIcon';
 import theme from '../../../theme';
+import { EModal } from '../../../models/EModal';
 
 interface SidebarListProps {
   handleToggleMenu?: () => void;
+  handleOpenModal: (id: string, type: EModal, optional: any) => void;
+  isAuth: boolean;
 }
 
-const SidebarList: FC<SidebarListProps> = ({ handleToggleMenu }) => {
+const SidebarList: FC<SidebarListProps> = ({
+  handleToggleMenu,
+  isAuth,
+  handleOpenModal,
+}) => {
   const navigate = useNavigate();
+
   const location = useLocation();
   const toNavigate = (link: string) => {
     return () => {
-      navigate(link);
-      if (handleToggleMenu) {
+      if (isAuth && handleToggleMenu) {
         handleToggleMenu();
+      } else {
+        handleOpenModal(EModal.authModal, EModal.authModal, null);
       }
+      navigate(link);
     };
   };
   return (

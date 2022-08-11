@@ -15,7 +15,6 @@ import Raw from '@editorjs/raw';
 import Header from '@editorjs/header';
 // @ts-ignore
 import Marker from '@editorjs/marker';
-import { ROOT_URL } from './ROOT_URL';
 
 export const EDITOR_JS_TOOLS = {
   embed: Embed,
@@ -28,7 +27,7 @@ export const EDITOR_JS_TOOLS = {
     class: Image,
     config: {
       endpoints: {
-        byFile: `${ROOT_URL}post/add/image`, // Your backend file uploader endpoint
+        byFile: `http://irb1s.ru:5000/post/add/image`, // Your backend file uploader endpoint
       },
     },
   },

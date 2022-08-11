@@ -6,7 +6,7 @@ const rootUrl = () => {
     return 'http://localhost:5000/';
   }
   if (document.location.host === 'irb1s.ru') {
-    return ' http://irb1s.ru:5000/';
+    return 'http://irb1s.ru:5000/';
   }
   return 'http://irb1s.ru:5000/';
 };
