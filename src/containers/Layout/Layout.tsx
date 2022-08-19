@@ -36,7 +36,7 @@ const Layout: FC<LayoutProps> = memo(
       postsFetchStatus === EFetchStatus.idle;
 
     const handleOpenModal = useCallback(
-      (id: string, type: EModal, optional: any) => () =>
+      (id: string, type: EModal, optional: any) =>
         dispatch(openModal(id, type, optional)),
       []
     );
@@ -86,12 +86,11 @@ const Layout: FC<LayoutProps> = memo(
 const ContainerLayout: FC<{ type: ELayouts }> = ({ type }) => {
   const dispatch = useDispatch();
   const posts = useTypedSelector((state) => state.posts.posts);
+  const token = useTypedSelector((state) => state.auth.user.token);
   const postsFetchStatus = useTypedSelector(
     (state) => state.posts.postsFetchStatus
   );
   const bookmarks = useTypedSelector((state) => state.posts.bookmarks);
-  const token = useTypedSelector((state) => state.auth.user.token);
-
   const handleToBookmarks = useCallback(
     (postId: number, inBookmark: boolean) => {
       dispatch(toBookmarks(token, postId, inBookmark));

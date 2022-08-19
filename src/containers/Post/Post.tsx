@@ -17,11 +17,13 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { IPost } from '../../models/IPost';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import Blocks from 'editorjs-blocks-react-renderer';
-import { renderConfig } from '../../components/UI/Post/widget/Content/renderConfig';
 import { EFetchStatus } from '../../models/EFetchStatus';
 import Avatar from '../../components/UI/Avatar/Avatar';
 import dayjs from 'dayjs';
+// @ts-ignore
+import Output from 'editorjs-react-renderer';
+import Blocks from 'editorjs-blocks-react-renderer';
+import { renderConfig } from '../../components/UI/Post/widget/Content/renderConfig';
 
 interface PostProps {
   handleGetPost: (id: number) => void;
@@ -92,12 +94,12 @@ const Post: FC<PostProps> = memo(({ post, handleGetPost, postFetchStatus }) => {
             <Typography sx={{ mb: '7px', mt: '12px' }} variant='h6'>
               {post?.title}
             </Typography>
-            <Stack alignItems='center' flexDirection='column'>
+            <Stack spacing={2} flexDirection='column'>
               <Blocks
                 data={{
-                  time: 1610632160642,
-                  version: '2.24.3',
-                  blocks: post.data.entry,
+                  version: `${post.data.entry.version}`,
+                  time: post.data.entry.time ?? 10,
+                  blocks: post.data.entry.blocks,
                 }}
                 config={renderConfig}
               />

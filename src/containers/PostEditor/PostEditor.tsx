@@ -17,6 +17,7 @@ import { OutputData } from '@editorjs/editorjs';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useDebounce } from '../../hooks/useDebounce';
 import { EFetchStatus } from '../../models/EFetchStatus';
+import { HiCheck } from 'react-icons/hi';
 import { useDispatch } from 'react-redux';
 import {
   PostEditorInitialRequest,
@@ -54,8 +55,8 @@ const PostEditor: FC<PostEditorProps> = memo(
         initialRequest(token);
       } else {
         setPostId(option?.id);
-        setPostTitle(option?.data?.title);
-        setBody(option?.data?.entry);
+        setPostTitle(option?.title);
+        setBody(option?.data?.entry.blocks);
       }
     }, []);
 
@@ -94,7 +95,7 @@ const PostEditor: FC<PostEditorProps> = memo(
             <InputBase
               value={postTitle}
               placeholder='Заголовок'
-              sx={{ fontSize: '28px' }}
+              sx={{ fontSize: '28px', width: '100%' }}
               onChange={handleOnChangeTitle}
             />
             <Box>
@@ -109,9 +110,11 @@ const PostEditor: FC<PostEditorProps> = memo(
         </DialogContent>
         <DialogActions>
           <Stack direction='row' alignItems='center' spacing={2}>
-            {fetchStatus === 'loading' && (
+            {fetchStatus === 'loading' ? (
               <CircularProgress size={25} color='secondary' />
-            )}
+            ) : fetchStatus === 'succeeded' ? (
+              <HiCheck size={24} color='#66bb6a' />
+            ) : null}
             {option?.publish ? (
               <Button variant='contained'>Сохранить</Button>
             ) : (

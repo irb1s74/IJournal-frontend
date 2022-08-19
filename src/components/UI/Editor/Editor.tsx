@@ -24,8 +24,8 @@ const Editor: FC<EditorProps> = ({
       readOnly,
       holder: 'editorjs',
       async onChange() {
-        const { blocks } = await editor.save();
-        onChange(blocks);
+        const data = await editor.save();
+        onChange(data);
       },
       data: {
         blocks: initialBody,

@@ -9,7 +9,7 @@ import { Fade } from '@mui/material';
 
 interface PostProps {
   post: IPost;
-  handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
+  handleOpenModal: (id: string, type: EModal, optional: any) => void;
   handleToUnPublish?: (postId: number) => () => void;
   handleDeletePost?: (postId: number) => () => void;
   handleToBookmarks?: (postId: number, inBookmark: boolean) => void;

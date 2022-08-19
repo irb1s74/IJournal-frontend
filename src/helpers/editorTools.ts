@@ -18,10 +18,7 @@ import Marker from '@editorjs/marker';
 
 export const EDITOR_JS_TOOLS = {
   embed: Embed,
-  table: Table,
   marker: Marker,
-  list: List,
-  code: Code,
   linkTool: LinkTool,
   image: {
     class: Image,
@@ -31,7 +28,4 @@ export const EDITOR_JS_TOOLS = {
       },
     },
   },
-
-  raw: Raw,
-  header: Header,
 };
