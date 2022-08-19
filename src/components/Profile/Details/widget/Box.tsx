@@ -16,7 +16,7 @@ import { EModal } from '../../../../models/EModal';
 interface ProfileDetailsBoxProps {
   nameBox: string;
   users: ISubscriber[] | ISubscription[];
-  handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
+  handleOpenModal: (id: string, type: EModal, optional: any) => void;
 }
 
 const ProfileDetailsBox: FC<ProfileDetailsBoxProps> = ({
@@ -25,6 +25,12 @@ const ProfileDetailsBox: FC<ProfileDetailsBoxProps> = ({
   handleOpenModal,
 }) => {
   const shortUser = users.slice(0, 4);
+  const showModal = () => {
+    handleOpenModal(EModal.modalList, EModal.modalList, {
+      users,
+      nameBox,
+    });
+  };
   return (
     <Box
       sx={{
@@ -76,10 +82,7 @@ const ProfileDetailsBox: FC<ProfileDetailsBoxProps> = ({
         </Grid>
       </List>
       <Typography
-        onClick={handleOpenModal(EModal.modalList, EModal.modalList, {
-          users,
-          nameBox,
-        })}
+        onClick={showModal}
         sx={{ mt: '20px', cursor: 'pointer' }}
         variant='subtitle1'
       >

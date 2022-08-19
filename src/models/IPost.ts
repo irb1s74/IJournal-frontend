@@ -6,7 +6,8 @@ export interface IPost {
   author: IAuthor;
   title: string;
   data: {
-    entry: OutputData['blocks'];
+    entry: OutputData;
+    title: string;
   };
   publish: boolean;
   rating: number;

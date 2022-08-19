@@ -5,7 +5,7 @@ import Post from '../../UI/Post/Post';
 import { EModal } from '../../../models/EModal';
 
 interface ProfilePublishProps {
-  handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
+  handleOpenModal: (id: string, type: EModal, optional: any) => void;
   handleToUnPublish: (postId: number) => () => void;
   handleDeletePost: (postId: number) => () => void;
   handleToBookmarks: (postId: number, inBookmark: boolean) => void;
@@ -30,9 +30,13 @@ const ProfilePublish: FC<ProfilePublishProps> = ({
   useEffect(() => {
     getPublishPosts();
   }, []);
+
+  const showModal = () => {
+    handleOpenModal(EModal.createPostModal, EModal.createPostModal, null);
+  };
+
   return (
     <Stack direction='column' alignItems='center' spacing={5}>
-      {/* eslint-disable-next-line no-nested-ternary */}
       {isLoading ? (
         <CircularProgress />
       ) : publishPosts.length ? (
@@ -57,14 +61,7 @@ const ProfilePublish: FC<ProfilePublishProps> = ({
           justifyContent='center'
         >
           <Typography variant='h6'>У вас нету опубликованных постов</Typography>
-          <Button
-            onClick={handleOpenModal(
-              EModal.createPostModal,
-              EModal.createPostModal,
-              null
-            )}
-            variant='contained'
-          >
+          <Button onClick={showModal} variant='contained'>
             Создать пост
           </Button>
         </Stack>

@@ -5,7 +5,7 @@ import Post from '../../UI/Post/Post';
 import { EModal } from '../../../models/EModal';
 
 interface ProfileDraftsProps {
-  handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
+  handleOpenModal: (id: string, type: EModal, optional: any) => void;
   isLoading: boolean;
   getDraftPosts: () => void;
   handleDeletePost: (postId: number) => () => void;
@@ -28,9 +28,13 @@ const ProfileDrafts: FC<ProfileDraftsProps> = ({
   useEffect(() => {
     getDraftPosts();
   }, []);
+
+  const showModal = () => {
+    handleOpenModal(EModal.createPostModal, EModal.createPostModal, null);
+  };
+
   return (
     <Stack direction='column' alignItems='center' spacing={5}>
-      {/* eslint-disable-next-line no-nested-ternary */}
       {isLoading ? (
         <CircularProgress />
       ) : draftPosts.length ? (
@@ -55,14 +59,7 @@ const ProfileDrafts: FC<ProfileDraftsProps> = ({
           justifyContent='center'
         >
           <Typography variant='h6'>У вас нету черновиков</Typography>
-          <Button
-            onClick={handleOpenModal(
-              EModal.createPostModal,
-              EModal.createPostModal,
-              null
-            )}
-            variant='contained'
-          >
+          <Button onClick={showModal} variant='contained'>
             Создать пост
           </Button>
         </Stack>

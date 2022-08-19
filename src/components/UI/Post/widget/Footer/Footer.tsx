@@ -36,7 +36,8 @@ const FooterPost: FC<FooterPostProps> = ({
     inBookmarks,
   });
 
-  const toBookmarks = async () => {
+  const toBookmarks = () => {
+    console.log(token);
     if (token) {
       setFooterData({ ...footerData, isLoading: true });
       handleToBookmarks(post.id, inBookmarks);
@@ -46,6 +47,7 @@ const FooterPost: FC<FooterPostProps> = ({
         inBookmarks: !inBookmarks,
       });
     } else {
+      console.log('ale');
       handleOpenModal(EModal.authModal, EModal.authModal, {});
     }
   };

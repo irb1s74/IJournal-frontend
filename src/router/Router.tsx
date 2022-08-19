@@ -21,7 +21,6 @@ const Router: FC<{ isAuth: boolean }> = memo(({ isAuth }) => {
       </Route>
       <Route path='popular' element={<Layout type={ELayouts.popular} />} />
       <Route path='new' element={<Layout type={ELayouts.new} />} />
-      <Route path='bookmarks' element={<Layout type={ELayouts.bookmarks} />} />
       <Route path='user/:id/*' element={<User />} />
       <Route path='post/:id' element={<Post />} />
       <Route path='*' element={<Navigate to='popular' />} />

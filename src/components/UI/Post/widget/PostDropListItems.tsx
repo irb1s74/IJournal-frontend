@@ -5,7 +5,7 @@ import { IPost } from '../../../../models/IPost';
 
 interface ProfileDropListItemsProps {
   post: IPost;
-  handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
+  handleOpenModal: (id: string, type: EModal, optional: any) => void;
   profile?: boolean;
   handleToUnPublish?: (postId: number) => () => void;
   handleDeletePost?: (postId: number) => () => void;
@@ -18,16 +18,14 @@ const PostDropListItems: FC<ProfileDropListItemsProps> = ({
   handleToUnPublish,
   handleDeletePost,
 }) => {
+  const openModal = () => {
+    handleOpenModal(EModal.createPostModal, EModal.createPostModal, post);
+  };
+
   if (profile) {
     return (
       <>
-        <MenuItem
-          onClick={handleOpenModal(
-            EModal.createPostModal,
-            EModal.createPostModal,
-            post
-          )}
-        >
+        <MenuItem onClick={openModal}>
           <Typography variant='body2'>Редактировать</Typography>
         </MenuItem>
         {post.publish && handleToUnPublish && (

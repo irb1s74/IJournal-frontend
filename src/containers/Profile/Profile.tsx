@@ -28,7 +28,7 @@ import { ISubscription } from '../../models/ISubscription';
 import { toBookmarks } from '../../store/reducers/postsReducer/actions';
 
 interface ProfileProps {
-  handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
+  handleOpenModal: (id: string, type: EModal, optional: any) => void;
   profileFetchStatus: EFetchStatus;
   handleGetDraftPosts: () => void;
   handleGetPublishPosts: () => void;
@@ -161,7 +161,7 @@ const ContainerProfile = () => {
     []
   );
   const handleOpenModal = useCallback(
-    (id: string, type: EModal, optional: any) => () =>
+    (id: string, type: EModal, optional: any) =>
       dispatch(openModal(id, type, optional)),
     []
   );

@@ -27,12 +27,14 @@ const SidebarList: FC<SidebarListProps> = ({
   const location = useLocation();
   const toNavigate = (link: string) => {
     return () => {
-      if (isAuth && handleToggleMenu) {
+      if (handleToggleMenu) {
         handleToggleMenu();
-      } else {
-        handleOpenModal(EModal.authModal, EModal.authModal, null);
       }
-      navigate(link);
+      if ((!isAuth && link === '/bookmarks') || (!isAuth && link === '/subs')) {
+        handleOpenModal(EModal.authModal, EModal.authModal, null);
+      } else {
+        navigate(link);
+      }
     };
   };
   return (

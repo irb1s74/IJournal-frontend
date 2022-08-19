@@ -7,7 +7,7 @@ import { EModal } from '../../../models/EModal';
 interface ProfileDetailsProps {
   subscribers: ISubscriber[];
   subscriptions: ISubscription[];
-  handleOpenModal: (id: string, type: EModal, optional: any) => () => void;
+  handleOpenModal: (id: string, type: EModal, optional: any) => void;
 }
 
 const ProfileDetails: FC<ProfileDetailsProps> = ({
